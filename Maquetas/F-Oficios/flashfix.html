@@ -1,0 +1,540 @@
+<!-- 
+  ========================================
+  TEMPLATE NAME: FLASH FIX - Emergency Repair Services
+  AUTHOR: Sebastian Fernandez
+  WEBSITE: https://sebastian-fernandez.com
+  VERSION: 2.0.1 (Fixed)
+  LICENSE: Standard License (Personal & Commercial Use)
+  ========================================
+-->
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flash Fix | Reparaciones de Urgencia</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <style>
+        :root {
+            --brand-yellow: #ffc107;
+            --brand-dark: #212529;
+            --brand-red: #dc3545;
+            --font-head: 'Montserrat', sans-serif;
+            --font-body: 'Open Sans', sans-serif;
+        }
+
+        body {
+            font-family: var(--font-body);
+            color: var(--brand-dark);
+            padding-bottom: 70px; /* Espacio para botón flotante celular */
+        }
+
+        h1, h2, h3, h4, h5, .btn-main {
+            font-family: var(--font-head);
+            text-transform: uppercase;
+        }
+
+        /* TOP BAR */
+        .top-bar {
+            background-color: var(--brand-dark);
+            color: white;
+            font-size: 0.9rem;
+            padding: 10px 0;
+        }
+        .emergency-blink {
+            animation: blink 2s infinite;
+        }
+        @keyframes blink {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        /* NAVBAR */
+        .navbar {
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            background: white;
+        }
+        .navbar-brand {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--brand-dark) !important;
+        }
+        .nav-link {
+            font-weight: 500;
+            color: var(--brand-dark) !important;
+            font-family: var(--font-head);
+            font-size: 1.1rem;
+            transition: color 0.3s;
+        }
+        .nav-link:hover { color: var(--brand-yellow) !important; }
+
+        /* HERO SECTION */
+        .hero-section {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.pexels.com/photos/257736/pexels-photo-257736.jpeg?auto=compress&cs=tinysrgb&w=1920');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 100px 0;
+            position: relative;
+        }
+        .hero-badge {
+            background-color: var(--brand-yellow);
+            color: var(--brand-dark);
+            padding: 5px 15px;
+            font-weight: 700;
+            font-family: var(--font-head);
+            display: inline-block;
+            transform: skew(-10deg);
+            margin-bottom: 20px;
+        }
+
+        /* FORMULARIO DE URGENCIA */
+        .urgent-form {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            border-top: 5px solid var(--brand-yellow);
+            color: var(--brand-dark);
+        }
+        .btn-call {
+            background-color: var(--brand-red);
+            color: white;
+            font-weight: 700;
+            font-size: 1.2rem;
+            width: 100%;
+            padding: 15px;
+            border-radius: 5px;
+            border: none;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: block;
+            text-align: center;
+        }
+        .btn-call:hover {
+            background-color: #bb2d3b;
+            color: white;
+            transform: scale(1.02);
+        }
+
+        /* SERVICIOS */
+        .service-card {
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 20px;
+            transition: all 0.3s;
+            text-align: center;
+            height: 100%;
+            background: #f8f9fa;
+        }
+        .service-card:hover {
+            border-color: var(--brand-yellow);
+            background: white;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transform: translateY(-5px);
+        }
+        .icon-circle {
+            width: 80px;
+            height: 80px;
+            background-color: var(--brand-dark);
+            color: var(--brand-yellow);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin: 0 auto 20px;
+        }
+
+        /* TRUST */
+        .trust-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+        .check-icon {
+            color: var(--brand-blue);
+            font-size: 1.5rem;
+            margin-right: 15px;
+            margin-top: 5px;
+        }
+
+        /* BARRA FLOTANTE celular */
+        .mobile-sticky-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: white;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+            z-index: 999;
+            display: flex;
+            padding: 10px;
+            gap: 10px;
+        }
+        .btn-whatsapp {
+            background-color: #25D366;
+            color: white;
+            flex: 1;
+            font-weight: 700;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            padding: 10px;
+        }
+        .btn-call-sticky {
+            background-color: var(--brand-red);
+            color: white;
+            flex: 1;
+            font-weight: 700;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            padding: 10px;
+        }
+
+        @media(min-width: 992px) {
+            .mobile-sticky-bar { display: none; }
+            body { padding-bottom: 0; }
+        }
+
+        /* COOKIE BANNER */
+        #cookie-banner {
+            position: fixed; bottom: 80px; left: 20px; /* Encima de la barra celular */
+            width: calc(100% - 40px); max-width: 400px;
+            background-color: var(--brand-dark); color: white;
+            border-left: 5px solid var(--brand-yellow);
+            padding: 15px; z-index: 1000; box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            display: none; /* JS lo activa */
+        }
+        @media(min-width: 992px) {
+            #cookie-banner { bottom: 20px; left: 20px; }
+        }
+
+        /* BACK TO TOP */
+        @media(min-width: 992px) {
+        }
+
+    </style>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+</head>
+<body>
+
+    <!-- TOP BAR (Desktop Only) -->
+    <div class="top-bar d-none d-lg-block">
+        <div class="container d-flex justify-content-between">
+            <div class="emergency-blink text-warning font-weight-bold">
+                <i class="fa-solid fa-circle-exclamation me-2"></i> SERVICIO DE URGENCIA 24 HORAS DISPONIBLE
+            </div>
+            <div>
+                <span class="me-4"><i class="fa-solid fa-location-dot text-warning me-1"></i> Buenos Aires y Alrededores (30km)</span>
+                <span><i class="fa-solid fa-clock text-warning me-1"></i> Llegamos en 30-45 min</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="fa-solid fa-bolt text-warning me-1"></i> FLASH<span class="text-warning">FIX</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item"><a class="nav-link" href="#servicios">Servicios</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#garantia">Garantía</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#zonas">Zonas</a></li>
+                    <li class="nav-item ms-lg-3 d-none d-lg-block">
+                        <a href="tel:900123123" class="btn btn-danger fw-bold px-4 py-2" style="font-family: var(--font-head); letter-spacing: 1px;">
+                            <i class="fa-solid fa-phone me-2"></i> 900 123 123
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-7 text-center text-lg-start mb-5 mb-lg-0">
+                    <div class="hero-badge animate__animated animate__fadeInDown">
+                        <i class="fa-solid fa-check"></i> DISPONIBILIDAD INMEDIATA
+                    </div>
+                    <h1 class="display-3 fw-bold mb-4 animate__animated animate__fadeInLeft">¿Problemas en casa? <br> <span class="text-warning">Lo arreglamos hoy.</span></h1>
+                    <p class="lead mb-4 animate__animated animate__fadeInLeft animate__delay-1s">
+                        plomería, Electricidad y Cerrajería de Urgencia. <br>
+                        Técnicos certificados en tu puerta en menos de 1 hora.
+                    </p>
+                    <div class="d-none d-lg-block animate__animated animate__fadeInUp animate__delay-1s">
+                        <p class="fw-bold fs-5"><i class="fa-solid fa-thumbs-up text-warning me-2"></i> Sin costes ocultos. Presupuesto previo.</p>
+                    </div>
+                </div>
+                
+                <!-- Formulario de Conversión -->
+                <div class="col-lg-5">
+                    <div class="urgent-form animate__animated animate__zoomIn">
+                        <h3 class="text-center mb-2 fw-bold">SOLICITAR TÉCNICO</h3>
+                        <p class="text-center text-muted small mb-4">Te llamamos en menos de 5 minutos</p>
+                        <!-- Demo Form -->
+                        <form onsubmit="event.preventDefault(); alert('DEMO: ¡Aviso de urgencia recibido! Un técnico te llamará en 2 minutos.');">
+                            <div class="mb-3">
+                                <label class="form-label fw-bold small">Tu Problema</label>
+                                <select class="form-select" required>
+                                    <option selected disabled value="">Selecciona avería...</option>
+                                    <option>Fuga de agua / plomería</option>
+                                    <option>Sin luz / Electricidad</option>
+                                    <option>Puerta bloqueada / Cerrajería</option>
+                                    <option>Aire Acondicionado</option>
+                                    <option>Otro</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label fw-bold small">Teléfono</label>
+                                <input type="tel" class="form-control" placeholder="11 4321-6789" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label fw-bold small">Código Postal</label>
+                                <input type="text" class="form-control" placeholder="Ej: C1001" required>
+                            </div>
+                            <div class="d-grid gap-2">
+                                <button type="submit" class="btn btn-warning fw-bold py-3 text-uppercase">
+                                    ¡Llámenme Ya!
+                                </button>
+                            </div>
+                            <div class="text-center mt-3">
+                                <span class="text-muted small">O llama tú directamente:</span>
+                                <a href="tel:900123123" class="d-block fw-bold fs-4 text-dark text-decoration-none">900 123 123</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BARRA DE CONFIANZA -->
+    <section class="bg-warning py-4">
+        <div class="container">
+            <div class="row text-center fw-bold text-dark g-3">
+                <div class="col-6 col-md-3">
+                    <i class="fa-solid fa-star me-2"></i> 4.9/5 Reseñas
+                </div>
+                <div class="col-6 col-md-3">
+                    <i class="fa-solid fa-id-card me-2"></i> Licencia Oficial
+                </div>
+                <div class="col-6 col-md-3">
+                    <i class="fa-solid fa-shield-halved me-2"></i> Seguro R.C.
+                </div>
+                <div class="col-6 col-md-3">
+                    <i class="fa-solid fa-file-invoice-dollar me-2"></i> Factura Legal
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVICIOS -->
+    <section id="servicios" class="py-5">
+        <div class="container py-5">
+            <div class="text-center mb-5" data-aos="fade-up">
+                <h2 class="display-5 fw-bold">Nuestros Servicios</h2>
+                <div class="bg-warning mx-auto mt-2" style="width: 60px; height: 4px;"></div>
+            </div>
+
+            <div class="row g-4">
+                <!-- Item 1 -->
+                <div class="col-md-6 col-lg-3">
+                    <div class="service-card">
+                        <div class="icon-circle">
+                            <i class="fa-solid fa-faucet-drip"></i>
+                        </div>
+                        <h4>plomería</h4>
+                        <p class="text-muted small">Fugas, desatascos, roturas de tubería, calderas y termos. Reparación inmediata.</p>
+                        <a href="tel:900123123" class="btn btn-sm btn-outline-dark mt-2 fw-bold">Llamar</a>
+                    </div>
+                </div>
+                <!-- Item 2 -->
+                <div class="col-md-6 col-lg-3">
+                    <div class="service-card">
+                        <div class="icon-circle">
+                            <i class="fa-solid fa-bolt"></i>
+                        </div>
+                        <h4>Electricidad</h4>
+                        <p class="text-muted small">Apagones, cortocircuitos, enchufes quemados, cuadro eléctrico. Boletines urgentes.</p>
+                        <a href="tel:900123123" class="btn btn-sm btn-outline-dark mt-2 fw-bold">Llamar</a>
+                    </div>
+                </div>
+                <!-- Item 3 -->
+                <div class="col-md-6 col-lg-3">
+                    <div class="service-card">
+                        <div class="icon-circle">
+                            <i class="fa-solid fa-key"></i>
+                        </div>
+                        <h4>Cerrajería</h4>
+                        <p class="text-muted small">Apertura de puertas sin romper (90% casos), cambio de bombín, persianas atascadas.</p>
+                        <a href="tel:900123123" class="btn btn-sm btn-outline-dark mt-2 fw-bold">Llamar</a>
+                    </div>
+                </div>
+                <!-- Item 4 -->
+                <div class="col-md-6 col-lg-3">
+                    <div class="service-card">
+                        <div class="icon-circle">
+                            <i class="fa-solid fa-snowflake"></i>
+                        </div>
+                        <h4>Climatización</h4>
+                        <p class="text-muted small">Reparación de Aire Acondicionado y calefacción. Carga de gas y mantenimiento.</p>
+                        <a href="tel:900123123" class="btn btn-sm btn-outline-dark mt-2 fw-bold">Llamar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN CONFIANZA -->
+    <section id="garantia" class="py-5 bg-dark text-white">
+        <div class="container py-4">
+            <div class="row align-items-center">
+                <div class="col-lg-6 mb-4 mb-lg-0">
+                    <img src="https://images.pexels.com/photos/1216589/pexels-photo-1216589.jpeg?auto=compress&cs=tinysrgb&w=800" class="img-fluid rounded border border-warning border-3 shadow" alt="Técnico trabajando">
+                </div>
+                <div class="col-lg-6 ps-lg-5">
+                    <h2 class="mb-4">¿Por qué elegir Flash Fix?</h2>
+                    
+                    <div class="trust-item">
+                        <i class="fa-solid fa-circle-check check-icon"></i>
+                        <div>
+                            <h5 class="mb-1">Garantía de 6 Meses</h5>
+                            <p class="text-secondary small mb-0">Todas nuestras reparaciones tienen garantía por escrito en mano de obra.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="trust-item">
+                        <i class="fa-solid fa-circle-check check-icon"></i>
+                        <div>
+                            <h5 class="mb-1">Presupuesto Cerrado</h5>
+                            <p class="text-secondary small mb-0">El técnico te da el precio ANTES de tocar nada. Sin sorpresas finales.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="trust-item">
+                        <i class="fa-solid fa-circle-check check-icon"></i>
+                        <div>
+                            <h5 class="mb-1">Técnicos Propios</h5>
+                            <p class="text-secondary small mb-0">No somos intermediarios. Nuestro equipo está en plantilla y uniformado.</p>
+                        </div>
+                    </div>
+
+                    <div class="mt-4">
+                        <a href="tel:900123123" class="btn btn-warning btn-lg fw-bold px-5">
+                            <i class="fa-solid fa-phone me-2"></i> LLAMAR AHORA
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-white pt-5 pb-5 border-top">
+        <div class="container">
+            <div class="row g-4 mb-4">
+                <div class="col-md-4">
+                    <h4 class="fw-bold text-dark mb-3"><i class="fa-solid fa-bolt text-warning me-1"></i>FLASH FIX</h4>
+                    <p class="text-muted small">Empresa líder en reparaciones de urgencia del hogar. Disponibles 24 horas, 365 días al año.</p>
+                </div>
+                <div class="col-md-4">
+                    <h5 class="fw-bold mb-3 text-dark">Contacto</h5>
+                    <ul class="list-unstyled text-muted small">
+                        <li class="mb-2"><i class="fa-solid fa-phone me-2 text-warning"></i> 900 123 123 (Gratuito)</li>
+                        <li class="mb-2"><i class="fa-brands fa-whatsapp me-2 text-warning"></i> 11 4321-6789</li>
+                        <li class="mb-2"><i class="fa-solid fa-envelope me-2 text-warning"></i> aviso@flashfix.com</li>
+                    </ul>
+                </div>
+                <div class="col-md-4" id="zonas">
+                    <h5 class="fw-bold mb-3 text-dark">Zonas de Cobertura</h5>
+                    <div class="d-flex flex-wrap gap-2">
+                        <span class="badge bg-light text-dark border">Buenos Aires Capital</span>
+                        <span class="badge bg-light text-dark border">Alcobendas</span>
+                        <span class="badge bg-light text-dark border">Pozuelo</span>
+                        <span class="badge bg-light text-dark border">Getafe</span>
+                        <span class="badge bg-light text-dark border">Leganés</span>
+                        <span class="badge bg-light text-dark border">Las Rozas</span>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="text-center text-muted small">
+                © 2025 Flash Fix Reparaciones S.L. | Aviso Legal | Política de Privacidad
+            </div>
+        </div>
+    </footer>
+
+    <!-- STICKY MOBILE BAR -->
+    <div class="mobile-sticky-bar">
+        <a href="#" class="btn-whatsapp" onclick="alert('DEMO: Abriendo WhatsApp...')">
+            <i class="fa-brands fa-whatsapp me-2 fs-4"></i> WhatsApp
+        </a>
+        <a href="tel:900123123" class="btn-call-sticky">
+            <i class="fa-solid fa-phone me-2 fs-4"></i> Llamar
+        </a>
+    </div>
+
+    <!-- COOKIE BANNER -->
+    <div id="cookie-banner">
+        <div class="d-flex flex-column gap-2">
+            <p class="small mb-0 fw-bold"><i class="fa-solid fa-triangle-exclamation text-warning me-2"></i> USAMOS COOKIES</p>
+            <p class="small mb-0 opacity-75">Para mejorar el servicio de urgencia y analítica.</p>
+        </div>
+        <button id="accept-cookies" class="btn btn-sm btn-warning fw-bold text-dark">OK</button>
+    </div>
+
+    <!-- BOTÓN VOLVER ARRIBA -->
+    
+
+    <!-- SCRIPTS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Back To Top Logic
+        
+
+        // Cookie Banner
+        const cookieBanner = document.getElementById('cookie-banner');
+        const acceptCookies = document.getElementById('accept-cookies');
+
+        setTimeout(() => {
+            cookieBanner.style.display = 'flex';
+        }, 1000);
+
+        acceptCookies.addEventListener('click', () => {
+            cookieBanner.style.display = 'none';
+        });
+    </script>
+
+    <!-- BOTÓN WHATSAPP -->
+    <a href="https://wa.me/5491143216789"
+       target="_blank"
+       rel="noopener noreferrer"
+       aria-label="WhatsApp"
+       style="position: fixed; bottom: calc(1.5rem + env(safe-area-inset-bottom)); right: 1.5rem; z-index: 9999; display: flex; align-items: center; justify-content: center; width: 3.5rem; height: 3.5rem; border-radius: 50%; background-color: #25D366; color: white; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: transform 0.3s ease; text-decoration: none;"
+       onmouseover="this.style.transform='scale(1.1)'"
+       onmouseout="this.style.transform='scale(1)'"
+       title="WhatsApp">
+       <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" viewBox="0 0 16 16">
+  <path d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.9 7.9 0 0 0 13.6 2.326zM7.994 14.521a6.6 6.6 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.56 6.56 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592m3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.73.73 0 0 0-.529.247c-.182.198-.691.677-.691 1.654s.71 1.916.81 2.049c.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232"/>
+</svg>
+    </a>
+
+</body>
+</html>

@@ -1,0 +1,613 @@
+<!-- 
+  ========================================
+  TEMPLATE NAME: RENOVA - Integral Renovations & Interior Design
+  AUTHOR: Sebastian Fernandez
+  WEBSITE: https://sebastian-fernandez.com
+  VERSION: 2.0.0 (Final Commercial Release)
+  LICENSE: Standard License (Personal & Commercial Use)
+  ========================================
+-->
+
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth overflow-x-hidden">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO & METADATA -->
+    <title>RENOVA | Reformas Integrales</title>
+    <meta name="description" content="Estudio de reformas integrales e interiorismo. Transformamos espacios con diseño, calidad y compromiso. Llave en mano.">
+    <meta name="author" content="Sebastian Fernandez">
+
+    <!-- FAVICON (SVG Inline) -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%232c3e50'/><path d='M20 60 L50 30 L80 60 V80 H20 Z' fill='none' stroke='%23c0a062' stroke-width='5'/><rect x='45' y='65' width='10' height='15' fill='%23c0a062'/></svg>">
+
+    <!-- OPEN GRAPH -->
+    <meta property="og:title" content="RENOVA | Arquitectura & Diseño">
+    <meta property="og:description" content="Creamos espacios que inspiran vida. Reformas integrales y proyectos de interiorismo.">
+    <meta property="og:image" content="https://placehold.co/1200x630/2c3e50/c0a062?text=RENOVA+STUDIO">
+    <meta property="og:url" content="#">
+    <meta property="og:type" content="website">
+
+    <!-- 1. BOOTSTRAP 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- 2. GOOGLE FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Lato (Cuerpo) + Playfair Display (Títulos elegantes) -->
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+
+    <!-- 3. FONT AWESOME -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- 4. AOS ANIMATION -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --renova-dark: #2c3e50;
+            --renova-gold: #c0a062; /* Ocre dorado sutil */
+            --renova-light: #f8f9fa;
+            --font-title: 'Playfair Display', serif;
+            --font-body: 'Lato', sans-serif;
+        }
+
+        body {
+            font-family: var(--font-body);
+            color: #555;
+            background-color: #fff;
+            scroll-behavior: smooth;
+        }
+
+        h1, h2, h3, h4, .navbar-brand {
+            font-family: var(--font-title);
+            color: var(--renova-dark);
+        }
+
+        /* NAVBAR */
+        .navbar {
+            padding: 1.5rem 0;
+            background-color: white;
+            transition: all 0.3s;
+        }
+        .navbar.scrolled {
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            padding: 1rem 0;
+        }
+        .nav-link {
+            color: var(--renova-dark) !important;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            margin: 0 15px;
+            transition: color 0.3s;
+        }
+        .nav-link:hover { color: var(--renova-gold) !important; }
+        .btn-quote {
+            border: 2px solid var(--renova-dark);
+            color: var(--renova-dark);
+            padding: 8px 25px;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            border-radius: 0;
+            transition: 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .btn-quote:hover {
+            background-color: var(--renova-dark);
+            color: white;
+        }
+
+        /* HERO SLIDER (Simulado) */
+        .hero-section {
+            height: 85vh;
+            min-height: 600px;
+            background-image: url('https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=1920');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        .hero-overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.3);
+        }
+        .hero-content {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 3rem;
+            max-width: 600px;
+            position: relative;
+            z-index: 2;
+            border-left: 5px solid var(--renova-gold);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+
+        /* SERVICES GRID */
+        .service-icon {
+            font-size: 2.5rem;
+            color: var(--renova-gold);
+            margin-bottom: 1.5rem;
+            transition: transform 0.3s;
+        }
+        .service-item {
+            padding: 2rem;
+            transition: 0.3s;
+            border: 1px solid transparent;
+            height: 100%;
+        }
+        .service-item:hover {
+            border-color: #eee;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            background: white;
+        }
+        .service-item:hover .service-icon {
+            transform: scale(1.1);
+        }
+
+        /* PROJECT GALLERY */
+        .project-item {
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 30px;
+            cursor: pointer;
+        }
+        .project-img {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+        .project-overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(44, 62, 80, 0.85);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            text-align: center;
+            color: white;
+            padding: 20px;
+        }
+        .project-item:hover .project-img { transform: scale(1.1); }
+        .project-item:hover .project-overlay { opacity: 1; }
+
+        /* PROCESS STEPS */
+        .step-number {
+            font-family: var(--font-title);
+            font-size: 4rem;
+            color: rgba(192, 160, 98, 0.2);
+            font-weight: 700;
+            line-height: 1;
+            margin-bottom: -20px;
+            position: relative;
+            z-index: 0;
+        }
+        .step-content { position: relative; z-index: 1; }
+
+        /* FOOTER */
+        footer {
+            background-color: #222;
+            color: #aaa;
+            padding: 60px 0;
+        }
+        .footer-link { color: #aaa; text-decoration: none; transition: 0.3s; }
+        .footer-link:hover { color: var(--renova-gold); }
+
+        /* BACK TO TOP */
+
+        /* COOKIE BANNER */
+        #cookie-banner {
+    position: fixed; bottom: 0; left: 0; width: 100%;
+    background-color: var(--renova-dark); color: white;
+    border-top: 3px solid var(--renova-gold);
+    padding: 1.5rem; z-index: 1000;
+    transform: translateY(200%);
+    transition: transform 0.5s ease-in-out;
+    display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 20px;
+}
+
+#cookie-banner.show {
+    transform: translateY(0);
+}
+
+    </style>
+
+    <style>
+        .whatsapp-float-btn {
+            position: fixed;
+            bottom: calc(24px + env(safe-area-inset-bottom));
+            right: 24px;
+            width: 56px;
+            height: 56px;
+            background-color: #25d366;
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            z-index: 9999;
+            text-decoration: none;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+        .whatsapp-float-btn:hover {
+            transform: scale(1.1);
+            background-color: #1ebe57;
+            color: #fff;
+        }
+        .whatsapp-float-btn i {
+            margin: 0;
+        }
+    </style>
+
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">RENOVA<span style="color:var(--renova-gold)">.</span></a>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="fa fa-bars text-dark"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav align-items-center">
+                    <li class="nav-item"><a class="nav-link" href="#nosotros">Estudio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#proyectos">Proyectos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#servicios">Servicios</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contacto">Contacto</a></li>
+                    <li class="nav-item ms-lg-3 mt-3 mt-lg-0">
+                        <a href="#presupuesto" class="btn-quote">Pedir Presupuesto</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="hero-section">
+        <div class="hero-overlay"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8" data-aos="fade-up" data-aos-duration="1200">
+                    <div class="hero-content">
+                        <span class="text-uppercase text-muted small letter-spacing-2 mb-2 d-block">Reformas e Interiorismo</span>
+                        <h1 class="display-4 mb-4">Creamos espacios que inspiran vida.</h1>
+                        <p class="lead mb-4 font-weight-light">Desde el diseño inicial hasta el último detalle decorativo. Transformamos tu visión en una realidad tangible y duradera.</p>
+                        <a href="#proyectos" class="text-dark fw-bold text-decoration-none text-uppercase small border-bottom border-dark pb-1 hover:text-warning transition">Ver nuestro trabajo</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT / INTRO -->
+    <section id="nosotros" class="py-5 my-5">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 mb-5 mb-lg-0" data-aos="fade-right">
+                    <div class="position-relative p-3">
+                        <div style="position: absolute; top:0; left:0; width: 100px; height: 100px; border-top: 5px solid var(--renova-gold); border-left: 5px solid var(--renova-gold);"></div>
+                        <img src="https://images.pexels.com/photos/8082560/pexels-photo-8082560.jpeg?auto=compress&cs=tinysrgb&w=800" class="img-fluid w-100 shadow" alt="Arquitecto trabajando">
+                    </div>
+                </div>
+                <div class="col-lg-5 offset-lg-1" data-aos="fade-left">
+                    <h2 class="mb-4">Más que una reforma, <br> un nuevo comienzo.</h2>
+                    <p class="mb-4">
+                        En Renova, entendemos que una reforma no es solo mover paredes. Es mejorar tu calidad de vida. Con más de 15 años de experiencia, nuestro equipo de arquitectos y artesanos trabaja con un solo objetivo: la excelencia.
+                    </p>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><i class="fa-solid fa-check text-warning me-3"></i> Llave en mano (nos ocupamos de todo)</li>
+                        <li class="mb-2"><i class="fa-solid fa-check text-warning me-3"></i> Plazos garantizados por contrato</li>
+                        <li class="mb-2"><i class="fa-solid fa-check text-warning me-3"></i> Materiales de primeras calidades</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROYECTOS (PORTFOLIO) -->
+    <section id="proyectos" class="py-5 bg-light">
+        <div class="container py-5">
+            <div class="text-center mb-5" data-aos="fade-up">
+                <span class="text-uppercase text-muted small">Portfolio</span>
+                <h2 class="mt-2">Proyectos Recientes</h2>
+            </div>
+
+            <div class="row">
+                <!-- Proyecto 1 -->
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="project-item">
+                        <img src="https://images.pexels.com/photos/2724749/pexels-photo-2724749.jpeg?auto=compress&cs=tinysrgb&w=800" class="project-img" alt="Cocina">
+                        <div class="project-overlay">
+                            <h4 class="text-white">Cocina Minimalista</h4>
+                            <p class="small text-white-50">Reforma Integral • Buenos Aires</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Proyecto 2 -->
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="project-item">
+                        <img src="https://images.pexels.com/photos/2082087/pexels-photo-2082087.jpeg?auto=compress&cs=tinysrgb&w=800" class="project-img" alt="Salón">
+                        <div class="project-overlay">
+                            <h4 class="text-white">Salón Nórdico</h4>
+                            <p class="small text-white-50">Interiorismo • Córdoba</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Proyecto 3 -->
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+                    <div class="project-item">
+                        <img src="https://images.pexels.com/photos/3965521/pexels-photo-3965521.jpeg?auto=compress&cs=tinysrgb&w=800" class="project-img" alt="Baño">
+                        <div class="project-overlay">
+                            <h4 class="text-white">Baño Spa</h4>
+                            <p class="small text-white-50">Reforma Parcial • Mendoza</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Proyecto 4 -->
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="project-item">
+                        <img src="https://images.pexels.com/photos/1643384/pexels-photo-1643384.jpeg?auto=compress&cs=tinysrgb&w=800" class="project-img" alt="Oficina">
+                        <div class="project-overlay">
+                            <h4 class="text-white">Oficina Open Space</h4>
+                            <p class="small text-white-50">Comercial • Mar del Plata</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Proyecto 5 -->
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="project-item">
+                        <img src="https://images.pexels.com/photos/2635038/pexels-photo-2635038.jpeg?auto=compress&cs=tinysrgb&w=800" class="project-img" alt="Dormitorio">
+                        <div class="project-overlay">
+                            <h4 class="text-white">Suite Principal</h4>
+                            <p class="small text-white-50">Reforma Integral • La Plata</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Proyecto 6 -->
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+                    <div class="project-item">
+                        <img src="https://images.pexels.com/photos/2988860/pexels-photo-2988860.jpeg?auto=compress&cs=tinysrgb&w=800" class="project-img" alt="Terraza">
+                        <div class="project-overlay">
+                            <h4 class="text-white">Terraza Urbana</h4>
+                            <p class="small text-white-50">Exterior • Málaga</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-4">
+                <a href="#contacto" class="btn btn-outline-dark rounded-0 px-4">Ver Todos los Proyectos</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROCESO DE TRABAJO -->
+    <section class="py-5 my-5" id="servicios">
+        <div class="container">
+            <div class="text-center mb-5">
+                <span class="text-uppercase text-muted small">Método</span>
+                <h2 class="mt-2">Cómo Trabajamos</h2>
+            </div>
+            
+            <div class="row text-center g-4">
+                <div class="col-md-3" data-aos="fade-up" data-aos-delay="100">
+                    <div class="step-number">01</div>
+                    <div class="step-content">
+                        <h5 class="fw-bold">Visita & Idea</h5>
+                        <p class="small text-muted">Visitamos tu espacio, escuchamos tus necesidades y tomamos medidas.</p>
+                    </div>
+                </div>
+                <div class="col-md-3" data-aos="fade-up" data-aos-delay="200">
+                    <div class="step-number">02</div>
+                    <div class="step-content">
+                        <h5 class="fw-bold">Diseño 3D</h5>
+                        <p class="small text-muted">Te presentamos una propuesta visual y un presupuesto detallado sin sorpresas.</p>
+                    </div>
+                </div>
+                <div class="col-md-3" data-aos="fade-up" data-aos-delay="300">
+                    <div class="step-number">03</div>
+                    <div class="step-content">
+                        <h5 class="fw-bold">Ejecución</h5>
+                        <p class="small text-muted">Nuestros equipos coordinados trabajan para cumplir los plazos estipulados.</p>
+                    </div>
+                </div>
+                <div class="col-md-3" data-aos="fade-up" data-aos-delay="400">
+                    <div class="step-number">04</div>
+                    <div class="step-content">
+                        <h5 class="fw-bold">Entrega</h5>
+                        <p class="small text-muted">Limpieza final, revisión de detalles y entrega de llaves de tu nuevo hogar.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIOS -->
+    <section class="py-5 bg-white border-top">
+        <div class="container py-4">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 text-center" data-aos="zoom-in">
+                    <i class="fa-solid fa-quote-left fs-1 text-warning mb-4 opacity-50"></i>
+                    <h3 class="fst-italic fw-light mb-4">"Superaron todas nuestras expectativas. La atención al detalle y la limpieza durante la obra fueron impecables. Ahora tenemos la cocina que siempre soñamos."</h3>
+                    <div class="d-flex align-items-center justify-content-center gap-3">
+                        <img src="https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=100" class="rounded-circle" width="50" height="50" alt="Cliente">
+                        <div class="text-start">
+                            <h6 class="mb-0 fw-bold">Laura Martínez</h6>
+                            <small class="text-muted">Reforma Integral en Buenos Aires</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRESUPUESTO FORM -->
+    <section id="presupuesto" class="py-5 bg-dark text-white">
+        <div class="container py-5" id="contacto">
+            <div class="row align-items-center">
+                <div class="col-lg-5 mb-5 mb-lg-0">
+                    <h2 class="mb-4">¿Hablamos de tu proyecto?</h2>
+                    <p class="text-white-50 mb-4">
+                        Solicita un presupuesto sin compromiso. Cuéntanos qué tenés en mente y nosotros nos encargamos del resto.
+                    </p>
+                    <div class="d-flex align-items-center mb-3">
+                        <i class="fa-solid fa-phone me-3 text-warning"></i>
+                        <span>+54 9 11 4321-6789</span>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <i class="fa-solid fa-envelope me-3 text-warning"></i>
+                        <span>proyectos@renovastudio.com</span>
+                    </div>
+                </div>
+                <div class="col-lg-7">
+                    <!-- Formulario con Demo Alert -->
+                    <form class="bg-white p-4 p-md-5 rounded text-dark" onsubmit="event.preventDefault(); alert('DEMO: Solicitud de presupuesto enviada correctamente. Te contactaremos pronto.');">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold">Nombre</label>
+                                <input type="text" class="form-control bg-light" placeholder="Tu nombre" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold">Teléfono</label>
+                                <input type="tel" class="form-control bg-light" placeholder="Tu teléfono" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold">Tipo de Reforma</label>
+                                <select class="form-select bg-light">
+                                    <option>Integral</option>
+                                    <option>Cocina</option>
+                                    <option>Baño</option>
+                                    <option>Local Comercial</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold">Metros Aprox.</label>
+                                <input type="number" class="form-control bg-light" placeholder="m²">
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label small fw-bold">Cuéntanos más</label>
+                                <textarea class="form-control bg-light" rows="3"></textarea>
+                            </div>
+                            <div class="col-12 mt-3">
+                                <button type="submit" class="btn btn-quote w-100" style="background: var(--renova-dark); color: white;">Solicitar Presupuesto Gratis</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="text-center text-md-start">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <h4 class="text-white mb-4">RENOVA.</h4>
+                    <p class="small">Transformando espacios desde 2005. Calidad, compromiso y diseño.</p>
+                </div>
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <h5 class="text-white mb-3">Enlaces</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#proyectos" class="footer-link small">Proyectos</a></li>
+                        <li><a href="#servicios" class="footer-link small">Servicios</a></li>
+                        <li><a href="#" class="footer-link small">Aviso Legal</a></li>
+                        <li><a href="#" class="footer-link small">Política de Privacidad</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5 class="text-white mb-3">Síguenos</h5>
+                    <div class="d-flex gap-3">
+                        <a href="#" class="footer-link fs-5"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#" class="footer-link fs-5"><i class="fa-brands fa-pinterest"></i></a>
+                        <a href="#" class="footer-link fs-5"><i class="fa-brands fa-houzz"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-top border-secondary mt-5 pt-4 text-center small">
+                © 2025 Renova Studio S.L. Todos los derechos reservados.
+            </div>
+        </div>
+    </footer>
+
+    <!-- BOTÓN VOLVER ARRIBA -->
+    
+
+    <!-- COOKIE BANNER -->
+    <div id="cookie-banner">
+        <p class="small text-white-50 m-0">Utilizamos cookies para garantizar la mejor experiencia en nuestra web.</p>
+        <button id="accept-cookies" class="btn-quote" style="padding: 5px 15px; font-size: 0.7rem; border-color: #c0a062; color: #c0a062;">Aceptar</button>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            once: true,
+            offset: 50,
+            duration: 1000,
+        });
+
+        // Navbar scroll effect
+        const nav = document.querySelector('.navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        // Cookie Banner
+        const cookieBanner = document.getElementById('cookie-banner');
+        const acceptCookies = document.getElementById('accept-cookies');
+
+        setTimeout(() => {
+            cookieBanner.classList.add('show');
+        }, 2000);
+
+        acceptCookies.addEventListener('click', () => {
+            cookieBanner.classList.remove('show');
+        });
+
+        // Auto-close mobile menu on click
+        const navLinks = document.querySelectorAll('.nav-link');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                if (navCollapse.classList.contains('show')) {
+                    new bootstrap.Collapse(navCollapse).hide();
+                }
+            });
+        });
+    </script>
+
+    <!-- BOTÓN WHATSAPP -->
+    <a href="https://wa.me/5491143216789"
+       target="_blank"
+       rel="noopener noreferrer"
+       aria-label="WhatsApp"
+       style="position: fixed; bottom: calc(1.5rem + env(safe-area-inset-bottom)); right: 1.5rem; z-index: 9999; display: flex; align-items: center; justify-content: center; width: 3.5rem; height: 3.5rem; border-radius: 50%; background-color: #25D366; color: white; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: transform 0.3s ease; text-decoration: none;"
+       onmouseover="this.style.transform='scale(1.1)'"
+       onmouseout="this.style.transform='scale(1)'"
+       title="WhatsApp">
+       <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" viewBox="0 0 16 16">
+  <path d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.9 7.9 0 0 0 13.6 2.326zM7.994 14.521a6.6 6.6 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.56 6.56 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592m3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.73.73 0 0 0-.529.247c-.182.198-.691.677-.691 1.654s.71 1.916.81 2.049c.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232"/>
+</svg>
+    </a>
+
+</body>
+</html>

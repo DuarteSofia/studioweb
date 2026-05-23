@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CartGenius | Personalización E-commerce IA</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><path d='M20 30 L80 30 L70 80 L30 80 Z' fill='none' stroke='%23ec4899' stroke-width='6' stroke-linejoin='round'/><path d='M35 30 L35 20 A 15 15 0 0 1 65 20 L65 30' fill='none' stroke='%238b5cf6' stroke-width='6' stroke-linecap='round'/><circle cx='65' cy='65' r='10' fill='%23ec4899'/></svg>">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Fonts: Outfit (Modern Retail) & Plus Jakarta Sans (UI) -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Configuración Tailwind -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        display: ['Outfit', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            pink: '#ec4899', // Fucsia
+                            purple: '#8b5cf6', // Violeta
+                            dark: '#1e1b4b', // Indigo profundo
+                        },
+                        ui: {
+                            bg: '#f8fafc',
+                            card: '#ffffff',
+                        }
+                    },
+                    backgroundImage: {
+                        'gradient-pop': 'linear-gradient(135deg, #ec4899 0%, #8b5cf6 100%)',
+                        'mesh': 'radial-gradient(at 40% 20%, hsla(322,90%,76%,1) 0px, transparent 50%), radial-gradient(at 80% 0%, hsla(189,100%,56%,1) 0px, transparent 50%), radial-gradient(at 0% 50%, hsla(355,100%,93%,1) 0px, transparent 50%)',
+                    },
+                    boxShadow: {
+                        'pop': '0 10px 40px -10px rgba(236, 72, 153, 0.3)',
+                        'card': '0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03)',
+                        'hover': '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'bounce-slow': 'bounce 3s infinite',
+                        'shine': 'shine 2s linear infinite',
+                        'pop-in': 'popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-15px)' },
+                        },
+                        shine: {
+                            '0%': { transform: 'translateX(-100%)' },
+                            '100%': { transform: 'translateX(100%)' },
+                        },
+                        popIn: {
+                            '0%': { opacity: '0', transform: 'scale(0.8)' },
+                            '100%': { opacity: '1', transform: 'scale(1)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #f8fafc;
+            color: #1e1b4b;
+            overflow-x: hidden;
+        }
+
+        /* Glassmorphism Light */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #ec4899;
+        }
+
+        /* Gradient Text */
+        .text-gradient {
+            background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Confetti simulation elements */
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #ec4899;
+            animation: fall 3s linear infinite;
+        }
+        @keyframes fall {
+            0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+        }
+    </style>
+</head>
+<body class="antialiased font-sans">
+
+    <!-- PRELOADER (Scanner) -->
+    <div id="preloader" class="fixed inset-0 z-[100] bg-white flex flex-col items-center justify-center">
+        <div class="relative w-24 h-24 mb-4">
+            <i class="fa-solid fa-bag-shopping text-6xl text-brand-dark opacity-20 absolute inset-0 flex items-center justify-center"></i>
+            <div class="absolute inset-0 w-full h-1 bg-gradient-pop shadow-[0_0_15px_#ec4899] animate-[float_2s_linear_infinite]" style="animation-duration: 1.5s; top: 0;"></div>
+        </div>
+        <p class="text-xs font-bold uppercase tracking-widest text-brand-purple">Analizando Inventario...</p>
+    </div>
+
+    <!-- NAVBAR -->
+    <nav class="fixed w-full z-50 top-0 bg-white/80 backdrop-blur-md border-b border-slate-200 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="#" class="flex items-center gap-2 group">
+                <div class="w-10 h-10 rounded-xl bg-brand-dark text-white flex items-center justify-center text-xl font-bold shadow-lg shadow-brand-dark/20 group-hover:scale-105 transition-transform">
+                    <i class="fa-solid fa-bolt"></i>
+                </div>
+                <span class="font-display font-bold text-2xl tracking-tight text-brand-dark">Cart<span class="text-brand-pink">Genius</span></span>
+            </a>
+
+            <div class="hidden md:flex gap-8 text-sm font-semibold text-slate-500">
+                <a href="#features" class="hover:text-brand-pink transition-colors">Features</a>
+                <a href="#demo" class="hover:text-brand-pink transition-colors">Live Demo</a>
+                <a href="#integrations" class="hover:text-brand-pink transition-colors">Shopify App</a>
+                <a href="#pricing" class="hover:text-brand-pink transition-colors">Pricing</a>
+            </div>
+
+            <div class="flex items-center gap-4">
+                <button class="text-sm font-bold text-brand-dark hover:text-brand-purple transition-colors hidden sm:block">Log In</button>
+                <button class="bg-brand-dark text-white px-6 py-2.5 rounded-full text-sm font-bold hover:bg-brand-purple transition-all shadow-lg shadow-brand-purple/30 transform hover:-translate-y-0.5">
+                    Start Free Trial
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="relative pt-32 pb-20 overflow-hidden bg-ui-bg">
+        <!-- Background Blobs -->
+        <div class="absolute top-0 right-0 w-[50vw] h-[50vw] bg-mesh opacity-60 rounded-full blur-[100px] pointer-events-none translate-x-1/4 -translate-y-1/4"></div>
+        <div class="absolute bottom-0 left-0 w-[40vw] h-[40vw] bg-purple-100 rounded-full blur-[80px] pointer-events-none -translate-x-1/4 translate-y-1/4"></div>
+
+        <div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center relative z-10">
+            
+            <!-- Left: Copy -->
+            <div>
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-slate-200 shadow-sm text-brand-purple text-xs font-bold uppercase tracking-wider mb-8 animate-pop-in">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i>
+                    IA Predictiva para Retail
+                </div>
+
+                <h1 class="font-display text-5xl md:text-7xl font-extrabold text-brand-dark leading-[1.1] mb-6">
+                    Vende lo que <br>
+                    <span class="text-gradient">Ellos Aman.</span>
+                    <span class="block text-4xl md:text-5xl text-slate-400 mt-2 font-medium">Antes de que lo busquen.</span>
+                </h1>
+
+                <p class="text-lg text-slate-600 mb-10 max-w-lg leading-relaxed">
+                    CartGenius analiza el comportamiento de navegación en tiempo real para personalizar tu tienda. Aumenta el AOV un 35% con recomendaciones hiper-relevantes.
+                </p>
+
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <button class="bg-gradient-pop text-white px-8 py-4 rounded-xl font-bold transition-all shadow-pop hover:shadow-lg hover:scale-105 flex items-center justify-center gap-3">
+                        <i class="fa-brands fa-shopify text-xl"></i>
+                        Instalar en Shopify
+                    </button>
+                    <button class="bg-white text-brand-dark border border-slate-200 px-8 py-4 rounded-xl font-bold transition-all hover:border-brand-pink hover:text-brand-pink flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-play"></i> Ver Demo (1 min)
+                    </button>
+                </div>
+
+                <div class="mt-12 flex items-center gap-4 text-sm font-semibold text-slate-500">
+                    <div class="flex -space-x-3">
+                        <img class="w-10 h-10 rounded-full border-2 border-white" src="https://randomuser.me/api/portraits/women/12.jpg" alt="">
+                        <img class="w-10 h-10 rounded-full border-2 border-white" src="https://randomuser.me/api/portraits/men/32.jpg" alt="">
+                        <img class="w-10 h-10 rounded-full border-2 border-white" src="https://randomuser.me/api/portraits/women/44.jpg" alt="">
+                        <div class="w-10 h-10 rounded-full border-2 border-white bg-slate-100 flex items-center justify-center text-xs text-slate-600">+2k</div>
+                    </div>
+                    <p>Tiendas escalando ahora mismo.</p>
+                </div>
+            </div>
+
+            <!-- Right: Interactive Demo (The "Wow" Factor) -->
+            <div class="relative perspective-1000">
+                <!-- Floating Elements Behind -->
+                <div class="absolute -top-10 -right-10 w-24 h-24 bg-brand-pink rounded-2xl rotate-12 opacity-20 blur-xl animate-bounce-slow"></div>
+                
+                <!-- Main Card: The Store Simulator -->
+                <div class="bg-white rounded-3xl shadow-2xl border border-slate-100 overflow-hidden transform rotate-y-[-5deg] rotate-x-[2deg] transition-all duration-500 hover:rotate-0 hover:scale-105 group relative">
+                    
+                    <!-- Sim Header -->
+                    <div class="h-14 border-b border-slate-100 flex items-center justify-between px-6 bg-white/50 backdrop-blur">
+                        <div class="font-display font-bold text-brand-dark">MyStore<span class="text-brand-pink">.com</span></div>
+                        <div class="flex gap-4 text-slate-400">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                            <div class="relative">
+                                <i class="fa-solid fa-cart-shopping text-brand-dark"></i>
+                                <span class="absolute -top-2 -right-2 w-4 h-4 bg-brand-pink text-white text-[9px] flex items-center justify-center rounded-full font-bold">2</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sim Content Area -->
+                    <div class="p-6 bg-slate-50 min-h-[400px]">
+                        
+                        <!-- AI Control Panel -->
+                        <div class="mb-6 bg-brand-dark/5 p-4 rounded-xl border border-brand-dark/10">
+                            <p class="text-xs font-bold text-slate-500 uppercase tracking-wide mb-3 flex items-center gap-2">
+                                <i class="fa-solid fa-robot text-brand-purple"></i> Simular Perfil de Usuario
+                            </p>
+                            <div class="flex gap-2">
+                                <button onclick="switchProfile('street')" class="profile-btn flex-1 py-2 px-3 rounded-lg bg-white border border-slate-200 text-xs font-bold text-slate-600 hover:border-brand-purple hover:text-brand-purple transition-all shadow-sm active-profile" data-profile="street">
+                                    🛹 Streetwear
+                                </button>
+                                <button onclick="switchProfile('minimal')" class="profile-btn flex-1 py-2 px-3 rounded-lg bg-white border border-slate-200 text-xs font-bold text-slate-600 hover:border-brand-purple hover:text-brand-purple transition-all shadow-sm" data-profile="minimal">
+                                    🌿 Minimalist
+                                </button>
+                                <button onclick="switchProfile('tech')" class="profile-btn flex-1 py-2 px-3 rounded-lg bg-white border border-slate-200 text-xs font-bold text-slate-600 hover:border-brand-purple hover:text-brand-purple transition-all shadow-sm" data-profile="tech">
+                                    💻 Tech Bro
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Dynamic Product Grid -->
+                        <div id="productGrid" class="grid grid-cols-2 gap-4">
+                            <!-- Products injected via JS -->
+                        </div>
+
+                    </div>
+
+                    <!-- Floating Notification -->
+                    <div id="notification" class="absolute bottom-4 left-4 right-4 bg-brand-dark text-white p-3 rounded-xl shadow-lg transform translate-y-20 opacity-0 transition-all duration-500 flex items-center gap-3">
+                        <div class="w-8 h-8 rounded-full bg-green-500 flex items-center justify-center"><i class="fa-solid fa-check"></i></div>
+                        <div>
+                            <p class="text-xs font-bold">Recomendación Exitosa</p>
+                            <p class="text-[10px] text-slate-300">Usuario añadió al carrito (+25% Conversion)</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- BRANDS TICKER -->
+    <div class="bg-white border-y border-slate-100 py-8 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 text-center mb-6">
+            <p class="text-xs font-bold text-slate-400 uppercase tracking-[0.2em]">Potenciando ventas en</p>
+        </div>
+        <div class="relative w-full overflow-hidden">
+            <div class="flex gap-16 animate-[shine_20s_linear_infinite] whitespace-nowrap w-max opacity-50 grayscale hover:grayscale-0 transition-all duration-500">
+                <span class="text-2xl font-bold font-display flex items-center gap-2"><i class="fa-brands fa-shopify"></i> SHOPIFY PLUS</span>
+                <span class="text-2xl font-bold font-display flex items-center gap-2"><i class="fa-brands fa-nike"></i> NIKE</span>
+                <span class="text-2xl font-bold font-display flex items-center gap-2"><i class="fa-solid fa-shirt"></i> ASOS</span>
+                <span class="text-2xl font-bold font-display flex items-center gap-2"><i class="fa-solid fa-glasses"></i> WARBY PARKER</span>
+                <span class="text-2xl font-bold font-display flex items-center gap-2"><i class="fa-solid fa-socks"></i> GYMSHARK</span>
+                <!-- Repeat -->
+                <span class="text-2xl font-bold font-display flex items-center gap-2"><i class="fa-brands fa-shopify"></i> SHOPIFY PLUS</span>
+                <span class="text-2xl font-bold font-display flex items-center gap-2"><i class="fa-brands fa-nike"></i> NIKE</span>
+                <span class="text-2xl font-bold font-display flex items-center gap-2"><i class="fa-solid fa-shirt"></i> ASOS</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- FEATURES BENTO GRID -->
+    <section id="features" class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="font-display text-4xl font-bold text-brand-dark mb-4">Más que Recomendaciones</h2>
+                <p class="text-slate-500 max-w-2xl mx-auto">Una suite completa de herramientas de IA para maximizar el valor de cada visita.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                
+                <!-- Feature 1: Visual Search -->
+                <div class="col-span-1 md:col-span-2 bg-slate-50 rounded-3xl p-8 border border-slate-100 relative overflow-hidden group hover:shadow-hover transition-all">
+                    <div class="absolute right-0 top-0 w-1/2 h-full bg-gradient-to-l from-white to-transparent z-0"></div>
+                    <div class="relative z-10 w-full md:w-1/2">
+                        <div class="w-12 h-12 bg-white rounded-xl shadow-sm flex items-center justify-center text-brand-pink text-xl mb-6">
+                            <i class="fa-solid fa-camera"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-brand-dark mb-3">Búsqueda Visual</h3>
+                        <p class="text-slate-600 leading-relaxed mb-6">
+                            Tus clientes pueden subir una foto de Instagram o Pinterest y CartGenius encontrará productos similares en tu catálogo instantáneamente.
+                        </p>
+                        <a href="#" class="text-brand-purple font-bold text-sm hover:underline">Ver demo <i class="fa-solid fa-arrow-right ml-1"></i></a>
+                    </div>
+                    <!-- Visual Rep -->
+                    <div class="absolute right-8 top-1/2 -translate-y-1/2 hidden md:block">
+                        <div class="relative">
+                            <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=400&auto=format&fit=crop" class="w-40 h-52 object-cover rounded-lg shadow-lg rotate-3 border-4 border-white">
+                            <div class="absolute -bottom-4 -left-4 bg-white p-2 rounded-lg shadow-lg text-xs font-bold flex items-center gap-2 animate-bounce-slow">
+                                <i class="fa-solid fa-check-circle text-green-500"></i> Match 98%
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Feature 2: Dynamic Pricing -->
+                <div class="bg-brand-dark text-white rounded-3xl p-8 relative overflow-hidden group hover:shadow-pop transition-all">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-brand-purple rounded-full blur-[50px] opacity-50"></div>
+                    <div class="relative z-10">
+                        <div class="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center text-white text-xl mb-6 backdrop-blur-sm">
+                            <i class="fa-solid fa-tag"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">Precios Dinámicos</h3>
+                        <p class="text-slate-300 text-sm leading-relaxed mb-6">
+                            Ajusta precios automáticamente según la demanda, el stock y la competencia para maximizar márgenes sin perder ventas.
+                        </p>
+                        <div class="bg-white/10 p-3 rounded-lg flex justify-between items-center text-sm font-mono">
+                            <span class="line-through text-slate-400">$120.00</span>
+                            <span class="text-green-400 font-bold">$99.99</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Feature 3: Recovery -->
+                <div class="bg-white border border-slate-200 rounded-3xl p-8 hover:border-brand-pink transition-all group">
+                    <div class="w-12 h-12 bg-red-50 text-red-500 rounded-xl flex items-center justify-center text-xl mb-6">
+                        <i class="fa-regular fa-envelope"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-brand-dark mb-3">Recuperación Inteligente</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed">
+                        Envía emails de carrito abandonado generados por IA que son imposibles de ignorar. No más plantillas genéricas.
+                    </p>
+                </div>
+
+                <!-- Feature 4: Bundle Builder -->
+                <div class="md:col-span-2 bg-gradient-pop rounded-3xl p-8 text-white relative overflow-hidden group">
+                    <div class="relative z-10 flex flex-col md:flex-row items-center gap-8">
+                        <div class="flex-1">
+                            <h3 class="text-2xl font-bold mb-3">Constructor de Bundles</h3>
+                            <p class="text-white/90 leading-relaxed">
+                                "Frecuentemente comprados juntos" con esteroides. Nuestra IA crea packs irresistibles en el checkout para aumentar el ticket medio.
+                            </p>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <div class="w-16 h-16 bg-white rounded-lg shadow-lg rotate-[-5deg] flex items-center justify-center text-brand-dark font-bold text-xl">+</div>
+                            <div class="w-16 h-16 bg-white rounded-lg shadow-lg rotate-[5deg] flex items-center justify-center text-brand-dark font-bold text-xl">=</div>
+                            <div class="bg-white text-brand-purple px-4 py-2 rounded-lg font-bold shadow-lg transform scale-110">
+                                -20% OFF
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- PRICING -->
+    <section id="pricing" class="py-24 bg-ui-bg border-t border-slate-200">
+        <div class="max-w-7xl mx-auto px-6">
+            <h2 class="font-display text-4xl font-bold text-center text-brand-dark mb-4">ROI desde el Día 1</h2>
+            <p class="text-center text-slate-500 mb-16">Paga una tarifa plana o una comisión por ventas generadas.</p>
+
+            <div class="grid md:grid-cols-3 gap-8 items-center">
+                <!-- Starter -->
+                <div class="bg-white p-8 rounded-2xl shadow-card border border-transparent hover:border-slate-200 transition-all">
+                    <h3 class="font-bold text-xl text-slate-400 mb-4">Starter</h3>
+                    <div class="text-4xl font-extrabold text-brand-dark mb-2">$49<span class="text-lg font-medium text-slate-400">/mo</span></div>
+                    <p class="text-xs text-slate-500 mb-8">Hasta 1,000 pedidos/mes</p>
+                    <ul class="space-y-4 mb-8 text-sm text-slate-600">
+                        <li><i class="fa-solid fa-check text-brand-pink mr-2"></i> Recomendaciones Web</li>
+                        <li><i class="fa-solid fa-check text-brand-pink mr-2"></i> Analytics Básico</li>
+                        <li><i class="fa-solid fa-check text-brand-pink mr-2"></i> Email Support</li>
+                    </ul>
+                    <button class="w-full py-3 rounded-xl border-2 border-slate-100 font-bold text-brand-dark hover:border-brand-dark transition-colors">Start Free Trial</button>
+                </div>
+
+                <!-- Growth (Featured) -->
+                <div class="bg-brand-dark p-8 rounded-2xl shadow-pop transform md:scale-105 relative border border-brand-purple/30">
+                    <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-gradient-pop text-white px-4 py-1 rounded-full text-xs font-bold uppercase tracking-wide shadow-lg">Más Popular</div>
+                    <h3 class="font-bold text-xl text-white mb-4">Growth</h3>
+                    <div class="text-4xl font-extrabold text-white mb-2">$199<span class="text-lg font-medium text-slate-400">/mo</span></div>
+                    <p class="text-xs text-slate-400 mb-8">Hasta 10,000 pedidos/mes</p>
+                    <ul class="space-y-4 mb-8 text-sm text-slate-300">
+                        <li><i class="fa-solid fa-check text-brand-pink mr-2"></i> Todo en Starter</li>
+                        <li><i class="fa-solid fa-check text-brand-pink mr-2"></i> Búsqueda Visual</li>
+                        <li><i class="fa-solid fa-check text-brand-pink mr-2"></i> Precios Dinámicos</li>
+                        <li><i class="fa-solid fa-check text-brand-pink mr-2"></i> A/B Testing</li>
+                    </ul>
+                    <button class="w-full py-3 rounded-xl bg-white text-brand-dark font-bold hover:bg-brand-pink hover:text-white transition-colors">Get Started</button>
+                </div>
+
+                <!-- Enterprise -->
+                <div class="bg-white p-8 rounded-2xl shadow-card border border-transparent hover:border-slate-200 transition-all">
+                    <h3 class="font-bold text-xl text-brand-purple mb-4">Enterprise</h3>
+                    <div class="text-4xl font-extrabold text-brand-dark mb-2">Custom</div>
+                    <p class="text-xs text-slate-500 mb-8">Volumen Ilimitado</p>
+                    <ul class="space-y-4 mb-8 text-sm text-slate-600">
+                        <li><i class="fa-solid fa-check text-brand-pink mr-2"></i> Modelos AI Dedicados</li>
+                        <li><i class="fa-solid fa-check text-brand-pink mr-2"></i> API Access Full</li>
+                        <li><i class="fa-solid fa-check text-brand-pink mr-2"></i> SLA Garantizado</li>
+                        <li><i class="fa-solid fa-check text-brand-pink mr-2"></i> Success Manager</li>
+                    </ul>
+                    <button class="w-full py-3 rounded-xl border-2 border-slate-100 font-bold text-brand-dark hover:border-brand-dark transition-colors">Contact Sales</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-white pt-16 pb-8 border-t border-slate-200">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-8">
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 rounded-lg bg-brand-dark text-white flex items-center justify-center font-bold">
+                        <i class="fa-solid fa-bolt text-xs"></i>
+                    </div>
+                    <span class="font-display font-bold text-xl text-brand-dark">CartGenius</span>
+                </div>
+                <div class="flex gap-8 text-sm font-medium text-slate-500">
+                    <a href="#" class="hover:text-brand-pink">Términos</a>
+                    <a href="#" class="hover:text-brand-pink">Privacidad</a>
+                    <a href="#" class="hover:text-brand-pink">Soporte</a>
+                </div>
+                <div class="flex gap-4">
+                    <a href="#" class="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-600 hover:bg-brand-pink hover:text-white transition-all"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" class="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-600 hover:bg-brand-pink hover:text-white transition-all"><i class="fa-brands fa-tiktok"></i></a>
+                </div>
+            </div>
+            <p class="text-center text-xs text-slate-400 mt-8">© 2025 CartGenius AI. Made for e-commerce growth.</p>
+        </div>
+    </footer>
+
+    <!-- COOKIE DISCOUNT (Gamified) -->
+    <div id="cookieDiscount" class="fixed bottom-4 left-4 bg-white p-4 rounded-xl shadow-2xl border border-slate-100 z-50 max-w-xs transform translate-y-[150%] transition-transform duration-500">
+        <div class="flex justify-between items-start mb-2">
+            <h4 class="font-bold text-brand-dark text-sm">🍪 Cookies & Descuentos</h4>
+            <button onclick="closeCookies()" class="text-slate-400 hover:text-brand-dark"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <p class="text-xs text-slate-500 mb-3">Acepta nuestras cookies de rastreo y obtén un <strong>10% OFF</strong> en tu primer mes de suscripción.</p>
+        <button onclick="acceptCookies()" class="w-full bg-brand-dark text-white text-xs font-bold py-2 rounded-lg hover:bg-brand-purple transition-colors">Aceptar & Canjear</button>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script>
+        // 1. PRELOADER
+        window.addEventListener('load', () => {
+            const preloader = document.getElementById('preloader');
+            setTimeout(() => {
+                preloader.classList.add('opacity-0', 'pointer-events-none');
+                
+                // Show Cookie Banner with delay
+                setTimeout(() => {
+                    const cookie = document.getElementById('cookieDiscount');
+                    if(!localStorage.getItem('cartCookies')) {
+                        cookie.classList.remove('translate-y-[150%]');
+                    }
+                }, 2000);
+            }, 1000);
+        });
+
+        function closeCookies() {
+            document.getElementById('cookieDiscount').classList.add('translate-y-[150%]');
+        }
+        function acceptCookies() {
+            closeCookies();
+            localStorage.setItem('cartCookies', 'true');
+            // Confetti effect could trigger here
+            alert("¡Código desbloqueado: GENIUS10!");
+        }
+
+        // 2. INTERACTIVE DEMO LOGIC
+        const products = {
+            street: [
+                { img: "https://images.unsplash.com/photo-1552346154-21d32810aba3?q=80&w=400&auto=format&fit=crop", title: "Nike Air Max 97", price: "$180" },
+                { img: "https://images.unsplash.com/photo-1523398002811-999ca8dec234?q=80&w=400&auto=format&fit=crop", title: "Oversized Hoodie", price: "$85" },
+                { img: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=400&auto=format&fit=crop", title: "Red High Tops", price: "$120" },
+                { img: "https://images.unsplash.com/photo-1578681994506-b8f463449011?q=80&w=400&auto=format&fit=crop", title: "Urban Cargo", price: "$95" }
+            ],
+            minimal: [
+                { img: "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?q=80&w=400&auto=format&fit=crop", title: "Linen Shirt", price: "$65" },
+                { img: "https://images.unsplash.com/photo-1549298916-b41d501d3772?q=80&w=400&auto=format&fit=crop", title: "Beige Boots", price: "$140" },
+                { img: "https://images.unsplash.com/photo-1532453288672-3a27e9be9efd?q=80&w=400&auto=format&fit=crop", title: "Cotton Tote", price: "$25" },
+                { img: "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?q=80&w=400&auto=format&fit=crop", title: "White Tee", price: "$30" }
+            ],
+            tech: [
+                { img: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=400&auto=format&fit=crop", title: "Sony XM4", price: "$350" },
+                { img: "https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?q=80&w=400&auto=format&fit=crop", title: "Polaroid Cam", price: "$99" },
+                { img: "https://images.unsplash.com/photo-1593642702821-c8da6771f0c6?q=80&w=400&auto=format&fit=crop", title: "Dell Monitor", price: "$400" },
+                { img: "https://images.pexels.com/photos/3829230/pexels-photo-3829230.jpeg?auto=compress&cs=tinysrgb&w=400"
+, title: "Mechanical Keeb", price: "$150" }
+            ]
+        };
+
+        const grid = document.getElementById('productGrid');
+        
+        function renderProducts(style) {
+            // Clear current
+            grid.innerHTML = '';
+            
+            // Add new with animation
+            products[style].forEach((p, index) => {
+                const card = document.createElement('div');
+                card.className = 'bg-white rounded-lg p-2 shadow-sm hover:shadow-md transition-all cursor-pointer group animate-pop-in';
+                card.style.animationDelay = `${index * 100}ms`;
+                card.innerHTML = `
+                    <div class="relative overflow-hidden rounded-lg mb-2 h-32">
+                        <img src="${p.img}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute top-2 right-2 bg-white/80 backdrop-blur rounded-full w-6 h-6 flex items-center justify-center text-xs shadow-sm opacity-0 group-hover:opacity-100 transition-opacity">
+                            <i class="fa-solid fa-plus"></i>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-start px-1">
+                        <div>
+                            <h4 class="text-[10px] font-bold text-brand-dark truncate w-24">${p.title}</h4>
+                            <p class="text-[10px] text-slate-500">Recomendado</p>
+                        </div>
+                        <span class="text-xs font-bold text-brand-pink">${p.price}</span>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+
+            // Show Notification
+            const notif = document.getElementById('notification');
+            notif.classList.remove('translate-y-20', 'opacity-0');
+            setTimeout(() => {
+                notif.classList.add('translate-y-20', 'opacity-0');
+            }, 2500);
+        }
+
+        // Handle Buttons
+        function switchProfile(profile) {
+            // Visual feedback on buttons
+            document.querySelectorAll('.profile-btn').forEach(btn => {
+                if(btn.dataset.profile === profile) {
+                    btn.classList.add('border-brand-purple', 'text-brand-purple', 'bg-purple-50');
+                    btn.classList.remove('border-slate-200', 'text-slate-600', 'bg-white');
+                } else {
+                    btn.classList.remove('border-brand-purple', 'text-brand-purple', 'bg-purple-50');
+                    btn.classList.add('border-slate-200', 'text-slate-600', 'bg-white');
+                }
+            });
+            
+            renderProducts(profile);
+        }
+
+        // Init
+        switchProfile('street');
+
+    </script>
+
+    <!-- BOTÓN WHATSAPP -->
+    <a href="https://wa.me/5491143216789"
+       target="_blank"
+       rel="noopener noreferrer"
+       aria-label="WhatsApp"
+       style="position: fixed; bottom: calc(1.5rem + env(safe-area-inset-bottom)); right: 1.5rem; z-index: 9999; display: flex; align-items: center; justify-content: center; width: 3.5rem; height: 3.5rem; border-radius: 50%; background-color: #25D366; color: white; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: transform 0.3s ease; text-decoration: none;"
+       onmouseover="this.style.transform='scale(1.1)'"
+       onmouseout="this.style.transform='scale(1)'"
+       title="WhatsApp">
+       <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" viewBox="0 0 16 16">
+  <path d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.9 7.9 0 0 0 13.6 2.326zM7.994 14.521a6.6 6.6 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.56 6.56 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592m3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.73.73 0 0 0-.529.247c-.182.198-.691.677-.691 1.654s.71 1.916.81 2.049c.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232"/>
+</svg>
+    </a>
+
+</body>
+</html>

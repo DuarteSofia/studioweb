@@ -1,0 +1,476 @@
+<!-- 
+  ========================================
+  TEMPLATE NAME: NEXGEN - Strategic Consulting & Tech
+  AUTHOR: Sebastian Fernandez
+  WEBSITE: https://sebastian-fernandez.com
+  VERSION: 2.0.0 (Final Commercial Release)
+  LICENSE: Standard License (Personal & Commercial Use)
+  ========================================
+-->
+
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO & METADATA -->
+    <title>NEXGEN | Strategic Consulting</title>
+    <meta name="description" content="Consultoría estratégica para la era digital. Ayudamos a empresas a escalar mediante tecnología, datos y optimización de procesos.">
+    <meta name="author" content="Sebastian Fernandez">
+
+    <!-- FAVICON (SVG Inline) -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><path d='M50 10 L90 30 V70 L50 90 L10 70 V30 Z' fill='none' stroke='%234F46E5' stroke-width='8'/><circle cx='50' cy='50' r='15' fill='%2306B6D4'/></svg>">
+
+    <!-- OPEN GRAPH -->
+    <meta property="og:title" content="NexGen | Consultoría Estratégica">
+    <meta property="og:description" content="Impulsamos el futuro de tu negocio con soluciones digitales y estrategia basada en datos.">
+    <meta property="og:image" content="https://placehold.co/1200x630/111827/4F46E5?text=NEXGEN+CONSULTING">
+    <meta property="og:url" content="#">
+    <meta property="og:type" content="website">
+
+    <!-- 1. TAILWIND CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- 2. GOOGLE FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Montserrat (Títulos Modernos) + Inter (UI Limpia) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Montserrat:wght@500;700;800&display=swap" rel="stylesheet">
+
+    <!-- 3. FONT AWESOME -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- CONFIGURACIÓN TAILWIND -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'nex-indigo': '#4F46E5', /* Indigo Primario */
+                        'nex-dark': '#111827',   /* Gris Casi Negro */
+                        'nex-cyan': '#06B6D4',   /* Cian Acento */
+                        'nex-light': '#F3F4F6',  /* Gris Fondo */
+                    },
+                    fontFamily: {
+                        'display': ['Montserrat', 'sans-serif'],
+                        'body': ['Inter', 'sans-serif'],
+                    },
+                    backgroundImage: {
+                        'gradient-hero': 'linear-gradient(135deg, #111827 0%, #1F2937 100%)',
+                        'gradient-card': 'linear-gradient(135deg, #ffffff 0%, #F9FAFB 100%)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Gradiente Animado de Texto */
+        .text-gradient {
+            background: linear-gradient(to right, #4F46E5, #06B6D4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        /* Glassmorphism Cards */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Abstract Shapes Animation */
+        .blob {
+            position: absolute;
+            filter: blur(80px);
+            opacity: 0.4;
+            animation: moveBlob 10s infinite alternate;
+        }
+        @keyframes moveBlob {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(20px, -20px) scale(1.1); }
+        }
+
+        /* Mobile Menu */
+        #mobile-menu {
+            transform: translateX(100%);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        #mobile-menu.open {
+            transform: translateX(0);
+        }
+
+        /* Back to Top */
+
+        /* Cookie Banner */
+        #cookie-banner {
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(20px);
+            transition: all 0.4s ease;
+        }
+
+        #cookie-banner.show {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="font-body text-gray-600 bg-white selection:bg-nex-indigo selection:text-white">
+
+    <!-- NAVBAR -->
+    <nav class="fixed w-full z-50 bg-white/90 backdrop-blur-md border-b border-gray-100 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center gap-2 cursor-pointer" onclick="window.scrollTo(0,0)">
+                    <div class="w-8 h-8 bg-gradient-to-tr from-nex-indigo to-nex-cyan rounded-lg flex items-center justify-center text-white text-xs font-bold shadow-lg">N</div>
+                    <span class="font-display font-bold text-2xl text-nex-dark tracking-tight">NexGen<span class="text-nex-indigo">.</span></span>
+                </div>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-8 items-center font-medium text-sm text-gray-600">
+                    <a href="#soluciones" class="hover:text-nex-indigo transition-colors">Soluciones</a>
+                    <a href="#metodologia" class="hover:text-nex-indigo transition-colors">Metodología</a>
+                    <a href="#casos" class="hover:text-nex-indigo transition-colors">Casos de Éxito</a>
+                    <a href="#contacto" class="bg-nex-dark text-white px-5 py-2.5 rounded-lg hover:bg-nex-indigo transition-all shadow-lg hover:shadow-nex-indigo/30 transform hover:-translate-y-0.5">
+                        Agendar Demo
+                    </a>
+                </div>
+
+                <!-- Mobile Button -->
+                <button id="mobile-menu-btn" class="md:hidden text-2xl text-nex-dark focus:outline-none">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Overlay -->
+        <div id="mobile-menu" class="fixed inset-0 bg-nex-dark/95 backdrop-blur-xl z-40 flex flex-col justify-center items-center h-screen w-screen text-white">
+            <div class="flex flex-col gap-8 text-2xl font-display font-bold text-center">
+                <a href="#soluciones" class="mobile-link hover:text-nex-cyan transition-colors">Soluciones</a>
+                <a href="#metodologia" class="mobile-link hover:text-nex-cyan transition-colors">Metodología</a>
+                <a href="#casos" class="mobile-link hover:text-nex-cyan transition-colors">Casos de Éxito</a>
+                <a href="#contacto" class="mobile-link text-nex-cyan border-b-2 border-nex-cyan pb-1">Agendar Demo</a>
+            </div>
+            <button id="close-menu" class="absolute top-6 right-6 text-4xl text-gray-400 hover:text-white transition-colors">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden bg-nex-dark text-white">
+        <!-- Abstract Background Blobs -->
+        <div class="blob w-96 h-96 bg-nex-indigo top-0 left-0 rounded-full"></div>
+        <div class="blob w-96 h-96 bg-nex-cyan bottom-0 right-0 rounded-full" style="animation-delay: -5s;"></div>
+        
+        <!-- Grid Pattern Overlay -->
+        <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-20"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                
+                <!-- Text Content -->
+                <div class="text-center lg:text-left">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/10 text-xs font-semibold uppercase tracking-wider mb-6 text-nex-cyan shadow-glow">
+                        <span class="w-2 h-2 rounded-full bg-nex-cyan animate-pulse"></span>
+                        Consultoría Estratégica 4.0
+                    </div>
+                    <h1 class="font-display text-5xl lg:text-7xl font-bold leading-tight mb-6">
+                        Impulsamos el <br>
+                        <span class="text-gradient">Futuro</span> de tu negocio.
+                    </h1>
+                    <p class="text-lg text-gray-400 mb-8 max-w-lg mx-auto lg:mx-0 leading-relaxed">
+                        Transformamos datos en decisiones. Ayudamos a empresas líderes a escalar operaciones, optimizar recursos y liderar su mercado mediante tecnología y estrategia.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                        <a href="#contacto" class="bg-nex-indigo text-white px-8 py-4 rounded-xl font-bold hover:bg-indigo-500 transition-all shadow-lg shadow-indigo-500/30 flex items-center justify-center gap-2 transform hover:-translate-y-1">
+                            Empezar Ahora <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                        <a href="#casos" class="bg-transparent border border-white/20 text-white px-8 py-4 rounded-xl font-bold hover:bg-white/10 transition-all flex items-center justify-center">
+                            Ver Portfolio
+                        </a>
+                    </div>
+                    
+                    <!-- Logos Clientes (Opacidad) -->
+                    <div class="mt-12 pt-8 border-t border-white/10">
+                        <p class="text-sm text-gray-500 mb-4 uppercase tracking-widest font-semibold">Empresas que confían en nosotros</p>
+                        <div class="flex flex-wrap justify-center lg:justify-start gap-8 opacity-50 grayscale">
+                            <i class="fa-brands fa-google text-2xl hover:text-white transition-colors cursor-help" title="Google"></i>
+                            <i class="fa-brands fa-aws text-2xl hover:text-white transition-colors cursor-help" title="AWS"></i>
+                            <i class="fa-brands fa-stripe text-2xl hover:text-white transition-colors cursor-help" title="Stripe"></i>
+                            <i class="fa-brands fa-slack text-2xl hover:text-white transition-colors cursor-help" title="Slack"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Graphic/Image -->
+                <div class="relative">
+                    <div class="absolute inset-0 bg-gradient-to-r from-nex-indigo to-nex-cyan rounded-2xl blur-2xl opacity-30 transform rotate-6"></div>
+                    <!-- Pexels: Modern Office / Meeting -->
+                    <img src="https://images.pexels.com/photos/3183150/pexels-photo-3183150.jpeg?auto=compress&cs=tinysrgb&w=800" class="relative rounded-2xl shadow-2xl w-full object-cover border border-white/10 hover:scale-[1.02] transition-transform duration-500" alt="Strategy Meeting">
+                    
+                    <!-- Floating Stat Card -->
+                    <div class="absolute -bottom-6 -left-6 bg-white p-6 rounded-xl shadow-xl text-nex-dark animate-bounce" style="animation-duration: 4s;">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center text-green-600 text-xl">
+                                <i class="fa-solid fa-chart-line"></i>
+                            </div>
+                            <div>
+                                <p class="text-sm text-gray-500 font-bold">Crecimiento Promedio</p>
+                                <p class="text-2xl font-display font-bold">+125%</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SOLUCIONES (Cards) -->
+    <section id="soluciones" class="py-24 bg-nex-light">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-nex-indigo font-bold uppercase tracking-widest text-xs">Nuestros Servicios</span>
+                <h2 class="font-display text-4xl font-bold mt-2 mb-4 text-nex-dark">Soluciones Integrales</h2>
+                <p class="text-gray-600">Combinamos consultoría tradicional con herramientas digitales de última generación.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <div class="bg-white p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 group hover:-translate-y-2">
+                    <div class="w-14 h-14 bg-indigo-50 rounded-xl flex items-center justify-center text-nex-indigo text-2xl mb-6 group-hover:bg-nex-indigo group-hover:text-white transition-colors">
+                        <i class="fa-solid fa-rocket"></i>
+                    </div>
+                    <h3 class="font-display text-xl font-bold text-nex-dark mb-3">Escalabilidad de Negocio</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed mb-6">Diseñamos hojas de ruta para startups y pymes que buscan pasar al siguiente nivel de facturación.</p>
+                    <a href="#contacto" class="text-nex-indigo font-bold text-sm flex items-center gap-1 hover:gap-2 transition-all">Saber más <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="bg-white p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 group hover:-translate-y-2">
+                    <div class="w-14 h-14 bg-cyan-50 rounded-xl flex items-center justify-center text-nex-cyan text-2xl mb-6 group-hover:bg-nex-cyan group-hover:text-white transition-colors">
+                        <i class="fa-solid fa-magnifying-glass-chart"></i>
+                    </div>
+                    <h3 class="font-display text-xl font-bold text-nex-dark mb-3">Analítica de Datos</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed mb-6">Implementación de dashboards BI y análisis predictivo para la toma de decisiones informada.</p>
+                    <a href="#contacto" class="text-nex-cyan font-bold text-sm flex items-center gap-1 hover:gap-2 transition-all">Saber más <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="bg-white p-8 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 group hover:-translate-y-2">
+                    <div class="w-14 h-14 bg-purple-50 rounded-xl flex items-center justify-center text-purple-600 text-2xl mb-6 group-hover:bg-purple-600 group-hover:text-white transition-colors">
+                        <i class="fa-solid fa-users-gear"></i>
+                    </div>
+                    <h3 class="font-display text-xl font-bold text-nex-dark mb-3">Transformación Digital</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed mb-6">Digitalización de procesos operativos para reducir costes y aumentar la eficiencia del equipo.</p>
+                    <a href="#contacto" class="text-purple-600 font-bold text-sm flex items-center gap-1 hover:gap-2 transition-all">Saber más <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- METODOLOGÍA (Alternating) -->
+    <section id="metodologia" class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Step 1 -->
+            <div class="flex flex-col lg:flex-row gap-16 items-center mb-24">
+                <div class="lg:w-1/2">
+                    <img src="https://images.pexels.com/photos/3184287/pexels-photo-3184287.jpeg?auto=compress&cs=tinysrgb&w=800" class="rounded-2xl shadow-lg w-full hover:scale-[1.01] transition-transform" alt="Analysis">
+                </div>
+                <div class="lg:w-1/2">
+                    <span class="text-6xl font-display font-bold text-gray-100 absolute -z-10 -ml-6 -mt-6">01</span>
+                    <h3 class="font-display text-3xl font-bold text-nex-dark mb-4 relative">Auditoría Profunda</h3>
+                    <p class="text-gray-600 mb-6 leading-relaxed">
+                        No asumimos nada. Empezamos con una inmersión total en tu empresa para entender los cuellos de botella, la cultura y los objetivos reales. Entrevistas, análisis de KPIs y revisión de tech stack.
+                    </p>
+                    <ul class="space-y-3">
+                        <li class="flex items-center gap-3"><i class="fa-solid fa-check text-green-500"></i> Análisis DAFO Digital</li>
+                        <li class="flex items-center gap-3"><i class="fa-solid fa-check text-green-500"></i> Entrevistas con Stakeholders</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="flex flex-col lg:flex-row-reverse gap-16 items-center">
+                <div class="lg:w-1/2">
+                    <img src="https://images.pexels.com/photos/3183197/pexels-photo-3183197.jpeg?auto=compress&cs=tinysrgb&w=800" class="rounded-2xl shadow-lg w-full hover:scale-[1.01] transition-transform" alt="Execution">
+                </div>
+                <div class="lg:w-1/2">
+                    <span class="text-6xl font-display font-bold text-gray-100 absolute -z-10 -ml-6 -mt-6">02</span>
+                    <h3 class="font-display text-3xl font-bold text-nex-dark mb-4 relative">Ejecución Ágil</h3>
+                    <p class="text-gray-600 mb-6 leading-relaxed">
+                        Implementamos cambios en sprints de 2 semanas. Esto nos permite pivotar rápido y ver resultados tempranos sin paralizar la operación diaria de la empresa.
+                    </p>
+                    <ul class="space-y-3">
+                        <li class="flex items-center gap-3"><i class="fa-solid fa-check text-green-500"></i> Metodología Scrum/Agile</li>
+                        <li class="flex items-center gap-3"><i class="fa-solid fa-check text-green-500"></i> Reportes Semanales de Progreso</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CASOS DE ÉXITO (Stats) -->
+    <section id="casos" class="py-20 bg-nex-dark text-white relative">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                <div class="p-6 border border-white/10 rounded-2xl bg-white/5 backdrop-blur-sm hover:bg-white/10 transition-colors">
+                    <div class="text-4xl font-display font-bold text-nex-cyan mb-2">500+</div>
+                    <div class="text-sm text-gray-400">Proyectos Entregados</div>
+                </div>
+                <div class="p-6 border border-white/10 rounded-2xl bg-white/5 backdrop-blur-sm hover:bg-white/10 transition-colors">
+                    <div class="text-4xl font-display font-bold text-nex-indigo mb-2">40M USD</div>
+                    <div class="text-sm text-gray-400">Valor Generado</div>
+                </div>
+                <div class="p-6 border border-white/10 rounded-2xl bg-white/5 backdrop-blur-sm hover:bg-white/10 transition-colors">
+                    <div class="text-4xl font-display font-bold text-nex-cyan mb-2">98%</div>
+                    <div class="text-sm text-gray-400">Retención de Clientes</div>
+                </div>
+                <div class="p-6 border border-white/10 rounded-2xl bg-white/5 backdrop-blur-sm hover:bg-white/10 transition-colors">
+                    <div class="text-4xl font-display font-bold text-nex-indigo mb-2">24/7</div>
+                    <div class="text-sm text-gray-400">Soporte Activo</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT FORM -->
+    <section id="contacto" class="py-24 bg-nex-light">
+        <div class="max-w-3xl mx-auto px-4">
+            <div class="bg-white rounded-3xl shadow-2xl p-8 md:p-12 overflow-hidden relative">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-nex-indigo/10 rounded-bl-full"></div>
+                
+                <div class="text-center mb-10">
+                    <h2 class="font-display text-3xl font-bold text-nex-dark mb-4">Hablemos de Estrategia</h2>
+                    <p class="text-gray-500">Reserva una llamada de descubrimiento de 30 minutos. Sin compromiso.</p>
+                </div>
+
+                <!-- DEMO FORM -->
+                <form onsubmit="event.preventDefault(); alert('DEMO: Solicitud de demo recibida. Nos pondremos en contacto contigo.');" class="space-y-6 relative z-10">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-bold text-gray-700 mb-2">Nombre</label>
+                            <input type="text" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 focus:border-nex-indigo focus:ring-2 focus:ring-nex-indigo/20 outline-none transition-all" placeholder="Tu nombre" required>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold text-gray-700 mb-2">Empresa</label>
+                            <input type="text" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 focus:border-nex-indigo focus:ring-2 focus:ring-nex-indigo/20 outline-none transition-all" placeholder="Nombre de empresa">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-gray-700 mb-2">Email Corporativo</label>
+                        <input type="email" class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 focus:border-nex-indigo focus:ring-2 focus:ring-nex-indigo/20 outline-none transition-all" placeholder="tu@empresa.com" required>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-gray-700 mb-2">¿Cuál es tu principal desafío?</label>
+                        <select class="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 focus:border-nex-indigo focus:ring-2 focus:ring-nex-indigo/20 outline-none transition-all">
+                            <option>Escalar Ventas</option>
+                            <option>Optimización de Procesos</option>
+                            <option>Transformación Digital</option>
+                            <option>Otro</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="w-full bg-gradient-to-r from-nex-indigo to-indigo-600 text-white font-bold py-4 rounded-xl hover:shadow-lg hover:shadow-indigo-500/30 transition-all transform hover:-translate-y-1">
+                        Solicitar Auditoría Gratuita
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-white border-t border-gray-100 py-12">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="flex items-center gap-2">
+                <div class="w-6 h-6 bg-nex-indigo rounded-md"></div>
+                <span class="font-bold text-nex-dark">NexGen Strategy</span>
+            </div>
+            
+            <div class="text-sm text-gray-500">
+                &copy; 2025 NexGen Inc. Todos los derechos reservados.
+            </div>
+
+            <div class="flex gap-6">
+                <a href="#" class="text-gray-400 hover:text-nex-indigo transition-colors"><i class="fa-brands fa-linkedin text-xl"></i></a>
+                <a href="#" class="text-gray-400 hover:text-nex-indigo transition-colors"><i class="fa-brands fa-twitter text-xl"></i></a>
+                <a href="#" class="text-gray-400 hover:text-nex-indigo transition-colors"><i class="fa-brands fa-medium text-xl"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- BOTÓN VOLVER ARRIBA -->
+    
+
+    <!-- COOKIE BANNER -->
+    <div id="cookie-banner" class="fixed bottom-4 right-4 max-w-sm bg-white border border-gray-100 p-6 rounded-2xl shadow-2xl z-50 flex flex-col gap-4">
+        <p class="text-sm text-gray-600 leading-relaxed">
+            <span class="text-nex-indigo font-bold">🍪 Data Driven:</span> Usamos cookies para optimizar nuestro rendimiento y el tuyo.
+        </p>
+        <div class="flex gap-2">
+            <button id="accept-cookies" class="bg-nex-dark text-white px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider hover:bg-nex-indigo transition-colors flex-1">
+                Aceptar
+            </button>
+            <button id="close-cookies" class="bg-gray-100 text-gray-500 px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider hover:bg-gray-200 transition-colors flex-1">
+                Rechazar
+            </button>
+        </div>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script>
+        // Menu Mobile
+        const menuBtn = document.getElementById('mobile-menu-btn');
+        const closeMenu = document.getElementById('close-menu');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        function toggleMenu() {
+            mobileMenu.classList.toggle('open');
+            document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : 'auto';
+        }
+
+        menuBtn.addEventListener('click', toggleMenu);
+        closeMenu.addEventListener('click', toggleMenu);
+        mobileLinks.forEach(link => link.addEventListener('click', toggleMenu));
+
+        // Back to Top
+        
+
+        // Cookie Banner
+        const cookieBanner = document.getElementById('cookie-banner');
+        const acceptCookies = document.getElementById('accept-cookies');
+        const closeCookies = document.getElementById('close-cookies');
+
+        setTimeout(() => {
+            cookieBanner.classList.add('show');
+        }, 2000);
+
+        const hideBanner = () => {
+            cookieBanner.classList.remove('show');
+        };
+
+        acceptCookies.addEventListener('click', hideBanner);
+        closeCookies.addEventListener('click', hideBanner);
+    </script>
+
+    <!-- BOTÓN WHATSAPP -->
+    <a href="https://wa.me/5491143216789"
+       target="_blank"
+       rel="noopener noreferrer"
+       aria-label="WhatsApp"
+       style="position: fixed; bottom: calc(1.5rem + env(safe-area-inset-bottom)); right: 1.5rem; z-index: 9999; display: flex; align-items: center; justify-content: center; width: 3.5rem; height: 3.5rem; border-radius: 50%; background-color: #25D366; color: white; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: transform 0.3s ease; text-decoration: none;"
+       onmouseover="this.style.transform='scale(1.1)'"
+       onmouseout="this.style.transform='scale(1)'"
+       title="WhatsApp">
+       <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" viewBox="0 0 16 16">
+  <path d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.9 7.9 0 0 0 13.6 2.326zM7.994 14.521a6.6 6.6 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.56 6.56 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592m3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.73.73 0 0 0-.529.247c-.182.198-.691.677-.691 1.654s.71 1.916.81 2.049c.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232"/>
+</svg>
+    </a>
+
+</body>
+</html>

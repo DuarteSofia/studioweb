@@ -1,0 +1,548 @@
+<!-- 
+  ========================================
+  TEMPLATE NAME: SKILLUP - Tech Bootcamp & Academy
+  AUTHOR: Sebastian Fernandez
+  WEBSITE: https://sebastian-fernandez.com
+  VERSION: 1.0.0 (Final Commercial Release)
+  LICENSE: Standard License (Personal & Commercial Use)
+  ========================================
+-->
+
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO & METADATA -->
+    <title>SKILLUP | Tech Bootcamp</title>
+    <meta name="description" content="Aprende a programar desde cero. Bootcamp intensivo de Desarrollo Web y Data Science. Cambia tu carrera en 12 semanas.">
+    <meta name="author" content="Sebastian Fernandez">
+
+    <!-- FAVICON (SVG Inline) -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%232563EB'/><path d='M30 50 L50 70 L80 30' stroke='white' stroke-width='10' fill='none' stroke-linecap='round' stroke-linejoin='round'/></svg>">
+
+    <!-- OPEN GRAPH -->
+    <meta property="og:title" content="SKILLUP | Lanza tu carrera Tech">
+    <meta property="og:description" content="De principiante a profesional en 12 semanas. Garantía de empleo.">
+    <meta property="og:image" content="https://placehold.co/1200x630/2563EB/ffffff?text=SKILLUP+BOOTCAMP">
+    <meta property="og:url" content="#">
+    <meta property="og:type" content="website">
+
+    <!-- 1. TAILWIND CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- 2. GOOGLE FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Space Grotesk (Tech Headings) + Inter (UI Body) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;700;800&display=swap" rel="stylesheet">
+
+    <!-- 3. FONT AWESOME -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- 4. AOS ANIMATION -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <!-- CONFIGURACIÓN TAILWIND -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'skill-blue': '#2563EB',    /* Azul Principal */
+                        'skill-dark': '#0F172A',    /* Azul Noche Fondo */
+                        'skill-coral': '#FF6B6B',   /* Acento Coral */
+                        'skill-teal': '#2DD4BF',    /* Acento Teal */
+                        'skill-gray': '#F1F5F9',    /* Fondo Claro */
+                    },
+                    fontFamily: {
+                        'display': ['Space Grotesk', 'sans-serif'],
+                        'body': ['Inter', 'sans-serif'],
+                    },
+                    backgroundImage: {
+                        'grid-slate': "url('https://www.transparenttextures.com/patterns/graphy.png')",
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Animaciones */
+        .float { animation: float 6s ease-in-out infinite; }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* Gradientes de Texto */
+        .text-gradient {
+            background: linear-gradient(to right, #2DD4BF, #2563EB);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Card Hover */
+        .course-card {
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+        .course-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px -5px rgba(37, 99, 235, 0.15);
+            border-color: #2563EB;
+        }
+
+        /* Mobile Menu */
+        #mobile-menu {
+            transform: translateX(100%);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        #mobile-menu.open {
+            transform: translateX(0);
+        }
+
+        /* Back to Top */
+
+        /* Cookie Banner */
+        #cookie-banner {
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(20px);
+            transition: all 0.4s ease;
+        }
+
+        #cookie-banner.show {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="font-body text-slate-600 bg-white selection:bg-skill-blue selection:text-white overflow-x-hidden">
+
+    <!-- NAVBAR -->
+    <nav class="fixed w-full z-50 bg-white/90 backdrop-blur-lg border-b border-slate-100 transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <a href="#" class="flex items-center gap-2 group" onclick="window.scrollTo(0,0)">
+                    <div class="w-8 h-8 bg-skill-blue rounded-lg flex items-center justify-center text-white font-bold font-display group-hover:rotate-12 transition-transform">
+                        &lt;/&gt;
+                    </div>
+                    <span class="font-display font-bold text-2xl text-skill-dark tracking-tight">Skill<span class="text-skill-blue">Up</span></span>
+                </a>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center gap-8 font-semibold text-sm text-slate-600">
+                    <a href="#bootcamps" class="hover:text-skill-blue transition-colors">Bootcamps</a>
+                    <a href="#metodo" class="hover:text-skill-blue transition-colors">Metodología</a>
+                    <a href="#alumni" class="hover:text-skill-blue transition-colors">Alumnos</a>
+                    <a href="#apply" class="bg-skill-dark text-white px-5 py-2.5 rounded-lg hover:bg-skill-blue transition-all shadow-lg hover:shadow-skill-blue/30 transform hover:-translate-y-0.5">
+                        Aplicar Ahora
+                    </a>
+                </div>
+
+                <!-- Mobile Button -->
+                <button id="mobile-menu-btn" class="md:hidden text-2xl text-skill-dark focus:outline-none">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Overlay -->
+        <div id="mobile-menu" class="fixed inset-0 bg-skill-dark z-40 flex flex-col justify-center items-center h-screen w-screen">
+            <div class="flex flex-col gap-8 text-2xl font-display font-bold text-center text-white">
+                <a href="#bootcamps" class="mobile-link hover:text-skill-teal transition-colors">Bootcamps</a>
+                <a href="#metodo" class="mobile-link hover:text-skill-teal transition-colors">Metodología</a>
+                <a href="#alumni" class="mobile-link hover:text-skill-teal transition-colors">Alumni</a>
+                <a href="#apply" class="mobile-link text-skill-blue bg-white px-6 py-2 rounded-full">Aplicar</a>
+            </div>
+            <button id="close-menu" class="absolute top-6 right-6 text-4xl text-gray-400 hover:text-white transition-colors">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="relative pt-32 pb-20 lg:pt-40 lg:pb-32 overflow-hidden bg-slate-50">
+        <!-- Grid Background -->
+        <div class="absolute inset-0 bg-grid-slate opacity-[0.03]"></div>
+        
+        <!-- Blobs -->
+        <div class="absolute top-0 right-0 w-[600px] h-[600px] bg-skill-blue/10 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2"></div>
+        <div class="absolute bottom-0 left-0 w-[500px] h-[500px] bg-skill-teal/10 rounded-full blur-[100px] translate-y-1/2 -translate-x-1/2"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center max-w-4xl mx-auto">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-slate-200 text-xs font-bold uppercase tracking-wider mb-8 text-skill-blue shadow-sm animate-bounce">
+                    <span class="w-2 h-2 rounded-full bg-skill-coral"></span>
+                    Próximo Cohort: 15 de Febrero
+                </div>
+                
+                <h1 class="font-display text-5xl md:text-7xl font-bold tracking-tight text-skill-dark mb-6 leading-[1.1]">
+                    Lanza tu carrera Tech en <br>
+                    <span class="text-gradient">12 Semanas</span>
+                </h1>
+                
+                <p class="text-lg md:text-xl text-slate-500 mb-10 max-w-2xl mx-auto leading-relaxed">
+                    Aprende las habilidades más demandadas del mercado. Full Stack Development, Data Science y UX/UI. <span class="text-skill-dark font-bold">No pagues hasta que encuentres trabajo.</span>
+                </p>
+                
+                <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                    <a href="#bootcamps" class="bg-skill-blue text-white px-8 py-4 rounded-xl font-bold text-lg hover:bg-blue-600 transition-all shadow-xl hover:shadow-blue-500/25 flex items-center gap-2 w-full sm:w-auto justify-center">
+                        Ver Programas <i class="fa-solid fa-code"></i>
+                    </a>
+                    <a href="#alumni" class="bg-white text-skill-dark border border-slate-200 px-8 py-4 rounded-xl font-bold text-lg hover:bg-slate-50 transition-all w-full sm:w-auto justify-center flex items-center gap-2">
+                        <i class="fa-solid fa-user-graduate text-skill-teal"></i> Ver Resultados
+                    </a>
+                </div>
+
+                <div class="mt-12 pt-8 border-t border-slate-200/60 flex flex-col md:flex-row items-center justify-center gap-8 text-sm font-semibold text-slate-400">
+                    <span>Nuestros graduados trabajan en:</span>
+                    <div class="flex gap-6 grayscale opacity-60">
+                        <i class="fa-brands fa-google text-2xl hover:grayscale-0 hover:opacity-100 transition-all cursor-help" title="Google"></i>
+                        <i class="fa-brands fa-amazon text-2xl hover:grayscale-0 hover:opacity-100 transition-all cursor-help" title="Amazon"></i>
+                        <i class="fa-brands fa-spotify text-2xl hover:grayscale-0 hover:opacity-100 transition-all cursor-help" title="Spotify"></i>
+                        <i class="fa-brands fa-uber text-2xl hover:grayscale-0 hover:opacity-100 transition-all cursor-help" title="Uber"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- STATS STRIP -->
+    <section class="bg-skill-dark text-white py-12">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center divide-x divide-white/10">
+                <div data-aos="fade-up">
+                    <div class="text-4xl font-display font-bold text-skill-teal mb-1">98%</div>
+                    <div class="text-xs uppercase tracking-widest text-slate-400">Empleabilidad</div>
+                </div>
+                <div data-aos="fade-up" data-aos-delay="100">
+                    <div class="text-4xl font-display font-bold text-skill-coral mb-1">35kARS</div>
+                    <div class="text-xs uppercase tracking-widest text-slate-400">Salario Inicial</div>
+                </div>
+                <div data-aos="fade-up" data-aos-delay="200">
+                    <div class="text-4xl font-display font-bold text-skill-blue mb-1">2.5k+</div>
+                    <div class="text-xs uppercase tracking-widest text-slate-400">Graduados</div>
+                </div>
+                <div data-aos="fade-up" data-aos-delay="300">
+                    <div class="text-4xl font-display font-bold text-white mb-1">100%</div>
+                    <div class="text-xs uppercase tracking-widest text-slate-400">Práctico</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BOOTCAMPS -->
+    <section id="bootcamps" class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <span class="text-skill-blue font-bold uppercase tracking-widest text-xs bg-blue-50 px-3 py-1 rounded-full">Nuestros Cursos</span>
+                <h2 class="font-display text-4xl font-bold text-skill-dark mt-4">Elige tu camino Tech</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <div class="course-card bg-white p-8 rounded-2xl group cursor-pointer">
+                    <div class="w-14 h-14 bg-yellow-100 rounded-xl flex items-center justify-center text-yellow-600 text-2xl mb-6 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-code"></i>
+                    </div>
+                    <h3 class="font-display text-2xl font-bold text-skill-dark mb-2">Full Stack Web Dev</h3>
+                    <p class="text-slate-500 text-sm mb-6 leading-relaxed">Domina JavaScript, React, Node.js y bases de datos. Conviértete en un desarrollador completo.</p>
+                    <div class="flex flex-wrap gap-2 mb-8 text-xs font-bold text-slate-600">
+                        <span class="bg-slate-100 px-2 py-1 rounded">JS</span>
+                        <span class="bg-slate-100 px-2 py-1 rounded">React</span>
+                        <span class="bg-slate-100 px-2 py-1 rounded">Node</span>
+                    </div>
+                    <a href="#apply" class="text-skill-blue font-bold text-sm flex items-center gap-1 hover:gap-2 transition-all">Ver Syllabus <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="course-card bg-white p-8 rounded-2xl group cursor-pointer border-t-4 border-t-skill-blue">
+                    <div class="w-14 h-14 bg-blue-100 rounded-xl flex items-center justify-center text-skill-blue text-2xl mb-6 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-database"></i>
+                    </div>
+                    <h3 class="font-display text-2xl font-bold text-skill-dark mb-2">Data Science & AI</h3>
+                    <p class="text-slate-500 text-sm mb-6 leading-relaxed">Aprende Python, Machine Learning e Inteligencia Artificial. Analiza datos y predice el futuro.</p>
+                    <div class="flex flex-wrap gap-2 mb-8 text-xs font-bold text-slate-600">
+                        <span class="bg-slate-100 px-2 py-1 rounded">Python</span>
+                        <span class="bg-slate-100 px-2 py-1 rounded">SQL</span>
+                        <span class="bg-slate-100 px-2 py-1 rounded">Pandas</span>
+                    </div>
+                    <a href="#apply" class="text-skill-blue font-bold text-sm flex items-center gap-1 hover:gap-2 transition-all">Ver Syllabus <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="course-card bg-white p-8 rounded-2xl group cursor-pointer">
+                    <div class="w-14 h-14 bg-purple-100 rounded-xl flex items-center justify-center text-purple-600 text-2xl mb-6 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-pen-nib"></i>
+                    </div>
+                    <h3 class="font-display text-2xl font-bold text-skill-dark mb-2">UX/UI Design</h3>
+                    <p class="text-slate-500 text-sm mb-6 leading-relaxed">Diseña productos digitales que la gente ame. Desde la investigación de usuarios hasta el prototipado.</p>
+                    <div class="flex flex-wrap gap-2 mb-8 text-xs font-bold text-slate-600">
+                        <span class="bg-slate-100 px-2 py-1 rounded">Figma</span>
+                        <span class="bg-slate-100 px-2 py-1 rounded">Wireframing</span>
+                    </div>
+                    <a href="#apply" class="text-skill-blue font-bold text-sm flex items-center gap-1 hover:gap-2 transition-all">Ver Syllabus <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- METODOLOGÍA / PROCESO -->
+    <section id="metodo" class="py-24 bg-slate-50">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <div>
+                    <h2 class="font-display text-4xl font-bold text-skill-dark mb-6">Aprende haciendo. <br>Proyecto tras proyecto.</h2>
+                    <p class="text-slate-600 text-lg mb-8">
+                        Nuestra metodología es 100% práctica. Olvídate de la teoría aburrida. Desde la primera semana estarás construyendo software real y trabajando en equipo como en una empresa tech.
+                    </p>
+                    <ul class="space-y-4">
+                        <li class="flex items-start gap-4">
+                            <div class="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center text-green-600 mt-1"><i class="fa-solid fa-check text-sm"></i></div>
+                            <div>
+                                <h4 class="font-bold text-skill-dark">Pair Programming</h4>
+                                <p class="text-sm text-slate-500">Programa con compañeros y mejora tu código.</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-4">
+                            <div class="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center text-green-600 mt-1"><i class="fa-solid fa-check text-sm"></i></div>
+                            <div>
+                                <h4 class="font-bold text-skill-dark">Code Reviews</h4>
+                                <p class="text-sm text-slate-500">Feedback constante de mentores senior.</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-4">
+                            <div class="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center text-green-600 mt-1"><i class="fa-solid fa-check text-sm"></i></div>
+                            <div>
+                                <h4 class="font-bold text-skill-dark">Career Support</h4>
+                                <p class="text-sm text-slate-500">Te ayudamos con tu CV, portfolio y entrevistas.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="relative">
+                    <div class="absolute -inset-4 bg-skill-blue/20 rounded-2xl transform rotate-3"></div>
+                    <img src="https://images.pexels.com/photos/1181244/pexels-photo-1181244.jpeg?auto=compress&cs=tinysrgb&w=800" class="relative rounded-2xl shadow-xl w-full" alt="Students coding">
+                </div>
+            </div>
+        </div>
+    </section>
+
+<!-- TESTIMONIALS / ALUMNI -->
+<section id="alumni" class="py-24 bg-skill-dark text-white">
+  <div class="max-w-7xl mx-auto px-4">
+      <div class="text-center mb-16">
+          <h2 class="font-display text-4xl font-bold">Historias de Éxito</h2>
+          <p class="text-slate-400 mt-2">De cajeros y camareros a Ingenieros de Software.</p>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+          <!-- Testimonio 1 -->
+          <div class="bg-white/5 p-8 rounded-2xl border border-white/10 hover:bg-white/10 transition-colors">
+              <div class="flex items-center gap-4 mb-6">
+                  <img src="https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg?auto=compress&cs=tinysrgb&w=200"
+                       class="w-12 h-12 rounded-full border-2 border-skill-blue" alt="Alumna">
+                  <div>
+                      <h4 class="font-bold">Laura G.</h4>
+                      <p class="text-xs text-slate-400 uppercase tracking-wide">Frontend @ Spotify</p>
+                  </div>
+              </div>
+              <p class="text-slate-300 text-sm leading-relaxed italic">
+                  "En 12 semanas aprendí más que en 4 años de carrera. La intensidad es real, pero el apoyo de los mentores es increíble. Conseguí trabajo a las 3 semanas de graduarme."
+              </p>
+          </div>
+
+          <!-- Testimonio 2 -->
+          <div class="bg-white/5 p-8 rounded-2xl border border-white/10 hover:bg-white/10 transition-colors">
+              <div class="flex items-center gap-4 mb-6">
+                  <img src="https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=200"
+                       class="w-12 h-12 rounded-full border-2 border-skill-teal" alt="Alumno">
+                  <div>
+                      <h4 class="font-bold">Marcos R.</h4>
+                      <p class="text-xs text-slate-400 uppercase tracking-wide">Data Analyst @ Glovo</p>
+                  </div>
+              </div>
+              <p class="text-slate-300 text-sm leading-relaxed italic">
+                  "Venía del mundo de las ventas y no sabía nada de código. El bootcamp de Data Science me cambió la vida. Ahora trabajo con Python y SQL a diario."
+              </p>
+          </div>
+
+          <!-- Testimonio 3 -->
+          <div class="bg-white/5 p-8 rounded-2xl border border-white/10 hover:bg-white/10 transition-colors">
+              <div class="flex items-center gap-4 mb-6">
+                  <img src="https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=200"
+                       class="w-12 h-12 rounded-full border-2 border-skill-coral" alt="Alumna">
+                  <div>
+                      <h4 class="font-bold">Elena T.</h4>
+                      <p class="text-xs text-slate-400 uppercase tracking-wide">Product Designer @ Cabify</p>
+                  </div>
+              </div>
+              <p class="text-slate-300 text-sm leading-relaxed italic">
+                  "El bootcamp de UX/UI me dio el portfolio que necesitaba para entrar en el sector tech. La comunidad de SkillUp es lo mejor que me llevo."
+              </p>
+          </div>
+
+      </div>
+  </div>
+</section>
+
+
+    <!-- APPLY FORM -->
+    <section id="apply" class="py-24 bg-skill-blue relative overflow-hidden">
+        <div class="absolute inset-0 bg-grid-slate opacity-20 mix-blend-overlay"></div>
+        <div class="max-w-4xl mx-auto px-4 relative z-10">
+            <div class="bg-white rounded-3xl shadow-2xl p-8 md:p-12 overflow-hidden text-center">
+                <h2 class="font-display text-3xl md:text-4xl font-bold text-skill-dark mb-4">Aplica al próximo Cohort</h2>
+                <p class="text-slate-500 mb-8 max-w-lg mx-auto">
+                    El proceso de selección es gratuito. Queremos conocerte y ver si SkillUp es para ti.
+                </p>
+
+                <form onsubmit="event.preventDefault(); alert('DEMO: Solicitud enviada. Te contactaremos para una entrevista.');" class="max-w-md mx-auto space-y-4 text-left">
+                    <div>
+                        <label class="text-xs font-bold text-slate-400 uppercase mb-1 block">Nombre Completo</label>
+                        <input type="text" class="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-3 focus:outline-none focus:border-skill-blue transition-colors" required>
+                    </div>
+                    <div>
+                        <label class="text-xs font-bold text-slate-400 uppercase mb-1 block">Email</label>
+                        <input type="email" class="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-3 focus:outline-none focus:border-skill-blue transition-colors" required>
+                    </div>
+                    <div>
+                        <label class="text-xs font-bold text-slate-400 uppercase mb-1 block">Bootcamp de Interés</label>
+                        <select class="w-full bg-slate-50 border border-slate-200 rounded-lg px-4 py-3 focus:outline-none focus:border-skill-blue transition-colors text-slate-600">
+                            <option>Desarrollo Web Full Stack</option>
+                            <option>Data Science & AI</option>
+                            <option>UX/UI Design</option>
+                        </select>
+                    </div>
+                    <button class="w-full bg-skill-dark text-white font-bold py-4 rounded-xl hover:bg-black transition-colors shadow-lg mt-6">
+                        Enviar Solicitud
+                    </button>
+                    <p class="text-xs text-center text-slate-400 mt-4">Sin compromiso de pago inicial.</p>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-white border-t border-slate-100 py-12">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="flex items-center gap-2">
+                <div class="w-6 h-6 bg-skill-blue rounded flex items-center justify-center text-white text-xs font-bold">
+                    &lt;/&gt;
+                </div>
+                <span class="font-bold text-skill-dark">SkillUp Academy</span>
+            </div>
+            
+            <p class="text-sm text-slate-400">© 2025 SkillUp Education Inc. Made for builders.</p>
+
+            <div class="flex gap-6">
+                <a href="#" class="text-slate-400 hover:text-skill-blue transition-colors"><i class="fa-brands fa-twitter text-xl"></i></a>
+                <a href="#" class="text-slate-400 hover:text-skill-blue transition-colors"><i class="fa-brands fa-linkedin text-xl"></i></a>
+                <a href="#" class="text-slate-400 hover:text-skill-blue transition-colors"><i class="fa-brands fa-github text-xl"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- BOTÓN VOLVER ARRIBA -->
+    
+
+    <!-- COOKIE BANNER -->
+    <div id="cookie-banner" class="fixed bottom-4 left-4 max-w-sm bg-skill-dark text-white p-5 rounded-xl shadow-2xl z-50 flex flex-col gap-4">
+        <div class="flex items-center gap-3">
+            <i class="fa-solid fa-code text-skill-teal text-xl"></i>
+            <p class="text-sm font-medium">Usamos cookies para mejorar tu experiencia de aprendizaje.</p>
+        </div>
+        <div class="flex gap-2">
+            <button id="accept-cookies" class="bg-skill-blue text-white px-4 py-1.5 rounded-lg text-xs font-bold hover:bg-blue-600 transition-colors flex-1">Aceptar</button>
+            <button id="close-cookies" class="bg-white/10 text-slate-300 px-4 py-1.5 rounded-lg text-xs font-bold hover:bg-white/20 transition-colors flex-1">Cerrar</button>
+        </div>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ once: true, offset: 50 });
+
+        // Mobile Menu
+        const menuBtn = document.getElementById('mobile-menu-btn');
+        const closeMenu = document.getElementById('close-menu');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        function toggleMenu() {
+            mobileMenu.classList.toggle('open');
+            document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : 'auto';
+        }
+
+        menuBtn.addEventListener('click', toggleMenu);
+        closeMenu.addEventListener('click', toggleMenu);
+        mobileLinks.forEach(link => link.addEventListener('click', toggleMenu));
+
+        // Back to Top
+        
+
+        // Cookie Banner
+        const cookieBanner = document.getElementById('cookie-banner');
+        const acceptCookies = document.getElementById('accept-cookies');
+        const closeCookies = document.getElementById('close-cookies');
+
+        setTimeout(() => {
+            cookieBanner.classList.add('show');
+        }, 1500);
+
+        const hideBanner = () => {
+            cookieBanner.classList.remove('show');
+        };
+
+        acceptCookies.addEventListener('click', hideBanner);
+        closeCookies.addEventListener('click', hideBanner);
+
+        // Countdown (Just visual)
+        function startCountdown() {
+            const countdownEl = document.getElementById('countdown');
+            if (!countdownEl) return;
+            const now = new Date();
+            const tomorrow = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1);
+            let diff = tomorrow - now;
+
+            setInterval(() => {
+                diff -= 1000;
+                if(diff < 0) diff = 24 * 60 * 60 * 1000; 
+
+                const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+                countdownEl.innerText = 
+                    (hours < 10 ? "0" + hours : hours) + ":" + 
+                    (minutes < 10 ? "0" + minutes : minutes) + ":" + 
+                    (seconds < 10 ? "0" + seconds : seconds);
+            }, 1000);
+        }
+        startCountdown();
+    </script>
+
+    <!-- BOTÓN WHATSAPP -->
+    <a href="https://wa.me/5491143216789"
+       target="_blank"
+       rel="noopener noreferrer"
+       aria-label="WhatsApp"
+       style="position: fixed; bottom: calc(1.5rem + env(safe-area-inset-bottom)); right: 1.5rem; z-index: 9999; display: flex; align-items: center; justify-content: center; width: 3.5rem; height: 3.5rem; border-radius: 50%; background-color: #25D366; color: white; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: transform 0.3s ease; text-decoration: none;"
+       onmouseover="this.style.transform='scale(1.1)'"
+       onmouseout="this.style.transform='scale(1)'"
+       title="WhatsApp">
+       <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" viewBox="0 0 16 16">
+  <path d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.9 7.9 0 0 0 13.6 2.326zM7.994 14.521a6.6 6.6 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.56 6.56 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592m3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.73.73 0 0 0-.529.247c-.182.198-.691.677-.691 1.654s.71 1.916.81 2.049c.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232"/>
+</svg>
+    </a>
+
+</body>
+</html>

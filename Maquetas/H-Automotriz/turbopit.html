@@ -1,0 +1,474 @@
+<!-- 
+  ========================================
+  TEMPLATE NAME: TURBO PIT - Express Car Care
+  AUTHOR: Sebastian Fernandez
+  WEBSITE: https://sebastian-fernandez.com
+  VERSION: 2.0.0 (Final Commercial Release)
+  LICENSE: Standard License (Personal & Commercial Use)
+  ========================================
+-->
+
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO & METADATA -->
+    <title>TURBO | Express Car Care</title>
+    <meta name="description" content="Taller de mecánica rápida y lavado. Tu auto listo en tiempo récord. Sin cita previa para servicios básicos.">
+    <meta name="author" content="Sebastian Fernandez">
+
+    <!-- FAVICON (SVG Inline) -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2309090b'/><path d='M50 20 V50 L70 70' stroke='%23FAFF00' stroke-width='8' stroke-linecap='round'/><circle cx='50' cy='50' r='5' fill='%23FAFF00'/><path d='M85 50 A35 35 0 0 1 15 50' fill='none' stroke='%230066FF' stroke-width='4' stroke-dasharray='10 5'/></svg>">
+
+    <!-- OPEN GRAPH -->
+    <meta property="og:title" content="TURBO | Taller Exprés">
+    <meta property="og:description" content="Lavado y mecánica rápida. Tu tiempo dale oro.">
+    <meta property="og:image" content="https://placehold.co/1200x630/09090b/FAFF00?text=TURBO+PIT">
+    <meta property="og:url" content="#">
+    <meta property="og:type" content="website">
+
+    <!-- 1. TAILWIND CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- 2. GOOGLE FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Racing Sans One (Velocidad) + Roboto (Lectura) -->
+    <link href="https://fonts.googleapis.com/css2?family=Racing+Sans+One&family=Roboto:wght@400;700;900&display=swap" rel="stylesheet">
+
+    <!-- 3. FONT AWESOME -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- 4. AOS ANIMATION -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <!-- CONFIGURACIÓN TAILWIND -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'turbo-blue': '#0066FF',    /* Azul Eléctrico */
+                        'turbo-yellow': '#FAFF00',  /* Amarillo Neón */
+                        'turbo-black': '#09090b',   /* Negro Asfalto */
+                        'turbo-gray': '#F3F4F6',
+                    },
+                    fontFamily: {
+                        'display': ['Racing Sans One', 'cursive'],
+                        'body': ['Roboto', 'sans-serif'],
+                    },
+                    skew: {
+                        '12': '12deg',
+                        '-12': '-12deg',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Patrón de bandera a cuadros */
+        .checkered-pattern {
+            background-image: 
+                linear-gradient(45deg, #000 25%, transparent 25%), 
+                linear-gradient(-45deg, #000 25%, transparent 25%), 
+                linear-gradient(45deg, transparent 75%, #000 75%), 
+                linear-gradient(-45deg, transparent 75%, #000 75%);
+            background-size: 20px 20px;
+            background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+            opacity: 0.1;
+        }
+
+        /* Botón con efecto de velocidad */
+        .btn-speed {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        .btn-speed::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transform: skewX(-20deg);
+            transition: 0.5s;
+        }
+        .btn-speed:hover::after {
+            left: 100%;
+            transition: 0.5s;
+        }
+        
+        /* Speed Lines en fondo */
+        .speed-lines {
+            background: repeating-linear-gradient(
+                90deg,
+                transparent,
+                transparent 50px,
+                rgba(255, 255, 255, 0.05) 50px,
+                rgba(255, 255, 255, 0.05) 52px
+            );
+        }
+
+        /* Mobile Menu */
+        #mobile-menu {
+            transform: translateX(100%);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        #mobile-menu.open {
+            transform: translateX(0);
+        }
+
+        /* Back to Top */
+
+        /* Cookie Banner */
+        #cookie-banner {
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(20px);
+            transition: all 0.4s ease;
+        }
+
+        #cookie-banner.show {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="bg-white text-gray-800 font-body overflow-x-hidden selection:bg-turbo-blue selection:text-white">
+
+    <!-- TOP BAR (Promo Urgente) -->
+    <div class="bg-turbo-yellow text-turbo-black font-black text-center py-2 text-sm uppercase tracking-widest relative overflow-hidden">
+        <span class="relative z-10"><i class="fa-solid fa-bolt mr-2"></i> Lavado Express en 15 minutos o es GRATIS</span>
+    </div>
+
+    <!-- NAVBAR -->
+    <nav class="sticky top-0 z-50 bg-white shadow-lg border-b-4 border-turbo-blue" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 h-20 flex justify-between items-center">
+            <!-- Logo -->
+            <a href="#" class="flex items-center gap-2 group transform hover:scale-105 transition-transform" onclick="window.scrollTo(0,0)">
+                <div class="bg-turbo-blue text-white p-2 rounded transform -skew-x-12">
+                    <i class="fa-solid fa-gauge-high text-xl transform skew-x-12"></i>
+                </div>
+                <span class="font-display text-3xl italic text-turbo-black">TURBO<span class="text-turbo-blue">PIT</span></span>
+            </a>
+
+            <!-- Menu Desktop -->
+            <div class="hidden md:flex items-center gap-8 font-black uppercase italic tracking-wide text-gray-600">
+    
+              <!-- Grupo centrado -->
+              <div class="flex gap-8 justify-center flex-1">
+                  <a href="#packs" class="hover:text-turbo-blue transition-colors">Packs Lavado</a>
+                  <a href="#mecanica" class="hover:text-turbo-blue transition-colors">Mecánica Rápida</a>
+                  <a href="#ubicacion" class="hover:text-turbo-blue transition-colors">Ubicación</a>
+              </div>
+          
+              <!-- Botón a la derecha -->
+              <a href="#contacto" class="bg-turbo-blue text-white px-6 py-2 rounded transform -skew-x-12 hover:bg-turbo-black transition-colors shadow-lg btn-speed">
+                  <span class="transform skew-x-12 inline-block not-italic">¡Voy Ahora!</span>
+              </a>
+          
+          </div>
+          
+
+            <!-- Mobile Button -->
+            <button id="mobile-menu-btn" class="md:hidden text-2xl text-turbo-black focus:outline-none">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Menu Overlay -->
+        <div id="mobile-menu" class="fixed inset-0 bg-turbo-black z-40 flex flex-col justify-center items-center h-screen w-screen border-r-8 border-turbo-yellow">
+            <div class="flex flex-col gap-8 text-4xl font-display uppercase italic text-white tracking-wider text-center">
+                <a href="#packs" class="mobile-link hover:text-turbo-yellow transition-colors">Packs Lavado</a>
+                <a href="#mecanica" class="mobile-link hover:text-turbo-yellow transition-colors">Mecánica</a>
+                <a href="#ubicacion" class="mobile-link hover:text-turbo-yellow transition-colors">Ubicación</a>
+                <a href="#contacto" class="mobile-link text-turbo-yellow">¡Voy Ahora!</a>
+            </div>
+            <button id="close-menu" class="absolute top-6 right-6 text-4xl text-gray-500 hover:text-white transition-colors">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="relative bg-turbo-black text-white py-20 lg:py-32 overflow-hidden">
+        <!-- Background Decor -->
+        <div class="absolute inset-0 speed-lines opacity-20"></div>
+        <div class="absolute right-0 top-0 w-1/2 h-full bg-turbo-blue clip-polygon opacity-10 hidden lg:block" style="clip-path: polygon(20% 0, 100% 0, 100% 100%, 0% 100%);"></div>
+
+        <div class="max-w-7xl mx-auto px-4 relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <!-- Text -->
+            <div class="text-center lg:text-left">
+                <span class="text-turbo-yellow font-black uppercase tracking-widest text-lg mb-4 block animate-pulse">
+                    <i class="fa-solid fa-stopwatch mr-2"></i> Tu tiempo dale oro
+                </span>
+                <h1 class="font-display text-6xl md:text-8xl italic mb-6 leading-none">
+                    Cuidado <br> <span class="text-transparent bg-clip-text bg-gradient-to-r from-turbo-blue to-cyan-400">Extreme</span>
+                </h1>
+                <p class="text-gray-300 text-xl font-medium mb-8 max-w-lg mx-auto lg:mx-0">
+                    Lavado a mano, cambio de aceite y revisión de cubiertas en tiempo récord. Sin cita previa. Llegar y salir.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                    <a href="#packs" class="btn-speed bg-turbo-yellow text-turbo-black px-8 py-4 font-black uppercase italic text-xl rounded shadow-[4px_4px_0px_white] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] transition-all transform -skew-x-6">
+                        <span class="skew-x-6 inline-block">Ver Precios</span>
+                    </a>
+                    <a href="#ubicacion" class="btn-speed bg-transparent border-2 border-white text-white px-8 py-4 font-black uppercase italic text-xl rounded hover:bg-white hover:text-turbo-black transition-all transform -skew-x-6">
+                        <span class="skew-x-6 inline-block">Cómo Llegar</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Image Composition -->
+            <div class="relative">
+                <!-- Blob naranja decorativo -->
+                <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-white rounded-full blur-3xl opacity-50 z-0"></div>
+                
+                <img src="https://images.pexels.com/photos/6873075/pexels-photo-6873075.jpeg?auto=compress&cs=tinysrgb&w=800" 
+                        alt="Car Wash" 
+                        class="relative z-10 w-full hover-bounce transform rotate-2 hover:rotate-6 transition-all duration-500 drop-shadow-2xl rounded-xl border-4 border-turbo-blue">
+                
+                <!-- Floating Price Tag -->
+                <div class="absolute -bottom-10 right-10 z-20 bg-turbo-blue text-white p-6 rounded-full border-4 border-white shadow-xl animate-bounce hidden md:block transform rotate-12">
+                    <span class="block font-display text-xl uppercase">Desde</span>
+                    <span class="block font-display text-4xl">ARS 8.000</span>
+                </div>
+            </div>
+            <!-- Decorative Elements behind -->
+            <div class="absolute top-10 right-10 w-full h-full border-4 border-turbo-yellow rounded-xl -z-10 rotate-6 opacity-50"></div>
+        </div>
+    </section>
+
+    <!-- SERVICES STRIP (Iconos Grandes) -->
+    <section class="bg-turbo-blue text-white py-12 border-b-8 border-turbo-black relative overflow-hidden">
+        <div class="absolute inset-0 checkered-pattern opacity-20"></div>
+        <div class="max-w-7xl mx-auto px-4 relative z-10">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                <div class="group cursor-pointer">
+                    <i class="fa-solid fa-soap text-5xl mb-4 group-hover:scale-110 transition-transform"></i>
+                    <h3 class="font-display text-2xl italic">Lavado Manual</h3>
+                </div>
+                <div class="group cursor-pointer">
+                    <i class="fa-solid fa-oil-can text-5xl mb-4 group-hover:scale-110 transition-transform"></i>
+                    <h3 class="font-display text-2xl italic">Cambio Aceite</h3>
+                </div>
+                <div class="group cursor-pointer">
+                    <i class="fa-solid fa-spray-can-sparkles text-5xl mb-4 group-hover:scale-110 transition-transform"></i>
+                    <h3 class="font-display text-2xl italic">Tapicería</h3>
+                </div>
+                <div class="group cursor-pointer">
+                    <i class="fa-solid fa-car-battery text-5xl mb-4 group-hover:scale-110 transition-transform"></i>
+                    <h3 class="font-display text-2xl italic">Revisión ITV</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PACKS LAVADO (Pricing Cards) -->
+    <section id="packs" class="py-20 bg-gray-100">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="font-display text-5xl md:text-6xl italic text-turbo-black uppercase">
+                    Elige tu <span class="text-turbo-blue">Brillo</span>
+                </h2>
+                <p class="text-gray-500 font-bold uppercase tracking-widest mt-2">Precios finales. Sin sorpresas. SUV +ARS 5.000</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
+                <!-- Pack Básico -->
+                <div class="bg-white p-8 rounded-xl shadow-lg border-2 border-gray-200 text-center transform hover:-translate-y-2 transition-transform">
+                    <h3 class="font-display text-3xl italic text-gray-400 mb-4">Express</h3>
+                    <div class="text-5xl font-black text-turbo-black mb-6">ARS 15.000</div>
+                    <ul class="text-left space-y-3 mb-8 font-bold text-gray-600 text-sm">
+                        <li><i class="fa-solid fa-check text-turbo-blue w-6"></i> Lavado exterior a mano</li>
+                        <li><i class="fa-solid fa-check text-turbo-blue w-6"></i> Secado con toalla</li>
+                        <li><i class="fa-solid fa-check text-turbo-blue w-6"></i> Llantas básico</li>
+                        <li class="opacity-40"><i class="fa-solid fa-xmark w-6"></i> Aspirado interior</li>
+                    </ul>
+                    <a href="#contacto" class="block w-full py-3 border-2 border-turbo-black text-turbo-black font-black uppercase italic hover:bg-turbo-black hover:text-white transition-colors">Lo Quiero</a>
+                </div>
+
+                <!-- Pack Popular -->
+                <div class="bg-turbo-black p-8 rounded-xl shadow-2xl border-4 border-turbo-yellow text-center transform scale-105 relative">
+                    <div class="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-turbo-yellow text-turbo-black font-black uppercase px-4 py-1 rounded shadow-lg text-sm tracking-widest">
+                        Más Vendido
+                    </div>
+                    <h3 class="font-display text-4xl italic text-white mb-4">Turbo Clean</h3>
+                    <div class="text-6xl font-black text-turbo-yellow mb-6">ARS 25.000</div>
+                    <ul class="text-left space-y-3 mb-8 font-bold text-gray-300 text-sm">
+                        <li><i class="fa-solid fa-check text-turbo-yellow w-6"></i> Todo lo del Express</li>
+                        <li><i class="fa-solid fa-check text-turbo-yellow w-6"></i> Aspirado profundo</li>
+                        <li><i class="fa-solid fa-check text-turbo-yellow w-6"></i> Limpieza salpicadero</li>
+                        <li><i class="fa-solid fa-check text-turbo-yellow w-6"></i> Cristales int/ext</li>
+                    </ul>
+                    <a href="#contacto" class="block w-full py-4 bg-turbo-blue text-white font-black uppercase italic hover:bg-white hover:text-turbo-blue transition-colors shadow-lg btn-speed">
+                        ¡Este Mismo!
+                    </a>
+                </div>
+
+                <!-- Pack Premium -->
+                <div class="bg-white p-8 rounded-xl shadow-lg border-2 border-gray-200 text-center transform hover:-translate-y-2 transition-transform">
+                    <h3 class="font-display text-3xl italic text-turbo-blue mb-4">Showroom</h3>
+                    <div class="text-5xl font-black text-turbo-black mb-6">ARS 45.000</div>
+                    <ul class="text-left space-y-3 mb-8 font-bold text-gray-600 text-sm">
+                        <li><i class="fa-solid fa-check text-turbo-blue w-6"></i> Todo lo del Turbo</li>
+                        <li><i class="fa-solid fa-check text-turbo-blue w-6"></i> Cera líquida brillo</li>
+                        <li><i class="fa-solid fa-check text-turbo-blue w-6"></i> Hidratación plásticos</li>
+                        <li><i class="fa-solid fa-check text-turbo-blue w-6"></i> Perfumado</li>
+                    </ul>
+                    <a href="#contacto" class="block w-full py-3 border-2 border-turbo-black text-turbo-black font-black uppercase italic hover:bg-turbo-black hover:text-white transition-colors">Lo Quiero</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MECÁNICA RÁPIDA -->
+    <section id="mecanica" class="py-20 bg-white border-t border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center gap-12">
+            <div class="md:w-1/2">
+                <img src="https://images.pexels.com/photos/4489749/pexels-photo-4489749.jpeg?auto=compress&cs=tinysrgb&w=800" class="w-full rounded-lg shadow-xl" alt="Oil Change">
+            </div>
+            <div class="md:w-1/2">
+                <h2 class="font-display text-5xl italic text-turbo-black uppercase mb-6">
+                    Mecánica <span class="text-turbo-blue">Express</span>
+                </h2>
+                <p class="text-gray-600 text-lg mb-8 font-medium">
+                    No necesitas dejar el auto todo el día. Servicios de mantenimiento rápido mientras tomas un café.
+                </p>
+                <div class="space-y-4">
+                    <div class="flex justify-between items-center border-b-2 border-gray-100 pb-2">
+                        <span class="font-bold text-gray-800 uppercase">Cambio Aceite + Filtro</span>
+                        <span class="font-black text-xl text-turbo-blue">Desde ARS 59.000</span>
+                    </div>
+                    <div class="flex justify-between items-center border-b-2 border-gray-100 pb-2">
+                        <span class="font-bold text-gray-800 uppercase">Carga Aire Acondicionado</span>
+                        <span class="font-black text-xl text-turbo-blue">ARS 49.000</span>
+                    </div>
+                    <div class="flex justify-between items-center border-b-2 border-gray-100 pb-2">
+                        <span class="font-bold text-gray-800 uppercase">Pulido de Faros (Pareja)</span>
+                        <span class="font-black text-xl text-turbo-blue">ARS 30.000</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- UBICACIÓN / CTA -->
+    <section id="ubicacion" class="py-20 bg-turbo-black text-white relative">
+        <div class="max-w-4xl mx-auto px-4 text-center">
+            <h2 class="font-display text-5xl md:text-7xl italic uppercase mb-8">
+                ¿Listo para brillar?
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12 text-center">
+                <div class="bg-white/10 p-6 rounded-lg backdrop-blur-sm">
+                    <i class="fa-solid fa-location-dot text-turbo-yellow text-3xl mb-4"></i>
+                    <h4 class="font-bold uppercase mb-2">Visítanos</h4>
+                    <p class="text-sm text-gray-300">C/ Motor 45, Polígono Sur<br>Entrada directa parking</p>
+                </div>
+                <div class="bg-white/10 p-6 rounded-lg backdrop-blur-sm">
+                    <i class="fa-solid fa-clock text-turbo-yellow text-3xl mb-4"></i>
+                    <h4 class="font-bold uppercase mb-2">Horario Non-Stop</h4>
+                    <p class="text-sm text-gray-300">Lun-Sáb: 09:00 - 21:00 hs<br>Domingos: 10:00 - 15:00 hs</p>
+                </div>
+                <div class="bg-white/10 p-6 rounded-lg backdrop-blur-sm">
+                    <i class="fa-brands fa-whatsapp text-turbo-yellow text-3xl mb-4"></i>
+                    <h4 class="font-bold uppercase mb-2">Contacto</h4>
+                    <p class="text-sm text-gray-300">600 123 456<br>Sin cita previa necesaria</p>
+                </div>
+            </div>
+            
+            <a href="https://maps.google.com" target="_blank" class="inline-flex items-center gap-3 bg-turbo-blue text-white px-10 py-5 font-black uppercase italic text-xl rounded shadow-[0px_0px_20px_rgba(0,102,255,0.6)] hover:bg-white hover:text-turbo-blue transition-all transform hover:scale-105">
+                <i class="fa-solid fa-diamond-turn-right"></i> Ir con GPS
+            </a>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer id="contacto" class="bg-gray-900 text-white py-8 border-t-4 border-turbo-yellow">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="flex items-center gap-2">
+                <i class="fa-solid fa-gauge-high text-turbo-yellow"></i>
+                <span class="font-display text-xl italic">TURBO<span class="text-turbo-blue">PIT</span></span>
+            </div>
+            <p class="text-gray-500 text-xs font-bold uppercase tracking-widest text-center md:text-right">
+                © 2025 Turbo Pitstop Services. Fast & Clean.
+            </p>
+        </div>
+    </footer>
+    
+    <!-- BOTÓN VOLVER ARRIBA -->
+    
+
+    <!-- COOKIE BANNER -->
+    <div id="cookie-banner" class="fixed bottom-0 left-0 w-full bg-turbo-black border-t-8 border-turbo-blue p-6 z-50 shadow-2xl flex flex-col md:flex-row justify-between items-center gap-4">
+        <div class="flex items-center gap-3">
+            <i class="fa-solid fa-flag-checkered text-turbo-yellow text-2xl"></i>
+            <p class="text-white font-bold uppercase italic text-lg tracking-wide mb-0">
+                Usamos cookies para ir más rápido.
+            </p>
+        </div>
+        <button id="accept-cookies" class="bg-turbo-blue text-white px-8 py-2 font-black uppercase italic text-xl transform -skew-x-12 hover:bg-white hover:text-turbo-black transition-colors">
+            <span class="skew-x-12 inline-block">¡Dale Gas!</span>
+        </button>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ once: true, offset: 50 });
+
+        // Menu Mobile
+        const menuBtn = document.getElementById('mobile-menu-btn');
+        const closeMenu = document.getElementById('close-menu');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+        const body = document.body;
+
+        function toggleMenu() {
+            mobileMenu.classList.toggle('open');
+            document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : 'auto';
+        }
+
+        menuBtn.addEventListener('click', toggleMenu);
+        closeMenu.addEventListener('click', toggleMenu);
+        mobileLinks.forEach(link => link.addEventListener('click', toggleMenu));
+
+        // Back to Top Logic
+        
+
+        // Cookie Banner Logic
+        const cookieBanner = document.getElementById('cookie-banner');
+        const acceptCookies = document.getElementById('accept-cookies');
+
+        setTimeout(() => {
+            cookieBanner.classList.add('show');
+        }, 1500);
+
+        const hideBanner = () => {
+            cookieBanner.classList.remove('show');
+        };
+
+        acceptCookies.addEventListener('click', hideBanner);
+    </script>
+
+    <!-- BOTÓN WHATSAPP -->
+    <a href="https://wa.me/5491143216789"
+       target="_blank"
+       rel="noopener noreferrer"
+       aria-label="WhatsApp"
+       style="position: fixed; bottom: calc(1.5rem + env(safe-area-inset-bottom)); right: 1.5rem; z-index: 9999; display: flex; align-items: center; justify-content: center; width: 3.5rem; height: 3.5rem; border-radius: 50%; background-color: #25D366; color: white; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: transform 0.3s ease; text-decoration: none;"
+       onmouseover="this.style.transform='scale(1.1)'"
+       onmouseout="this.style.transform='scale(1)'"
+       title="WhatsApp">
+       <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" viewBox="0 0 16 16">
+  <path d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.9 7.9 0 0 0 13.6 2.326zM7.994 14.521a6.6 6.6 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.56 6.56 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592m3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.73.73 0 0 0-.529.247c-.182.198-.691.677-.691 1.654s.71 1.916.81 2.049c.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232"/>
+</svg>
+    </a>
+
+</body>
+</html>

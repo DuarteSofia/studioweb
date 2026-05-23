@@ -1,0 +1,553 @@
+<!-- 
+  ========================================
+  TEMPLATE NAME: REEL - Videographer & Filmmaker Portfolio
+  AUTHOR: Sebastian Fernandez
+  WEBSITE: https://sebastian-fernandez.com
+  VERSION: 1.0.0 (Final Commercial Release)
+  LICENSE: Standard License (Personal & Commercial Use)
+  ========================================
+-->
+
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO & METADATA -->
+    <title>REEL | Cinematic Videography</title>
+    <meta name="description" content="Portafolio de videografía y dirección cinematográfica. Videos musicales, comerciales y documentales. Cuenta tu historia con calidad cine.">
+    <meta name="author" content="Sebastian Fernandez">
+
+    <!-- FAVICON (SVG Inline) -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23000000'/><path d='M30 20 H70 V80 H30 Z' fill='none' stroke='white' stroke-width='4'/><circle cx='50' cy='50' r='15' fill='%23E50914'/><rect x='35' y='10' width='30' height='10' fill='white'/></svg>">
+
+    <!-- OPEN GRAPH -->
+    <meta property="og:title" content="REEL | Filmmaker Portfolio">
+    <meta property="og:description" content="Visual Storytelling. Mira el Showreel 2025.">
+    <meta property="og:image" content="https://placehold.co/1200x630/000000/E50914?text=REEL+PORTFOLIO">
+    <meta property="og:url" content="#">
+    <meta property="og:type" content="website">
+
+    <!-- 1. TAILWIND CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- 2. GOOGLE FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Bebas Neue (Cine/Impacto) + Montserrat (Subtítulos) -->
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+    <!-- 3. FONT AWESOME -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- 4. AOS ANIMATION -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <!-- CONFIGURACIÓN TAILWIND -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'reel-black': '#050505',    /* Negro Puro */
+                        'reel-dark': '#141414',     /* Gris Netflix */
+                        'reel-red': '#E50914',      /* Rojo Acción */
+                        'reel-gray': '#B3B3B3',     /* Texto Secundario */
+                    },
+                    fontFamily: {
+                        'display': ['Bebas Neue', 'sans-serif'],
+                        'body': ['Montserrat', 'sans-serif'],
+                    },
+                    backgroundImage: {
+                        'vignette': 'radial-gradient(circle, rgba(0,0,0,0) 50%, rgba(0,0,0,0.8) 100%)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Estilos Base */
+        body { background-color: #050505; color: #e5e5e5; }
+
+        /* Efecto REC (Parpadeo) */
+        .rec-dot {
+            width: 10px;
+            height: 10px;
+            background-color: #E50914;
+            border-radius: 50%;
+            display: inline-block;
+            animation: record 2s infinite;
+        }
+        @keyframes record {
+            0% { opacity: 1; }
+            50% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        /* Hover de Video */
+        .video-card {
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        .video-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .video-card:hover .video-overlay {
+            opacity: 1;
+        }
+        .video-card img {
+            transition: transform 0.5s ease;
+        }
+        .video-card:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Botón Play */
+        .play-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: 2px solid white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            transition: all 0.3s;
+            background: rgba(0,0,0,0.3);
+            backdrop-filter: blur(4px);
+        }
+        .play-btn:hover {
+            background: #E50914;
+            border-color: #E50914;
+            transform: scale(1.1);
+        }
+
+        /* Mobile Menu */
+        #mobile-menu {
+            transform: translateX(100%);
+            transition: transform 0.4s cubic-bezier(0.85, 0, 0.15, 1); /* Curva dramática */
+        }
+        #mobile-menu.open {
+            transform: translateX(0);
+        }
+
+        /* Back to Top */
+
+        /* Cookie Banner */
+        #cookie-banner {
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(20px);
+            transition: all 0.4s ease;
+        }
+
+        #cookie-banner.show {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="font-body selection:bg-reel-red selection:text-white overflow-x-hidden">
+
+    <!-- NAVBAR -->
+    <nav class="fixed w-full z-50 bg-gradient-to-b from-black/90 to-transparent transition-all duration-500" id="navbar">
+        <div class="max-w-[1800px] mx-auto px-6 h-24 flex justify-between items-center">
+            <!-- Logo -->
+            <a href="#" class="font-display text-4xl text-white tracking-widest flex items-center gap-2 group" onclick="window.scrollTo(0,0)">
+                REEL <span class="text-reel-red group-hover:animate-pulse">.</span>
+            </a>
+
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex items-center gap-10 text-sm font-bold uppercase tracking-widest text-gray-300">
+                <a href="#showreel" class="hover:text-white transition-colors">Showreel</a>
+                <a href="#work" class="hover:text-white transition-colors">Proyectos</a>
+                <a href="#services" class="hover:text-white transition-colors">Servicios</a>
+                <a href="#contact" class="hover:text-white transition-colors">Contacto</a>
+                <a href="#contact" class="border border-white/30 px-6 py-2 hover:bg-white hover:text-black transition-all">Booking</a>
+            </div>
+
+            <!-- Mobile Button -->
+            <button id="mobile-menu-btn" class="md:hidden text-2xl text-white focus:outline-none">
+                <i class="fa-solid fa-bars-staggered"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Menu Overlay -->
+        <div id="mobile-menu" class="fixed inset-0 bg-reel-black z-50 flex flex-col justify-center items-center h-screen w-screen border-l-2 border-reel-red">
+            <div class="flex flex-col gap-10 text-5xl font-display uppercase tracking-wider text-center text-white">
+                <a href="#showreel" class="mobile-link hover:text-reel-red transition-colors">Showreel</a>
+                <a href="#work" class="mobile-link hover:text-reel-red transition-colors">Proyectos</a>
+                <a href="#services" class="mobile-link hover:text-reel-red transition-colors">Servicios</a>
+                <a href="#contact" class="mobile-link text-reel-red">Contacto</a>
+            </div>
+            <button id="close-menu" class="absolute top-8 right-8 text-4xl text-gray-500 hover:text-white transition-colors">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <header class="relative h-screen min-h-[600px] flex items-center justify-center overflow-hidden" id="showreel">
+        <!-- Video Background (Simulated with Image) -->
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.pexels.com/photos/2533318/pexels-photo-2533318.jpeg?auto=compress&cs=tinysrgb&w=1920" 
+                 class="w-full h-full object-cover opacity-60" alt="Cinematic Scene">
+            <div class="absolute inset-0 bg-black/40"></div>
+            <div class="absolute inset-0 bg-vignette"></div>
+        </div>
+
+        <div class="relative z-10 text-center px-4 w-full max-w-5xl" data-aos="zoom-out" data-aos-duration="1500">
+            <div class="flex items-center justify-center gap-3 mb-6">
+                <div class="rec-dot"></div>
+                <span class="text-white text-xs font-bold uppercase tracking-[0.3em]">Recording</span>
+            </div>
+            
+            <h1 class="font-display text-8xl md:text-[10rem] text-white leading-none mb-6 drop-shadow-2xl">
+                VISUAL <br> <span class="text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-400 to-gray-800">STORYTELLER</span>
+            </h1>
+            
+            <p class="text-gray-300 text-sm md:text-lg max-w-lg mx-auto mb-12 uppercase tracking-widest font-light">
+                Director de Fotografía & Editor. Capturando la esencia de cada momento.
+            </p>
+            
+            <div class="flex justify-center">
+                <a href="#work" class="group flex items-center gap-4 text-white hover:text-reel-red transition-colors cursor-pointer">
+                    <div class="w-16 h-16 border border-white/30 rounded-full flex items-center justify-center group-hover:border-reel-red group-hover:bg-reel-red/10 transition-all">
+                        <i class="fa-solid fa-arrow-down text-xl animate-bounce"></i>
+                    </div>
+                    <span class="text-xs font-bold uppercase tracking-widest">Ver Portfolio</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- SELECTED WORKS (Grid) -->
+    <section id="work" class="py-24 bg-reel-black">
+        <div class="max-w-[1800px] mx-auto px-6">
+            <div class="flex justify-between items-end mb-16">
+                <h2 class="font-display text-5xl md:text-6xl text-white uppercase">Selected Works <span class="text-reel-red">.</span></h2>
+                <div class="hidden md:flex gap-8 text-xs font-bold uppercase tracking-widest text-gray-500">
+                    <button class="text-white">All</button>
+                    <button class="hover:text-white transition-colors">Music Video</button>
+                    <button class="hover:text-white transition-colors">Commercial</button>
+                    <button class="hover:text-white transition-colors">Documentary</button>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Video 1 -->
+                <div class="video-card group rounded-lg" data-aos="fade-up" data-aos-delay="0">
+                    <div class="aspect-video bg-gray-900 relative rounded-lg overflow-hidden">
+                        <img src="https://images.pexels.com/photos/144429/pexels-photo-144429.jpeg?auto=compress&cs=tinysrgb&w=800" class="w-full h-full object-cover" alt="Project 1">
+                        <div class="video-overlay">
+                            <button class="play-btn" onclick="alert('DEMO: Reproduciendo video...')">
+                                <i class="fa-solid fa-play ml-1"></i>
+                            </button>
+                        </div>
+                        <div class="absolute top-4 right-4 bg-black/60 px-2 py-1 rounded text-[10px] font-bold uppercase tracking-wider text-white">
+                            3:45
+                        </div>
+                    </div>
+                    <div class="mt-4 flex justify-between items-start">
+                        <div>
+                            <h3 class="font-display text-2xl text-white uppercase">Neon Nights</h3>
+                            <p class="text-xs text-gray-500 uppercase tracking-widest">Music Video • Sony Music</p>
+                        </div>
+                        <span class="text-reel-red text-xs font-bold border border-reel-red px-2 py-1 rounded">4K</span>
+                    </div>
+                </div>
+
+                <!-- Video 2 -->
+                <div class="video-card group rounded-lg" data-aos="fade-up" data-aos-delay="100">
+                    <div class="aspect-video bg-gray-900 relative rounded-lg overflow-hidden">
+                        <img src="https://images.pexels.com/photos/2536965/pexels-photo-2536965.jpeg?auto=compress&cs=tinysrgb&w=800" class="w-full h-full object-cover" alt="Project 2">
+                        <div class="video-overlay">
+                            <button class="play-btn" onclick="alert('DEMO: Reproduciendo video...')">
+                                <i class="fa-solid fa-play ml-1"></i>
+                            </button>
+                        </div>
+                        <div class="absolute top-4 right-4 bg-black/60 px-2 py-1 rounded text-[10px] font-bold uppercase tracking-wider text-white">
+                            1:30
+                        </div>
+                    </div>
+                    <div class="mt-4 flex justify-between items-start">
+                        <div>
+                            <h3 class="font-display text-2xl text-white uppercase">Urban Run</h3>
+                            <p class="text-xs text-gray-500 uppercase tracking-widest">Commercial • Nike</p>
+                        </div>
+                        <span class="text-reel-red text-xs font-bold border border-reel-red px-2 py-1 rounded">HD</span>
+                    </div>
+                </div>
+
+                <!-- Video 3 -->
+                <div class="video-card group rounded-lg" data-aos="fade-up" data-aos-delay="200">
+                    <div class="aspect-video bg-gray-900 relative rounded-lg overflow-hidden">
+                        <img src="https://images.pexels.com/photos/1266808/pexels-photo-1266808.jpeg?auto=compress&cs=tinysrgb&w=800" class="w-full h-full object-cover" alt="Project 3">
+                        <div class="video-overlay">
+                            <button class="play-btn" onclick="alert('DEMO: Reproduciendo video...')">
+                                <i class="fa-solid fa-play ml-1"></i>
+                            </button>
+                        </div>
+                        <div class="absolute top-4 right-4 bg-black/60 px-2 py-1 rounded text-[10px] font-bold uppercase tracking-wider text-white">
+                            12:00
+                        </div>
+                    </div>
+                    <div class="mt-4 flex justify-between items-start">
+                        <div>
+                            <h3 class="font-display text-2xl text-white uppercase">The Artist</h3>
+                            <p class="text-xs text-gray-500 uppercase tracking-widest">Documentary • Indie</p>
+                        </div>
+                        <span class="text-reel-red text-xs font-bold border border-reel-red px-2 py-1 rounded">4K</span>
+                    </div>
+                </div>
+
+                <!-- Video 4 -->
+                <div class="video-card group rounded-lg" data-aos="fade-up" data-aos-delay="0">
+                    <div class="aspect-video bg-gray-900 relative rounded-lg overflow-hidden">
+                        <img src="https://images.pexels.com/photos/1591373/pexels-photo-1591373.jpeg?auto=compress&cs=tinysrgb&w=800" class="w-full h-full object-cover" alt="Project 4">
+                        <div class="video-overlay">
+                            <button class="play-btn" onclick="alert('DEMO: Reproduciendo video...')">
+                                <i class="fa-solid fa-play ml-1"></i>
+                            </button>
+                        </div>
+                        <div class="absolute top-4 right-4 bg-black/60 px-2 py-1 rounded text-[10px] font-bold uppercase tracking-wider text-white">
+                            0:59
+                        </div>
+                    </div>
+                    <div class="mt-4 flex justify-between items-start">
+                        <div>
+                            <h3 class="font-display text-2xl text-white uppercase">Summer Vibes</h3>
+                            <p class="text-xs text-gray-500 uppercase tracking-widest">Social Media • Corona</p>
+                        </div>
+                        <span class="text-reel-red text-xs font-bold border border-reel-red px-2 py-1 rounded">9:16</span>
+                    </div>
+                </div>
+
+                 <!-- Video 5 -->
+                 <div class="video-card group rounded-lg" data-aos="fade-up" data-aos-delay="100">
+                    <div class="aspect-video bg-gray-900 relative rounded-lg overflow-hidden">
+                        <img src="https://images.pexels.com/photos/2034851/pexels-photo-2034851.jpeg?auto=compress&cs=tinysrgb&w=800" class="w-full h-full object-cover" alt="Project 5">
+                        <div class="video-overlay">
+                            <button class="play-btn" onclick="alert('DEMO: Reproduciendo video...')">
+                                <i class="fa-solid fa-play ml-1"></i>
+                            </button>
+                        </div>
+                        <div class="absolute top-4 right-4 bg-black/60 px-2 py-1 rounded text-[10px] font-bold uppercase tracking-wider text-white">
+                            2:15
+                        </div>
+                    </div>
+                    <div class="mt-4 flex justify-between items-start">
+                        <div>
+                            <h3 class="font-display text-2xl text-white uppercase">Night Life</h3>
+                            <p class="text-xs text-gray-500 uppercase tracking-widest">Event • Pacha</p>
+                        </div>
+                        <span class="text-reel-red text-xs font-bold border border-reel-red px-2 py-1 rounded">HD</span>
+                    </div>
+                </div>
+
+                 <!-- Video 6 -->
+                 <div class="video-card group rounded-lg" data-aos="fade-up" data-aos-delay="200">
+                    <div class="aspect-video bg-gray-900 relative rounded-lg overflow-hidden">
+                        <img src="https://images.pexels.com/photos/1036622/pexels-photo-1036622.jpeg?auto=compress&cs=tinysrgb&w=800" class="w-full h-full object-cover" alt="Project 6">
+                        <div class="video-overlay">
+                            <button class="play-btn" onclick="alert('DEMO: Reproduciendo video...')">
+                                <i class="fa-solid fa-play ml-1"></i>
+                            </button>
+                        </div>
+                        <div class="absolute top-4 right-4 bg-black/60 px-2 py-1 rounded text-[10px] font-bold uppercase tracking-wider text-white">
+                            4:20
+                        </div>
+                    </div>
+                    <div class="mt-4 flex justify-between items-start">
+                        <div>
+                            <h3 class="font-display text-2xl text-white uppercase">Lost in Japan</h3>
+                            <p class="text-xs text-gray-500 uppercase tracking-widest">Travel • Personal</p>
+                        </div>
+                        <span class="text-reel-red text-xs font-bold border border-reel-red px-2 py-1 rounded">4K</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-20">
+                <a href="#" class="inline-block border-b border-gray-600 text-gray-500 text-xs font-bold uppercase tracking-widest hover:text-white hover:border-white transition-colors pb-1">Ver Archivo Completo</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section id="services" class="py-24 bg-reel-dark border-y border-white/5">
+        <div class="max-w-4xl mx-auto px-6 text-center">
+            <span class="text-reel-red font-bold uppercase tracking-widest text-xs mb-4 block">Lo que hago</span>
+            <h2 class="font-display text-5xl md:text-6xl text-white mb-12 uppercase">Servicios de Producción</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
+                <div class="p-6 border border-white/10 rounded hover:bg-white/5 transition-colors">
+                    <i class="fa-solid fa-video text-3xl text-white mb-6"></i>
+                    <h3 class="font-display text-2xl text-white mb-2 uppercase">Dirección</h3>
+                    <p class="text-sm text-gray-500 leading-relaxed">Concepto creativo, guionización y dirección en set. Visión completa de principio a fin.</p>
+                </div>
+                <div class="p-6 border border-white/10 rounded hover:bg-white/5 transition-colors">
+                    <i class="fa-solid fa-film text-3xl text-white mb-6"></i>
+                    <h3 class="font-display text-2xl text-white mb-2 uppercase">Edición</h3>
+                    <p class="text-sm text-gray-500 leading-relaxed">Postproducción, color grading (DaVinci Resolve) y diseño de sonido.</p>
+                </div>
+                <div class="p-6 border border-white/10 rounded hover:bg-white/5 transition-colors">
+                    <i class="fa-solid fa-drone text-3xl text-white mb-6"></i>
+                    <h3 class="font-display text-2xl text-white mb-2 uppercase">Drone</h3>
+                    <p class="text-sm text-gray-500 leading-relaxed">Operador certificado de drone para tomas aéreas cinemáticas en 4K.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT / BIO -->
+    <section class="py-24 bg-reel-black">
+        <div class="max-w-5xl mx-auto px-6 flex flex-col md:flex-row items-center gap-16">
+            <div class="w-full md:w-1/2" data-aos="fade-right">
+                <img src="https://images.pexels.com/photos/1983037/pexels-photo-1983037.jpeg?auto=compress&cs=tinysrgb&w=800" class="w-full grayscale hover:grayscale-0 transition-all duration-700 rounded shadow-2xl" alt="Filmmaker">
+            </div>
+            <div class="w-full md:w-1/2" data-aos="fade-left">
+                <h2 class="font-display text-5xl text-white uppercase mb-6">Detrás de la cámara</h2>
+                <p class="text-gray-400 text-lg leading-relaxed mb-6 font-light">
+                    Hola, soy <span class="text-white font-bold">Sebastian</span>. Cineasta y narrador visual con base en Córdoba. Mi obsesión es contar historias que emocionen, utilizando la luz y el movimiento como mis herramientas principales.
+                </p>
+                <p class="text-gray-400 text-lg leading-relaxed mb-8 font-light">
+                    He trabajado con marcas internacionales, artistas musicales y agencias de publicidad para crear contenido que destaca en un mundo saturado.
+                </p>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/c/c0/Karl_Marx_Signature.svg" class="h-10 invert opacity-80" alt="Firma Karl Marx">
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT FORM -->
+    <section id="contact" class="py-24 bg-reel-dark relative">
+        <div class="max-w-xl mx-auto px-6 text-center">
+            <h2 class="font-display text-5xl text-white uppercase mb-4">Let's Create</h2>
+            <p class="text-gray-500 mb-12">Cuéntame sobre tu proyecto. ¿tenés un guión? ¿Una idea loca? Hablemos.</p>
+            
+            <form onsubmit="event.preventDefault(); alert('DEMO: Mensaje enviado. ¡Luces, cámara, acción!');" class="space-y-4 text-left">
+                <input type="text" placeholder="NOMBRE" class="w-full bg-black border border-white/10 p-4 text-white focus:outline-none focus:border-reel-red transition-colors text-xs font-bold tracking-widest uppercase rounded">
+                <input type="email" placeholder="EMAIL" class="w-full bg-black border border-white/10 p-4 text-white focus:outline-none focus:border-reel-red transition-colors text-xs font-bold tracking-widest uppercase rounded">
+                <textarea rows="4" placeholder="IDEA DEL PROYECTO" class="w-full bg-black border border-white/10 p-4 text-white focus:outline-none focus:border-reel-red transition-colors text-xs font-bold tracking-widest uppercase rounded"></textarea>
+                
+                <button class="w-full bg-reel-red text-white py-4 text-sm font-bold uppercase tracking-[0.2em] hover:bg-red-700 transition-colors rounded">
+                    Enviar Mensaje
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-black py-12 border-t border-white/5 text-center">
+        <div class="max-w-7xl mx-auto px-6">
+            <a href="#" class="font-display font-bold text-3xl tracking-widest text-white block mb-8">REEL</a>
+            
+            <div class="flex justify-center gap-8 mb-8 text-gray-500">
+                <a href="#" class="hover:text-white transition-colors"><i class="fa-brands fa-vimeo-v text-xl"></i></a>
+                <a href="#" class="hover:text-white transition-colors"><i class="fa-brands fa-youtube text-xl"></i></a>
+                <a href="#" class="hover:text-white transition-colors"><i class="fa-brands fa-instagram text-xl"></i></a>
+                <a href="#" class="hover:text-white transition-colors"><i class="fa-brands fa-linkedin-in text-xl"></i></a>
+            </div>
+            
+            <p class="text-[10px] text-gray-700 uppercase tracking-widest">© 2025 REEL Productions. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- BOTÓN VOLVER ARRIBA -->
+    
+
+    <!-- COOKIE BANNER -->
+    <div id="cookie-banner" class="fixed bottom-4 left-4 max-w-xs bg-reel-dark border border-white/10 p-5 rounded z-50 shadow-2xl flex flex-col gap-4">
+        <div class="flex items-center gap-3 text-white">
+            <i class="fa-solid fa-film text-reel-red"></i>
+            <span class="font-display uppercase tracking-wider text-sm">Cookies</span>
+        </div>
+        <p class="text-xs text-gray-500 leading-relaxed font-body">
+            Usamos cookies para análisis de tráfico y asegurar que el contenido cargue a la velocidad de la luz.
+        </p>
+        <div class="flex gap-2">
+            <button id="accept-cookies" class="bg-white text-black px-4 py-1 text-[10px] font-bold uppercase tracking-widest hover:bg-reel-red hover:text-white transition-colors flex-1 rounded">OK</button>
+            <button id="close-cookies" class="text-gray-500 border border-white/10 px-4 py-1 text-[10px] font-bold uppercase tracking-widest hover:text-white hover:border-white transition-colors flex-1 rounded">X</button>
+        </div>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ once: true, offset: 50, duration: 1000 });
+
+        // Navbar Scroll Logic
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                navbar.classList.add('bg-black', 'border-b', 'border-white/10');
+                navbar.classList.remove('bg-gradient-to-b');
+            } else {
+                navbar.classList.remove('bg-black', 'border-b', 'border-white/10');
+                navbar.classList.add('bg-gradient-to-b');
+            }
+        });
+
+        // Mobile Menu
+        const mobileBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const closeBtn = document.getElementById('close-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        function toggleMenu() {
+            mobileMenu.classList.toggle('open');
+            document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : 'auto';
+        }
+
+        mobileBtn.addEventListener('click', toggleMenu);
+        closeBtn.addEventListener('click', toggleMenu);
+        mobileLinks.forEach(link => link.addEventListener('click', toggleMenu));
+
+        // Back to Top
+        
+
+        // Cookies
+        const cookieBanner = document.getElementById('cookie-banner');
+        const acceptCookies = document.getElementById('accept-cookies');
+        const closeCookies = document.getElementById('close-cookies');
+
+        setTimeout(() => {
+            cookieBanner.classList.add('show');
+        }, 2000);
+
+        const hideBanner = () => {
+            cookieBanner.classList.remove('show');
+        };
+
+        acceptCookies.addEventListener('click', hideBanner);
+        closeCookies.addEventListener('click', hideBanner);
+    </script>
+
+    <!-- BOTÓN WHATSAPP -->
+    <a href="https://wa.me/5491143216789"
+       target="_blank"
+       rel="noopener noreferrer"
+       aria-label="WhatsApp"
+       style="position: fixed; bottom: calc(1.5rem + env(safe-area-inset-bottom)); right: 1.5rem; z-index: 9999; display: flex; align-items: center; justify-content: center; width: 3.5rem; height: 3.5rem; border-radius: 50%; background-color: #25D366; color: white; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: transform 0.3s ease; text-decoration: none;"
+       onmouseover="this.style.transform='scale(1.1)'"
+       onmouseout="this.style.transform='scale(1)'"
+       title="WhatsApp">
+       <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" viewBox="0 0 16 16">
+  <path d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.9 7.9 0 0 0 13.6 2.326zM7.994 14.521a6.6 6.6 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.56 6.56 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592m3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.73.73 0 0 0-.529.247c-.182.198-.691.677-.691 1.654s.71 1.916.81 2.049c.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232"/>
+</svg>
+    </a>
+
+</body>
+</html>

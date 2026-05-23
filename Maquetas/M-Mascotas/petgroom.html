@@ -1,0 +1,445 @@
+<!-- 
+  ========================================
+  TEMPLATE NAME: PET GROOM - Pet Salon & Spa
+  AUTHOR: Sebastian Fernandez
+  WEBSITE: https://sebastian-fernandez.com
+  VERSION: 1.0.0 (Final Commercial Release)
+  LICENSE: Standard License (Personal & Commercial Use)
+  ========================================
+-->
+
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO & METADATA -->
+    <title>PetGroom | Spa & Boutique Canina</title>
+    <meta name="description" content="Peluquería canina y spa de lujo. Baños relajantes, cortes de raza y tratamientos de belleza para tu mascota.">
+    <meta name="author" content="Sebastian Fernandez">
+
+    <!-- FAVICON (SVG Inline) -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%23F472B6'/><path d='M35 35 L65 65 M65 35 L35 65' stroke='white' stroke-width='8' stroke-linecap='round'/><circle cx='50' cy='20' r='5' fill='white'/><circle cx='50' cy='80' r='5' fill='white'/></svg>">
+
+    <!-- OPEN GRAPH -->
+    <meta property="og:title" content="PetGroom | Pet Spa">
+    <meta property="og:description" content="El mejor cuidado estético para tu mejor amigo.">
+    <meta property="og:image" content="https://placehold.co/1200x630/FDF2F8/F472B6?text=PET+GROOM+SPA">
+    <meta property="og:url" content="#">
+    <meta property="og:type" content="website">
+
+    <!-- 1. TAILWIND CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- 2. GOOGLE FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Playfair Display (Elegancia) + Lato (Limpieza) -->
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+
+    <!-- 3. FONT AWESOME -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- 4. AOS ANIMATION -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <!-- CONFIGURACIÓN TAILWIND -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'groom-pink': '#F472B6',    /* Rosa Chicle Suave */
+                        'groom-rose': '#FBCFE8',    /* Rosa Pastel Fondo */
+                        'groom-dark': '#831843',    /* Magenta Oscuro Texto */
+                        'groom-white': '#FFF1F2',   /* Blanco Rosado */
+                        'groom-gray': '#9CA3AF',    /* Gris Neutro */
+                    },
+                    fontFamily: {
+                        'serif': ['Playfair Display', 'serif'],
+                        'sans': ['Lato', 'sans-serif'],
+                    },
+                    backgroundImage: {
+                        'bubbles': "url('https://www.transparenttextures.com/patterns/stardust.png')",
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Card Hover Effect */
+        .spa-card {
+            transition: all 0.4s ease;
+        }
+        .spa-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px -10px rgba(244, 114, 182, 0.3);
+        }
+
+        /* Image Masking (Blob effect) */
+        .mask-blob {
+            border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+            transition: border-radius 1s ease;
+        }
+        .group:hover .mask-blob {
+            border-radius: 50%;
+        }
+
+        /* Mobile Menu */
+        #mobile-menu {
+            transform: translateX(100%);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        #mobile-menu.open {
+            transform: translateX(0);
+        }
+
+        /* Back to Top */
+
+        /* Cookie Banner */
+        #cookie-banner {
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(20px);
+            transition: all 0.4s ease;
+        }
+
+        #cookie-banner.show {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="font-sans text-gray-600 bg-groom-white selection:bg-groom-pink selection:text-white overflow-x-hidden">
+
+    <!-- TOP BAR -->
+    <div class="bg-groom-dark text-white text-center py-2 text-xs font-bold uppercase tracking-widest">
+        ✂️ 10% DTO en tu primera visita de peluquería
+    </div>
+
+    <!-- NAVBAR -->
+    <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-pink-100 transition-all duration-300 shadow-sm" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-24">
+                <!-- Logo -->
+                <a href="#" class="flex items-center gap-2 group" onclick="window.scrollTo(0,0)">
+                    <div class="w-10 h-10 bg-groom-pink text-white rounded-full flex items-center justify-center text-xl shadow-md group-hover:rotate-12 transition-transform">
+                        <i class="fa-solid fa-scissors"></i>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="font-serif font-bold text-2xl text-groom-dark leading-none">Pet<span class="text-groom-pink">Groom</span></span>
+                        <span class="text-[0.6rem] uppercase tracking-[0.2em] text-gray-400 font-bold">Salon & Spa</span>
+                    </div>
+                </a>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center gap-8 font-bold text-sm text-gray-500 uppercase tracking-wide">
+                    <a href="#servicios" class="hover:text-groom-pink transition-colors">Menú Spa</a>
+                    <a href="#galeria" class="hover:text-groom-pink transition-colors">Galería</a>
+                    <a href="#equipo" class="hover:text-groom-pink transition-colors">Estilistas</a>
+                    <a href="#contacto" class="bg-groom-pink text-white px-6 py-2.5 rounded-full hover:bg-pink-500 transition-all shadow-lg hover:shadow-pink-400/40 transform hover:-translate-y-0.5 flex items-center gap-2">
+                        <i class="fa-regular fa-calendar-check"></i> Reservar Cita
+                    </a>
+                </div>
+
+                <!-- Mobile Button -->
+                <button id="mobile-menu-btn" class="md:hidden text-2xl text-groom-dark focus:outline-none hover:text-groom-pink transition-colors">
+                    <i class="fa-solid fa-bars-staggered"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Overlay -->
+        <div id="mobile-menu" class="fixed inset-0 bg-white z-40 flex flex-col justify-center items-center h-screen w-screen border-l-8 border-groom-pink">
+            <div class="flex flex-col gap-8 text-2xl font-serif font-bold text-center text-groom-dark italic">
+                <a href="#servicios" class="mobile-link hover:text-groom-pink transition-colors">Menú Spa</a>
+                <a href="#galeria" class="mobile-link hover:text-groom-pink transition-colors">Galería</a>
+                <a href="#equipo" class="mobile-link hover:text-groom-pink transition-colors">Estilistas</a>
+                <a href="#contacto" class="mobile-link text-groom-pink border-b-2 border-groom-pink pb-1">Reservar Cita</a>
+            </div>
+            <button id="close-menu" class="absolute top-6 right-6 text-4xl text-gray-300 hover:text-groom-pink transition-colors">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="relative pt-20 pb-24 lg:pt-32 lg:pb-32 overflow-hidden bg-groom-rose/30">
+        <!-- Bubbles Background -->
+        <div class="absolute inset-0 bg-bubbles opacity-40"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <!-- Text -->
+                <div class="text-center lg:text-left" data-aos="fade-up">
+                    <span class="text-groom-pink font-bold uppercase tracking-widest text-xs mb-4 block">
+                        <i class="fa-solid fa-paw mr-1"></i> Mimamos a tu mascota
+                    </span>
+                    <h1 class="font-serif text-5xl md:text-7xl font-bold text-groom-dark mb-6 leading-tight">
+                        Belleza y Bienestar <br> <span class="italic text-groom-pink">para ellos.</span>
+                    </h1>
+                    <p class="text-lg text-gray-500 mb-8 max-w-lg mx-auto lg:mx-0 leading-relaxed">
+                        Más que una peluquería, un santuario de relajación. Baños con aromaterapia, cortes a tijera y tratamientos de spa para que se sientan (y huelan) increíble.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                        <a href="#contacto" class="bg-groom-dark text-white px-8 py-4 rounded-full font-bold uppercase text-xs tracking-widest hover:bg-groom-pink transition-all shadow-xl hover:shadow-lg flex items-center justify-center gap-2">
+                            Ver Disponibilidad
+                        </a>
+                        <a href="#servicios" class="bg-white text-groom-dark border border-gray-200 px-8 py-4 rounded-full font-bold uppercase text-xs tracking-widest hover:border-groom-pink hover:text-groom-pink transition-all flex items-center justify-center">
+                            Nuestros Servicios
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Image Composition -->
+                <div class="relative flex justify-center" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="absolute inset-0 bg-white rounded-blob transform -rotate-6 shadow-2xl opacity-60 scale-105"></div>
+                    <!-- Pexels: Dog Grooming -->
+                    <img src="https://images.pexels.com/photos/6816858/pexels-photo-6816858.jpeg?auto=compress&cs=tinysrgb&w=800" 
+                         class="relative rounded-blob shadow-2xl w-full max-w-md object-cover border-8 border-white transform rotate-3 hover:rotate-0 transition-transform duration-700 mask-blob group" 
+                         alt="Perro en Spa">
+                    
+                    <!-- Floating Badge -->
+                    <div class="absolute bottom-10 -left-4 bg-white p-4 rounded-full shadow-lg flex items-center gap-3 animate-bounce hidden md:flex" style="animation-duration: 4s;">
+                        <div class="bg-groom-pink text-white w-10 h-10 rounded-full flex items-center justify-center">
+                            <i class="fa-solid fa-star"></i>
+                        </div>
+                        <div class="pr-4">
+                            <p class="font-serif font-bold text-groom-dark text-lg leading-none">Top Rated</p>
+                            <p class="text-[10px] text-gray-400 uppercase font-bold tracking-wider">Salón 2024</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVICES MENU -->
+    <section id="servicios" class="py-24 bg-white relative">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-20">
+                <i class="fa-solid fa-wand-magic-sparkles text-3xl text-groom-pink mb-4"></i>
+                <h2 class="font-serif text-4xl md:text-5xl font-bold text-groom-dark">Menú de Spa</h2>
+                <p class="text-gray-400 mt-4 max-w-xl mx-auto">Utilizamos solo productos naturales e hipoalergénicos.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Service 1 -->
+                <div class="spa-card bg-groom-white p-8 rounded-t-[50%] rounded-b-3xl text-center border border-pink-100 group hover:bg-white">
+                    <div class="w-20 h-20 bg-white rounded-full mx-auto mb-6 flex items-center justify-center text-3xl text-groom-pink shadow-sm group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-shower"></i>
+                    </div>
+                    <h3 class="font-serif text-2xl font-bold text-groom-dark mb-2">Baño & Hidratación</h3>
+                    <p class="text-sm text-gray-500 mb-6 leading-relaxed px-2">Champú específico, masaje relajante y mascarilla hidratante para un pelaje brillante.</p>
+                    <span class="inline-block border-b-2 border-groom-pink text-groom-dark font-bold text-lg">Desde ARS 25.000</span>
+                </div>
+
+                <!-- Service 2 -->
+                <div class="spa-card bg-groom-white p-8 rounded-t-[50%] rounded-b-3xl text-center border border-pink-100 group hover:bg-white transform md:-translate-y-4 shadow-xl">
+                    <div class="w-20 h-20 bg-groom-pink rounded-full mx-auto mb-6 flex items-center justify-center text-3xl text-white shadow-md group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-scissors"></i>
+                    </div>
+                    <h3 class="font-serif text-2xl font-bold text-groom-dark mb-2">Corte de Raza</h3>
+                    <p class="text-sm text-gray-500 mb-6 leading-relaxed px-2">Estilismo a tijera o máquina según el estándar de la raza o gusto del dueño.</p>
+                    <span class="inline-block border-b-2 border-groom-pink text-groom-dark font-bold text-lg">Desde ARS 45.000</span>
+                </div>
+
+                <!-- Service 3 -->
+                <div class="spa-card bg-groom-white p-8 rounded-t-[50%] rounded-b-3xl text-center border border-pink-100 group hover:bg-white">
+                    <div class="w-20 h-20 bg-white rounded-full mx-auto mb-6 flex items-center justify-center text-3xl text-groom-pink shadow-sm group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-pump-soap"></i>
+                    </div>
+                    <h3 class="font-serif text-2xl font-bold text-groom-dark mb-2">Spa & Ozonoterapia</h3>
+                    <p class="text-sm text-gray-500 mb-6 leading-relaxed px-2">Tratamiento para pieles sensibles, alergias o estrés. Jacuzzi con burbujas de ozono.</p>
+                    <span class="inline-block border-b-2 border-groom-pink text-groom-dark font-bold text-lg">Desde ARS 35.000</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- GALERIA (Grid) -->
+    <section id="galeria" class="py-24 bg-groom-rose/20">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-12 px-2">
+                <div>
+                    <h2 class="font-serif text-4xl text-groom-dark font-bold">Transformaciones</h2>
+                    <p class="text-gray-500 mt-2">Antes y después de pasar por nuestras manos.</p>
+                </div>
+                <a href="https://instagram.com" target="_blank" class="text-groom-pink font-bold uppercase text-xs tracking-widest hover:text-groom-dark transition-colors mt-4 md:mt-0 flex items-center gap-2">
+                    <i class="fa-brands fa-instagram text-lg"></i> Ver Instagram
+                </a>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 h-[500px]">
+                <div class="col-span-2 row-span-2 relative group overflow-hidden rounded-2xl">
+                    <img src="https://images.pexels.com/photos/59523/pexels-photo-59523.jpeg?auto=compress&cs=tinysrgb&w=800" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Dog 1">
+                    <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                        <span class="bg-white text-groom-dark px-4 py-2 rounded-full text-xs font-bold uppercase tracking-widest">Ver Cambio</span>
+                    </div>
+                </div>
+                <div class="col-span-1 row-span-1 relative group overflow-hidden rounded-2xl">
+                    <img src="https://images.pexels.com/photos/2023384/pexels-photo-2023384.jpeg?auto=compress&cs=tinysrgb&w=800" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Dog 2">
+                </div>
+                <div class="col-span-1 row-span-2 relative group overflow-hidden rounded-2xl">
+                    <img src="https://images.pexels.com/photos/3361739/pexels-photo-3361739.jpeg?auto=compress&cs=tinysrgb&w=800" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Dog 3">
+                </div>
+                <div class="col-span-1 row-span-1 relative group overflow-hidden rounded-2xl">
+                    <img src="https://images.pexels.com/photos/4587971/pexels-photo-4587971.jpeg?auto=compress&cs=tinysrgb&w=800" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Dog 4">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACTO / BOOKING -->
+    <section id="contacto" class="py-24 bg-white relative">
+        <div class="max-w-3xl mx-auto px-6">
+            <div class="bg-groom-white border border-pink-100 rounded-[3rem] p-8 md:p-12 shadow-xl text-center relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-groom-pink/10 rounded-bl-full"></div>
+                <div class="absolute bottom-0 left-0 w-24 h-24 bg-groom-pink/10 rounded-tr-full"></div>
+
+                <div class="relative z-10">
+                    <h2 class="font-serif text-3xl md:text-4xl font-bold text-groom-dark mb-4">Agenda tu Cita</h2>
+                    <p class="text-gray-500 mb-8 max-w-md mx-auto">Déjanos tus datos y te contactaremos para confirmar la disponibilidad y el servicio ideal para tu peludo.</p>
+
+                    <form onsubmit="event.preventDefault(); alert('DEMO: Solicitud enviada. Te llamaremos para confirmar la hora.');" class="space-y-4 text-left max-w-sm mx-auto">
+                        <div>
+                            <label class="text-xs font-bold uppercase tracking-widest text-gray-400 mb-1 ml-2">Tu Nombre</label>
+                            <input type="text" class="w-full bg-white border border-gray-200 rounded-full px-5 py-3 focus:outline-none focus:border-groom-pink focus:ring-1 focus:ring-groom-pink transition-colors text-groom-dark" required>
+                        </div>
+                        <div>
+                            <label class="text-xs font-bold uppercase tracking-widest text-gray-400 mb-1 ml-2">Mascota</label>
+                            <input type="text" class="w-full bg-white border border-gray-200 rounded-full px-5 py-3 focus:outline-none focus:border-groom-pink focus:ring-1 focus:ring-groom-pink transition-colors text-groom-dark" placeholder="Nombre y Raza">
+                        </div>
+                        <div>
+                            <label class="text-xs font-bold uppercase tracking-widest text-gray-400 mb-1 ml-2">Teléfono</label>
+                            <input type="tel" class="w-full bg-white border border-gray-200 rounded-full px-5 py-3 focus:outline-none focus:border-groom-pink focus:ring-1 focus:ring-groom-pink transition-colors text-groom-dark" required>
+                        </div>
+                        <button type="submit" class="w-full bg-groom-dark text-white font-bold uppercase text-sm tracking-widest py-4 rounded-full hover:bg-groom-pink transition-colors shadow-lg mt-4">
+                            Solicitar Cita
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-groom-dark text-white pt-16 pb-8 border-t border-white/10">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-12 mb-12 text-center md:text-left">
+            <div>
+                <span class="font-serif font-bold text-2xl tracking-wide block mb-4">Pet<span class="text-groom-pink">Groom</span></span>
+                <p class="text-gray-400 text-sm leading-relaxed max-w-xs mx-auto md:mx-0">
+                    Estilismo canino profesional con un enfoque en el bienestar y la relajación de tu mascota.
+                </p>
+            </div>
+            
+            <div>
+                <h4 class="font-bold uppercase tracking-widest text-xs mb-6 text-groom-pink">Contacto</h4>
+                <p class="text-sm text-gray-400 mb-2">Florida 500, Local 4</p>
+                <p class="text-sm text-gray-400 mb-2">+54 9 11 4321-6789</p>
+                <p class="text-sm text-gray-400">hola@petgroom.com</p>
+            </div>
+
+            <div>
+                <h4 class="font-bold uppercase tracking-widest text-xs mb-6 text-groom-pink">Horario</h4>
+                <p class="text-sm text-gray-400 mb-2">Lun - Vie: 10:00 - 19:00 hs</p>
+                <p class="text-sm text-gray-400">Sáb: 10:00 - 14:00 hs</p>
+            </div>
+        </div>
+        
+        <div class="max-w-7xl mx-auto px-6 pt-8 border-t border-white/10 text-center flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-gray-500 uppercase tracking-widest">
+            <p>© 2025 PetGroom Spa. All rights reserved.</p>
+            <div class="flex gap-4 text-lg">
+                <a href="#" class="hover:text-groom-pink transition-colors"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#" class="hover:text-groom-pink transition-colors"><i class="fa-brands fa-facebook"></i></a>
+                <a href="#" class="hover:text-groom-pink transition-colors"><i class="fa-brands fa-tiktok"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- BOTÓN VOLVER ARRIBA -->
+    
+
+    <!-- COOKIE BANNER -->
+    <div id="cookie-banner" class="fixed bottom-4 left-4 max-w-xs bg-white p-5 rounded-2xl shadow-xl z-50 border-l-4 border-groom-pink flex flex-col gap-3">
+        <div class="flex items-center gap-2">
+            <i class="fa-solid fa-cookie-bite text-groom-pink text-xl"></i>
+            <p class="font-bold text-groom-dark text-sm">Cookies & Treats</p>
+        </div>
+        <p class="text-xs text-gray-500 leading-relaxed">
+            Usamos cookies para mejorar la experiencia (y porque nos gustan las galletas).
+        </p>
+        <div class="flex gap-2">
+            <button id="accept-cookies" class="bg-groom-pink text-white px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider hover:bg-groom-dark transition-colors flex-1">Aceptar</button>
+            <button id="close-cookies" class="bg-gray-100 text-gray-500 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider hover:bg-gray-200 transition-colors flex-1">Cerrar</button>
+        </div>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ once: true, offset: 50, duration: 1000 });
+
+        // Mobile Menu
+        const mobileBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const closeBtn = document.getElementById('close-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+        const menuIcon = mobileBtn.querySelector('i');
+
+        function toggleMenu() {
+            mobileMenu.classList.toggle('open');
+            if (mobileMenu.classList.contains('open')) {
+                menuIcon.classList.remove('fa-bars-staggered');
+                menuIcon.classList.add('fa-xmark');
+                document.body.style.overflow = 'hidden';
+            } else {
+                menuIcon.classList.remove('fa-xmark');
+                menuIcon.classList.add('fa-bars-staggered');
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        mobileBtn.addEventListener('click', toggleMenu);
+        closeBtn.addEventListener('click', toggleMenu);
+        mobileLinks.forEach(link => link.addEventListener('click', toggleMenu));
+
+        // Back to Top Logic
+        
+
+        // Cookie Banner Logic
+        const cookieBanner = document.getElementById('cookie-banner');
+        const acceptCookies = document.getElementById('accept-cookies');
+        const closeCookies = document.getElementById('close-cookies');
+
+        setTimeout(() => {
+            cookieBanner.classList.add('show');
+        }, 2000);
+
+        const hideBanner = () => {
+            cookieBanner.classList.remove('show');
+        };
+
+        acceptCookies.addEventListener('click', hideBanner);
+        closeCookies.addEventListener('click', hideBanner);
+    </script>
+
+    <!-- BOTÓN WHATSAPP -->
+    <a href="https://wa.me/5491143216789"
+       target="_blank"
+       rel="noopener noreferrer"
+       aria-label="WhatsApp"
+       style="position: fixed; bottom: calc(1.5rem + env(safe-area-inset-bottom)); right: 1.5rem; z-index: 9999; display: flex; align-items: center; justify-content: center; width: 3.5rem; height: 3.5rem; border-radius: 50%; background-color: #25D366; color: white; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: transform 0.3s ease; text-decoration: none;"
+       onmouseover="this.style.transform='scale(1.1)'"
+       onmouseout="this.style.transform='scale(1)'"
+       title="WhatsApp">
+       <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" viewBox="0 0 16 16">
+  <path d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.9 7.9 0 0 0 13.6 2.326zM7.994 14.521a6.6 6.6 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.56 6.56 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592m3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.73.73 0 0 0-.529.247c-.182.198-.691.677-.691 1.654s.71 1.916.81 2.049c.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232"/>
+</svg>
+    </a>
+
+</body>
+</html>

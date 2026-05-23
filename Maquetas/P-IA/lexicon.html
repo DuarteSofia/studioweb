@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lexicon | Inteligencia Documental</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect x='20' y='10' width='60' height='80' fill='%23ffffff' stroke='%230f172a' stroke-width='4'/><path d='M35 30 L65 30 M35 45 L65 45 M35 60 L50 60' stroke='%230f172a' stroke-width='4'/><circle cx='75' cy='75' r='15' fill='%232563eb'/><path d='M70 75 L80 75 M75 70 L75 80' stroke='%23ffffff' stroke-width='3'/></svg>">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Fonts: Inter (UI) & Merriweather (Documentos) & JetBrains Mono (Data) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <!-- Configuración Tailwind -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Merriweather', 'serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        paper: '#f8fafc',   // Slate 50
+                        ink: '#0f172a',     // Slate 900
+                        accent: '#2563eb',  // Blue 600
+                        highlight: '#fef08a', // Yellow 200
+                        subtle: '#94a3b8',  // Slate 400
+                    },
+                    boxShadow: {
+                        'paper': '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)',
+                        'float': '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
+                    },
+                    animation: {
+                        'highlight': 'highlight 2s ease-out forwards',
+                        'type': 'type 3s steps(40, end)',
+                        'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
+                    },
+                    keyframes: {
+                        highlight: {
+                            '0%': { width: '0%' },
+                            '100%': { width: '100%' },
+                        },
+                        type: {
+                            'from': { width: '0' },
+                            'to': { width: '100%' },
+                        },
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #f8fafc; /* Paper */
+            color: #0f172a; /* Ink */
+        }
+
+        /* Patrón de cuadrícula de cuaderno sutil */
+        .grid-pattern {
+            background-image: linear-gradient(#e2e8f0 1px, transparent 1px),
+                              linear-gradient(90deg, #e2e8f0 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        /* Scrollbar limpio */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+
+        /* Selección de texto */
+        ::selection {
+            background: #fef08a; /* Amarillo marcador */
+            color: #0f172a;
+        }
+
+        /* Highlight animation marker */
+        .marker-highlight {
+            background: linear-gradient(120deg, #fef08a 0%, #fef08a 100%);
+            background-repeat: no-repeat;
+            background-size: 0% 100%;
+            animation: highlight 1.5s 1s ease-out forwards;
+        }
+    </style>
+</head>
+<body class="antialiased font-sans">
+
+    <!-- NAVBAR (Minimalist) -->
+    <nav class="fixed w-full z-50 top-0 bg-paper/90 backdrop-blur-md border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+            <a href="#" class="flex items-center gap-3 group">
+                <div class="w-8 h-8 bg-ink text-white flex items-center justify-center font-serif font-bold rounded-sm shadow-sm group-hover:bg-accent transition-colors">L</div>
+                <span class="font-bold text-lg tracking-tight">Lexicon</span>
+            </a>
+
+            <div class="hidden md:flex gap-8 text-sm font-medium text-slate-500">
+                <a href="#features" class="hover:text-ink transition-colors">Capacidades</a>
+                <a href="#security" class="hover:text-ink transition-colors">Seguridad</a>
+                <a href="#pricing" class="hover:text-ink transition-colors">Precios</a>
+            </div>
+
+            <div class="flex items-center gap-4">
+                <a href="#" class="text-sm font-medium hover:text-accent transition-colors">Log in</a>
+                <button class="bg-ink text-white px-4 py-2 rounded text-sm font-medium hover:bg-accent transition-colors shadow-sm">
+                    Subir PDF
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION (Split View Simulator) -->
+    <section class="relative pt-32 pb-20 overflow-hidden bg-paper">
+        <div class="absolute inset-0 grid-pattern opacity-40 pointer-events-none"></div>
+        
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            <div class="text-center mb-16 max-w-3xl mx-auto animate-fade-in-up">
+                <div class="inline-block px-3 py-1 rounded-full bg-blue-50 text-accent text-xs font-bold uppercase tracking-wider mb-6 border border-blue-100">
+                    Document Intelligence v2.0
+                </div>
+                <h1 class="text-5xl md:text-6xl font-bold tracking-tight mb-6 text-ink">
+                    Tu Cerebro para <br>
+                    <span class="text-accent font-serif italic">Documentos Complejos</span>.
+                </h1>
+                <p class="text-lg text-slate-600 leading-relaxed">
+                    Sube contratos, papers científicos o reportes financieros. Lexicon lee, resume y responde preguntas citando las fuentes exactas en segundos.
+                </p>
+            </div>
+
+            <!-- INTERACTIVE DEMO (Split Screen) -->
+            <div class="bg-white rounded-xl shadow-float border border-slate-200 overflow-hidden flex flex-col md:flex-row h-[600px] max-w-6xl mx-auto animate-fade-in-up" style="animation-delay: 0.2s;">
+                
+                <!-- Left: Document Viewer -->
+                <div class="w-full md:w-1/2 bg-slate-50 border-r border-slate-200 flex flex-col">
+                    <!-- Toolbar -->
+                    <div class="h-12 bg-white border-b border-slate-200 flex items-center justify-between px-4">
+                        <div class="flex items-center gap-2">
+                            <i class="fa-regular fa-file-pdf text-red-500"></i>
+                            <span class="text-xs font-medium text-slate-700 truncate max-w-[150px]">Contrato_Arrendamiento_2025.pdf</span>
+                        </div>
+                        <div class="flex gap-3 text-slate-400">
+                            <i class="fa-solid fa-magnifying-glass hover:text-ink cursor-pointer"></i>
+                            <i class="fa-solid fa-minus hover:text-ink cursor-pointer"></i>
+                            <i class="fa-solid fa-plus hover:text-ink cursor-pointer"></i>
+                        </div>
+                    </div>
+                    <!-- Document Content -->
+                    <div class="flex-1 overflow-y-auto p-8 font-serif text-slate-800 text-sm leading-7 shadow-inner bg-white">
+                        <div class="max-w-[90%] mx-auto bg-white min-h-full">
+                            <h3 class="font-bold text-lg mb-4 text-center">CONTRATO DE ARRENDAMIENTO</h3>
+                            <p class="mb-4 text-justify">
+                                En la ciudad de Buenos Aires, a 15 de Octubre de 2025, comparecen de una parte, como ARRENDADOR, la sociedad INMOBILIARIA ALPHA S.L...
+                            </p>
+                            <p class="mb-4 text-justify">
+                                <strong>CLÁUSULA TERCERA: DURACIÓN.</strong> El presente contrato tendrá una duración de <span class="marker-highlight px-1 rounded-sm">cinco (5) años obligatorios</span> para el arrendador y tres (3) años para el arrendatario, a contar desde la fecha de la firma.
+                            </p>
+                            <p class="mb-4 text-justify">
+                                <strong>CLÁUSULA CUARTA: RENTA.</strong> La renta mensual se fija en la cantidad de <span class="marker-highlight px-1 rounded-sm" style="animation-delay: 2s;">2.500 EUROS</span>, pagaderos dentro de los primeros siete días de cada mes. La renta se actualizará anualmente conforme al IPC general.
+                            </p>
+                            <p class="mb-4 text-justify text-slate-400 blur-[1px]">
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam...
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: AI Chat Interface -->
+                <div class="w-full md:w-1/2 bg-white flex flex-col">
+                    <!-- Chat Header -->
+                    <div class="h-12 border-b border-slate-200 flex items-center px-4 justify-between bg-white">
+                        <div class="flex items-center gap-2">
+                            <div class="w-2 h-2 rounded-full bg-green-500"></div>
+                            <span class="text-xs font-bold uppercase tracking-wider text-slate-500">Lexicon AI Assistant</span>
+                        </div>
+                        <button class="text-xs text-accent hover:underline">Exportar Resumen</button>
+                    </div>
+
+                    <!-- Messages -->
+                    <div class="flex-1 p-6 space-y-6 overflow-y-auto bg-slate-50/50">
+                        <!-- User Msg -->
+                        <div class="flex gap-4 flex-row-reverse">
+                            <div class="w-8 h-8 rounded-full bg-slate-200 flex items-center justify-center text-slate-600 text-xs font-bold">YO</div>
+                            <div class="bg-white border border-slate-200 p-3 rounded-lg rounded-tr-none text-sm text-slate-700 shadow-sm max-w-[80%]">
+                                ¿Cuál es la duración obligatoria del contrato y cuánto es la renta?
+                            </div>
+                        </div>
+
+                        <!-- AI Msg -->
+                        <div class="flex gap-4">
+                            <div class="w-8 h-8 rounded-full bg-ink flex items-center justify-center text-white text-xs font-serif font-bold">L</div>
+                            <div class="space-y-2 max-w-[90%]">
+                                <div class="bg-white border border-slate-200 p-4 rounded-lg rounded-tl-none text-sm text-slate-700 shadow-sm">
+                                    <p class="mb-3">Basado en el documento, he encontrado lo siguiente:</p>
+                                    <ul class="list-disc pl-4 space-y-2 mb-3">
+                                        <li><strong>Duración:</strong> El contrato tiene una duración obligatoria de <span class="bg-yellow-100 text-yellow-800 px-1 rounded">5 años</span> para el arrendador (Cláusula Tercera).</li>
+                                        <li><strong>Renta:</strong> El monto mensual es de <span class="bg-yellow-100 text-yellow-800 px-1 rounded">2.500 Euros</span> (Cláusula Cuarta).</li>
+                                    </ul>
+                                    <div class="flex gap-2 mt-2">
+                                        <button class="text-[10px] bg-slate-100 hover:bg-slate-200 px-2 py-1 rounded text-slate-600 border border-slate-200 transition-colors">
+                                            <i class="fa-solid fa-location-arrow mr-1"></i> Ir a pág 1
+                                        </button>
+                                        <button class="text-[10px] bg-slate-100 hover:bg-slate-200 px-2 py-1 rounded text-slate-600 border border-slate-200 transition-colors">
+                                            <i class="fa-regular fa-copy mr-1"></i> Copiar
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Input Area -->
+                    <div class="p-4 border-t border-slate-200 bg-white">
+                        <div class="relative">
+                            <input type="text" class="w-full bg-slate-50 border border-slate-200 rounded-lg pl-4 pr-12 py-3 text-sm focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-all placeholder-slate-400" placeholder="Haz otra pregunta sobre el PDF...">
+                            <button class="absolute right-2 top-2 bottom-2 w-8 bg-accent text-white rounded flex items-center justify-center hover:bg-blue-700 transition-colors">
+                                <i class="fa-solid fa-);
+
+        window.addEventListener('dragleave', (e) => {
+            e.preventDefault();
+            // Simple check to prevent flickering
+            if (e.clientX === 0 && e.clientY === 0) {
+                document.getElementById('dropZone').classList.add('hidden');
+                document.getElementById('dropZone').classList.remove('flex');
+            }
+        });
+
+        window.addEventListener('drop', (e) => {
+            e.preventDefault();
+            document.getElementById('dropZone').classList.add('hidden');
+            document.getElementById('dropZone').classList.remove('flex');
+            alert('¡PDF Detectado! Iniciando simulación de análisis...');
+        });
+
+        window.addEventListener('dragover', e => e.preventDefault());
+    </script>
+
+
+    <!-- BOTÓN WHATSAPP -->
+    <a href="https://wa.me/5491143216789"
+       target="_blank"
+       rel="noopener noreferrer"
+       aria-label="WhatsApp"
+       style="position: fixed; bottom: calc(1.5rem + env(safe-area-inset-bottom)); right: 1.5rem; z-index: 9999; display: flex; align-items: center; justify-content: center; width: 3.5rem; height: 3.5rem; border-radius: 50%; background-color: #25D366; color: white; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: transform 0.3s ease; text-decoration: none;"
+       onmouseover="this.style.transform='scale(1.1)'"
+       onmouseout="this.style.transform='scale(1)'"
+       title="WhatsApp">
+       <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" viewBox="0 0 16 16">
+  <path d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.9 7.9 0 0 0 13.6 2.326zM7.994 14.521a6.6 6.6 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.56 6.56 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592m3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.73.73 0 0 0-.529.247c-.182.198-.691.677-.691 1.654s.71 1.916.81 2.049c.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232"/>
+</svg>
+    </a>
+
+</body>
+</html>

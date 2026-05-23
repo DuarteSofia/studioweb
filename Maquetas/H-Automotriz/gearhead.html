@@ -1,0 +1,480 @@
+<!-- 
+  ========================================
+  TEMPLATE NAME: GEARHEAD - Auto Service & Repair
+  AUTHOR: Sebastian Fernandez
+  WEBSITE: https://sebastian-fernandez.com
+  VERSION: 2.0.0 (Final Commercial Release)
+  LICENSE: Standard License (Personal & Commercial Use)
+  ========================================
+-->
+
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO & METADATA -->
+    <title>GEARHEAD | Auto Service & Repair</title>
+    <meta name="description" content="Taller mecánico de confianza. Mantenimiento, diagnóstico electrónico y reparaciones multimarca. Calidad garantizada.">
+    <meta name="author" content="Sebastian Fernandez">
+
+    <!-- FAVICON (SVG Inline) -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><path d='M50 15 L60 30 L85 30 L70 50 L80 80 L50 65 L20 80 L30 50 L15 30 L40 30 Z' fill='%23E63946'/><circle cx='50' cy='50' r='15' fill='white'/></svg>">
+
+    <!-- OPEN GRAPH -->
+    <meta property="og:title" content="GEARHEAD | Auto Service">
+    <meta property="og:description" content="Mecánica de precisión. Tu auto en las mejores manos.">
+    <meta property="og:image" content="https://placehold.co/1200x630/111111/E63946?text=GEARHEAD+AUTO">
+    <meta property="og:url" content="#">
+    <meta property="og:type" content="website">
+
+    <!-- 1. TAILWIND CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- 2. GOOGLE FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Chakra Petch (Tech/Auto) + Roboto (Lectura) -->
+    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <!-- 3. FONT AWESOME -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- CONFIGURACIÓN TAILWIND -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'gear-red': '#E63946',      /* Rojo Motor */
+                        'gear-dark': '#1D3557',     /* Azul Mecánico */
+                        'gear-steel': '#457B9D',    /* Acero */
+                        'gear-light': '#F1FAEE',    /* Blanco Hielo */
+                        'gear-oil': '#111111',      /* Negro Aceite */
+                    },
+                    fontFamily: {
+                        'display': ['Chakra Petch', 'sans-serif'],
+                        'body': ['Roboto', 'sans-serif'],
+                    },
+                    backgroundImage: {
+                        'carbon': "url('https://www.transparenttextures.com/patterns/carbon-fibre.png')",
+                        'grid': "url('https://www.transparenttextures.com/patterns/graphy.png')"
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Efecto de borde técnico */
+        .tech-border {
+            position: relative;
+            clip-path: polygon(
+                0 0, 
+                100% 0, 
+                100% 85%, 
+                95% 100%, 
+                0 100%
+            );
+        }
+        
+        .tech-card { transition: all 0.3s ease; }
+        .tech-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 0 var(--gear-red);
+        }
+
+        /* Clip Button Style */
+        .clip-btn {
+            clip-path: polygon(10% 0, 100% 0, 100% 100%, 0% 100%);
+        }
+
+        /* Animación de escaneo */
+        .scan-line {
+            width: 100%;
+            height: 2px;
+            background: #E63946;
+            position: absolute;
+            top: 0;
+            left: 0;
+            animation: scan 3s linear infinite;
+            opacity: 0.5;
+        }
+        @keyframes scan {
+            0% { top: 0%; opacity: 0; }
+            50% { opacity: 1; }
+            100% { top: 100%; opacity: 0; }
+        }
+
+        /* Mobile Menu */
+        #mobile-menu {
+            transform: translateX(100%);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        #mobile-menu.open {
+            transform: translateX(0);
+        }
+
+        /* Back to Top */
+
+        /* Cookie Banner */
+        #cookie-banner {
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(20px);
+            transition: all 0.4s ease;
+        }
+
+        #cookie-banner.show {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800 font-body selection:bg-gear-red selection:text-white overflow-x-hidden">
+
+    <!-- TOP BAR -->
+    <div class="bg-gear-oil text-gray-400 py-2 text-sm border-b border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-2">
+            <div class="flex gap-6">
+                <span><i class="fa-solid fa-location-dot text-gear-red mr-2"></i> Polígono Industrial Norte, Nave 4</span>
+                <span class="hidden md:inline">|</span>
+                <span><i class="fa-regular fa-clock text-gear-red mr-2"></i> Lun-Vie: 08:00 - 19:00 hs</span>
+            </div>
+            <div class="font-bold text-white">
+                <a href="tel:900555666" class="hover:text-gear-red transition-colors"><i class="fa-solid fa-phone text-gear-red mr-2 animate-pulse"></i> Urgencias: 900 555 666</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- NAVBAR -->
+    <nav class="bg-white border-b-4 border-gear-red sticky top-0 z-50 shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 h-20 flex justify-between items-center">
+            <!-- Logo -->
+            <a href="#" class="flex items-center gap-2 group" onclick="window.scrollTo(0,0)">
+                <i class="fa-solid fa-gears text-4xl text-gear-dark group-hover:rotate-180 transition-transform duration-700"></i>
+                <div class="leading-none">
+                    <span class="block font-display font-bold text-2xl text-gear-dark uppercase tracking-tighter">Gear<span class="text-gear-red">Head</span></span>
+                    <span class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest">Auto Service</span>
+                </div>
+            </a>
+
+            <!-- Menu Desktop -->
+            <div class="hidden md:flex gap-8 font-display font-bold uppercase tracking-wide text-gear-dark items-center">
+                <a href="#inicio" class="hover:text-gear-red transition-colors">Inicio</a>
+                <a href="#servicios" class="hover:text-gear-red transition-colors">Servicios</a>
+                <a href="#promociones" class="hover:text-gear-red transition-colors">Promociones</a>
+                <a href="#contacto" class="bg-gear-red text-white px-6 py-2 skew-x-[-10deg] hover:bg-gear-dark transition-colors inline-block group">
+                    <span class="skew-x-[10deg] inline-block group-hover:translate-x-1 transition-transform">Pedir Cita</span>
+                </a>
+            </div>
+
+            <!-- Mobile Button -->
+            <button id="mobile-menu-btn" class="md:hidden text-2xl text-gear-dark focus:outline-none">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Menu Overlay -->
+        <div id="mobile-menu" class="fixed inset-0 bg-gear-oil z-40 flex flex-col justify-center items-center h-screen w-screen border-l-4 border-gear-red">
+            <div class="flex flex-col gap-8 text-3xl font-display font-bold text-center uppercase tracking-widest text-white">
+                <a href="#inicio" class="mobile-link hover:text-gear-red transition-colors">Inicio</a>
+                <a href="#servicios" class="mobile-link hover:text-gear-red transition-colors">Servicios</a>
+                <a href="#promociones" class="mobile-link hover:text-gear-red transition-colors">Promociones</a>
+                <a href="#contacto" class="mobile-link text-gear-red border-b-2 border-gear-red pb-1">Pedir Cita</a>
+            </div>
+            <button id="close-menu" class="absolute top-6 right-6 text-4xl text-gray-500 hover:text-white transition-colors">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section id="inicio" class="relative h-[650px] bg-gear-oil text-white overflow-hidden flex items-center">
+        <!-- BG Image -->
+        <div class="absolute inset-0 opacity-40">
+            <img src="https://images.pexels.com/photos/2244746/pexels-photo-2244746.jpeg?auto=compress&cs=tinysrgb&w=1920" class="w-full h-full object-cover" alt="Mechanic working">
+        </div>
+        <!-- Carbon Texture Overlay -->
+        <div class="absolute inset-0 bg-carbon opacity-30"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12">
+            <div>
+                <div class="inline-block bg-gear-red text-white px-3 py-1 font-display font-bold uppercase text-xs tracking-widest mb-4 skew-x-[-10deg]">
+                    <span class="skew-x-[10deg] inline-block">Certificación Oficial Bosch</span>
+                </div>
+                <h1 class="font-display text-5xl md:text-7xl font-bold uppercase leading-none mb-6 drop-shadow-lg">
+                    Mecánica de <br> <span class="text-transparent bg-clip-text bg-gradient-to-r from-gear-red to-orange-500">Precisión</span>
+                </h1>
+                <p class="text-gray-300 text-lg mb-8 max-w-md border-l-4 border-gear-red pl-4">
+                    No dejes tu seguridad en manos de cualquiera. Diagnóstico computerizado, mantenimiento preventivo y reparaciones con garantía.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <a href="#contacto" class="bg-white text-gear-dark px-8 py-4 font-display font-bold uppercase hover:bg-gear-red hover:text-white transition-all text-center clip-btn">
+                        Revisión General
+                    </a>
+                    <a href="#servicios" class="border-2 border-white text-white px-8 py-4 font-display font-bold uppercase hover:bg-white hover:text-gear-dark transition-all text-center">
+                        Ver Servicios
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Floating Form (Desktop) -->
+            <div class="hidden lg:block bg-white/10 backdrop-blur-md border border-white/20 p-8 rounded-lg shadow-2xl">
+                <h3 class="font-display text-2xl font-bold uppercase mb-4 flex items-center gap-2">
+                    <i class="fa-solid fa-calendar-check text-gear-red"></i> Cita Rápida
+                </h3>
+                <form class="space-y-4" onsubmit="event.preventDefault(); alert('DEMO: Solicitud de cita rápida enviada. Confirmaremos matrícula.');">
+                    <input type="text" placeholder="Matrícula" class="w-full bg-black/50 border border-white/30 p-3 text-white placeholder-gray-400 focus:border-gear-red outline-none font-mono uppercase transition-colors" required>
+                    <select class="w-full bg-black/50 border border-white/30 p-3 text-white focus:border-gear-red outline-none transition-colors cursor-pointer">
+                        <option class="text-black">Cambio de Aceite</option>
+                        <option class="text-black">Revisión Frenos</option>
+                        <option class="text-black">ITV Pre-Check</option>
+                        <option class="text-black">Avería Motor</option>
+                    </select>
+                    <input type="tel" placeholder="Teléfono" class="w-full bg-black/50 border border-white/30 p-3 text-white placeholder-gray-400 focus:border-gear-red outline-none transition-colors" required>
+                    <button type="submit" class="w-full bg-gear-red py-3 font-bold uppercase tracking-wider hover:bg-red-700 transition-colors shadow-lg">
+                        Solicitar Turno
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- STATS STRIP -->
+    <div class="bg-gear-dark text-white py-8 border-b-4 border-gear-red relative overflow-hidden" id="diagnostico">
+        <!-- Scanline Animation -->
+        <div class="scan-line"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-8 text-center font-display">
+            <div>
+                <div class="text-4xl font-bold text-gear-steel">15+</div>
+                <div class="text-sm uppercase tracking-widest text-gray-400">Años Experiencia</div>
+            </div>
+            <div>
+                <div class="text-4xl font-bold text-gear-steel">5k</div>
+                <div class="text-sm uppercase tracking-widest text-gray-400">autos Reparados</div>
+            </div>
+            <div>
+                <div class="text-4xl font-bold text-gear-steel">24 hs</div>
+                <div class="text-sm uppercase tracking-widest text-gray-400">Entrega Express</div>
+            </div>
+            <div>
+                <div class="text-4xl font-bold text-gear-steel">100%</div>
+                <div class="text-sm uppercase tracking-widest text-gray-400">Garantía Piezas</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SERVICIOS GRID -->
+    <section id="servicios" class="py-20 bg-gray-100">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center mb-16">
+                <span class="text-gear-red font-bold uppercase tracking-widest text-xs">Ingeniería Automotriz</span>
+                <h2 class="font-display text-4xl md:text-5xl font-bold text-gear-dark mt-2">Nuestros Servicios</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Service 1 -->
+                <div class="bg-white p-8 tech-border shadow-md tech-card group cursor-pointer border-t-4 border-transparent hover:border-gear-red transition-all">
+                    <i class="fa-solid fa-oil-can text-4xl text-gray-300 group-hover:text-gear-red mb-6 transition-colors"></i>
+                    <h3 class="font-display text-2xl font-bold text-gear-dark mb-3">Mantenimiento</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed mb-6">Cambio de aceite, filtros, líquidos y puesta a punto general. Mantén tu motor como nuevo.</p>
+                    <a href="#contacto" class="text-gear-dark font-bold uppercase text-xs tracking-wider border-b-2 border-gear-red pb-1 hover:text-gear-red transition-colors">Pedir Cita</a>
+                </div>
+
+                <!-- Service 2 -->
+                <div class="bg-white p-8 tech-border shadow-md tech-card group cursor-pointer border-t-4 border-transparent hover:border-gear-red transition-all transform md:-translate-y-4">
+                    <i class="fa-solid fa-car-battery text-4xl text-gray-300 group-hover:text-gear-red mb-6 transition-colors"></i>
+                    <h3 class="font-display text-2xl font-bold text-gear-dark mb-3">Electrónica</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed mb-6">Diagnóstico OBD, reparación de centralitas, alternadores y sistemas de arranque.</p>
+                    <a href="#contacto" class="text-gear-dark font-bold uppercase text-xs tracking-wider border-b-2 border-gear-red pb-1 hover:text-gear-red transition-colors">Pedir Cita</a>
+                </div>
+
+                <!-- Service 3 -->
+                <div class="bg-white p-8 tech-border shadow-md tech-card group cursor-pointer border-t-4 border-transparent hover:border-gear-red transition-all">
+                    <i class="fa-solid fa-compact-disc text-4xl text-gray-300 group-hover:text-gear-red mb-6 transition-colors"></i>
+                    <h3 class="font-display text-2xl font-bold text-gear-dark mb-3">Frenos y cubiertas</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed mb-6">Alineación 3D, cambio de pastillas, discos y cubiertas de todas las marcas.</p>
+                    <a href="#contacto" class="text-gear-dark font-bold uppercase text-xs tracking-wider border-b-2 border-gear-red pb-1 hover:text-gear-red transition-colors">Pedir Cita</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROMO BANNER -->
+    <section id="promociones" class="py-20 bg-gear-dark relative overflow-hidden">
+        <div class="absolute inset-0 bg-grid opacity-10"></div>
+        <div class="max-w-6xl mx-auto px-4 relative z-10 flex flex-col md:flex-row items-center justify-between gap-12">
+            <div class="text-white text-center md:text-left">
+                <span class="text-gear-red font-display font-bold text-xl uppercase mb-2 block">Oferta del Mes</span>
+                <h2 class="font-display text-5xl md:text-7xl font-bold uppercase leading-none mb-6">
+                    Cambio de Aceite <br> + Filtro
+                </h2>
+                <div class="flex items-center gap-4 justify-center md:justify-start">
+                    <span class="text-4xl font-bold text-gear-steel line-through opacity-50">ARS 99.000</span>
+                    <span class="text-6xl font-bold text-white">ARS 69.000</span>
+                </div>
+                <p class="text-gray-400 mt-4 text-sm">*Aceite sintético 5W30. Hasta 5 litros. Válido hasta fin de mes.</p>
+            </div>
+            
+            <div class="relative">
+                <div class="absolute inset-0 bg-gear-red blur-[80px] opacity-20"></div>
+                <!-- Pexels: Car Part / Oil -->
+                <img src="https://images.pexels.com/photos/3806249/pexels-photo-3806249.jpeg?auto=compress&cs=tinysrgb&w=800" class="relative z-10 w-80 rounded-lg shadow-2xl border-4 border-white/10 rotate-3 transform hover:scale-105 transition-transform" alt="Oil Can">
+            </div>
+        </div>
+    </section>
+
+    <!-- MARCAS -->
+    <section class="py-12 bg-white border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <p class="text-gray-400 font-bold uppercase tracking-widest text-xs mb-8">Especialistas en</p>
+            <div class="flex flex-wrap justify-center gap-12 text-4xl text-gray-300">
+                <i class="fa-brands fa-aws hover:text-gear-dark transition-colors cursor-help" title="Multimarca"></i>
+                <i class="fa-solid fa-car-side hover:text-gear-dark transition-colors cursor-help" title="Turismos"></i>
+                <i class="fa-solid fa-truck-pickup hover:text-gear-dark transition-colors cursor-help" title="4x4"></i>
+                <i class="fa-solid fa-van-shuttle hover:text-gear-dark transition-colors cursor-help" title="Furgonetas"></i>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACTO -->
+    <section id="contacto" class="py-20 bg-gray-100">
+        <div class="max-w-4xl mx-auto px-4">
+            <div class="bg-white rounded-xl shadow-xl overflow-hidden flex flex-col md:flex-row">
+                <div class="bg-gear-dark text-white p-10 md:w-1/3 flex flex-col justify-between">
+                    <div>
+                        <h3 class="font-display text-2xl font-bold uppercase mb-6">Contacto</h3>
+                        <div class="space-y-6 text-sm">
+                            <div class="flex gap-4">
+                                <i class="fa-solid fa-location-dot text-gear-red text-lg"></i>
+                                <p class="text-gray-300">Parque Industrial Norte, Nave 4<br>C1000 Buenos Aires</p>
+                            </div>
+                            <div class="flex gap-4">
+                                <i class="fa-solid fa-phone text-gear-red text-lg"></i>
+                                <p class="text-gray-300">900 555 666</p>
+                            </div>
+                            <div class="flex gap-4">
+                                <i class="fa-solid fa-envelope text-gear-red text-lg"></i>
+                                <p class="text-gray-300">taller@gearhead.com</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-10">
+                        <p class="font-display font-bold uppercase text-lg mb-2">Horario</p>
+                        <p class="text-sm text-gray-400">Lun - Vie: 08:00 - 19:00 hs</p>
+                        <p class="text-sm text-gray-400">Sáb: 09:00 - 14:00 hs</p>
+                    </div>
+                </div>
+                
+                <div class="p-10 md:w-2/3">
+                    <h3 class="font-display text-2xl font-bold uppercase text-gear-dark mb-2">Solicitar Presupuesto</h3>
+                    <p class="text-gray-500 text-sm mb-6">Describe tu avería y te contactaremos con un estimado.</p>
+                    <form class="space-y-4" onsubmit="event.preventDefault(); alert('DEMO: Solicitud enviada. Te llamaremos en breve.');">
+                        <div class="grid grid-cols-2 gap-4">
+                            <input type="text" placeholder="Nombre" class="w-full bg-gray-50 border border-gray-200 p-3 rounded focus:border-gear-dark outline-none transition-colors" required>
+                            <input type="tel" placeholder="Teléfono" class="w-full bg-gray-50 border border-gray-200 p-3 rounded focus:border-gear-dark outline-none transition-colors" required>
+                        </div>
+                        <input type="text" placeholder="Modelo de auto (ej. Ford Focus 2018)" class="w-full bg-gray-50 border border-gray-200 p-3 rounded focus:border-gear-dark outline-none transition-colors">
+                        <textarea rows="4" placeholder="¿Qué le pasa al auto?" class="w-full bg-gray-50 border border-gray-200 p-3 rounded focus:border-gear-dark outline-none transition-colors"></textarea>
+                        <button class="w-full bg-gear-dark text-white font-bold uppercase py-3 hover:bg-gear-red transition-colors rounded">Enviar Solicitud</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-gear-oil text-white py-12 border-t-4 border-gear-red">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="flex items-center gap-2">
+                <i class="fa-solid fa-gears text-2xl text-gray-500"></i>
+                <span class="font-display font-bold text-xl uppercase tracking-tighter">GearHead</span>
+            </div>
+            
+            <p class="text-gray-500 text-xs text-center">
+                © 2025 GearHead Auto Service. Todos los derechos reservados.
+            </p>
+
+            <div class="flex gap-4">
+                <a href="#" class="w-8 h-8 bg-gray-800 flex items-center justify-center rounded text-gray-400 hover:bg-gear-red hover:text-white transition-colors"><i class="fa-brands fa-facebook-f"></i></a>
+                <a href="#" class="w-8 h-8 bg-gray-800 flex items-center justify-center rounded text-gray-400 hover:bg-gear-red hover:text-white transition-colors"><i class="fa-brands fa-instagram"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- BOTÓN VOLVER ARRIBA -->
+    
+
+    <!-- COOKIE BANNER -->
+    <div id="cookie-banner" class="fixed bottom-4 left-4 max-w-sm bg-gear-oil border-l-4 border-gear-red p-5 z-50 shadow-2xl flex flex-col gap-3">
+        <p class="text-gray-300 font-body text-xs leading-relaxed">
+            <strong class="text-white uppercase tracking-wider">Aviso Técnico:</strong> Usamos cookies para optimizar el rendimiento del sitio.
+        </p>
+        <div class="flex gap-2">
+            <button id="accept-cookies" class="bg-gear-red text-white px-4 py-1 text-xs font-bold uppercase hover:bg-white hover:text-gear-red transition-colors flex-1 clip-btn">
+                Aceptar
+            </button>
+            <button id="close-cookies" class="bg-gray-800 text-gray-400 px-4 py-1 text-xs font-bold uppercase hover:text-white transition-colors flex-1 clip-btn">
+                Cerrar
+            </button>
+        </div>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script>
+        // Menu Mobile
+        const menuBtn = document.getElementById('mobile-menu-btn');
+        const closeMenu = document.getElementById('close-menu');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        function toggleMenu() {
+            mobileMenu.classList.toggle('open');
+            document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : 'auto';
+        }
+
+        menuBtn.addEventListener('click', toggleMenu);
+        closeMenu.addEventListener('click', toggleMenu);
+        mobileLinks.forEach(link => link.addEventListener('click', toggleMenu));
+
+        // Back to Top Logic
+        
+
+        // Cookie Banner Logic
+        const cookieBanner = document.getElementById('cookie-banner');
+        const acceptCookies = document.getElementById('accept-cookies');
+        const closeCookies = document.getElementById('close-cookies');
+
+        setTimeout(() => {
+            cookieBanner.classList.add('show');
+        }, 1500);
+
+        const hideBanner = () => {
+            cookieBanner.classList.remove('show');
+        };
+
+        acceptCookies.addEventListener('click', hideBanner);
+        closeCookies.addEventListener('click', hideBanner);
+    </script>
+
+
+    <!-- BOTÓN WHATSAPP -->
+    <a href="https://wa.me/5491143216789"
+       target="_blank"
+       rel="noopener noreferrer"
+       aria-label="WhatsApp"
+       style="position: fixed; bottom: calc(1.5rem + env(safe-area-inset-bottom)); right: 1.5rem; z-index: 9999; display: flex; align-items: center; justify-content: center; width: 3.5rem; height: 3.5rem; border-radius: 50%; background-color: #25D366; color: white; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: transform 0.3s ease; text-decoration: none;"
+       onmouseover="this.style.transform='scale(1.1)'"
+       onmouseout="this.style.transform='scale(1)'"
+       title="WhatsApp">
+       <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" viewBox="0 0 16 16">
+  <path d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.9 7.9 0 0 0 13.6 2.326zM7.994 14.521a6.6 6.6 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.56 6.56 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592m3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.73.73 0 0 0-.529.247c-.182.198-.691.677-.691 1.654s.71 1.916.81 2.049c.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232"/>
+</svg>
+    </a>
+
+</body>
+</html>

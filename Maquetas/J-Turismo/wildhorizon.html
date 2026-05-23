@@ -1,0 +1,569 @@
+<!-- 
+  ========================================
+  TEMPLATE NAME: WILD HORIZON - Adventure Travel & Eco Tourism
+  AUTHOR: Sebastian Fernandez
+  WEBSITE: https://sebastian-fernandez.com
+  VERSION: 2.0.0 (Final Commercial Release)
+  LICENSE: Standard License (Personal & Commercial Use)
+  ========================================
+-->
+
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO & METADATA -->
+    <title>WILD HORIZON | Adventure Travel</title>
+    <meta name="description" content="Agencia de viajes de aventura y ecoturismo. Descubre destinos salvajes, rutas de trekking y experiencias auténticas en la naturaleza.">
+    <meta name="author" content="Sebastian Fernandez">
+
+    <!-- FAVICON (SVG Inline) -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%232D6A4F'/><path d='M50 20 L60 50 L90 50 L65 70 L75 95 L50 80 L25 95 L35 70 L10 50 L40 50 Z' fill='none' stroke='white' stroke-width='4'/></svg>">
+
+    <!-- OPEN GRAPH -->
+    <meta property="og:title" content="Wild Horizon | Adventure Travel">
+    <meta property="og:description" content="Explora el mundo salvaje. Viajes sostenibles y aventuras inolvidables.">
+    <meta property="og:image" content="https://placehold.co/1200x630/2D6A4F/ffffff?text=WILD+HORIZON">
+    <meta property="og:url" content="#">
+    <meta property="og:type" content="website">
+
+    <!-- 1. TAILWIND CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- 2. GOOGLE FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Rubik (Aventura) + Karla (Lectura) -->
+    <link href="https://fonts.googleapis.com/css2?family=Karla:wght@300;400;700&family=Rubik:wght@400;600;800&display=swap" rel="stylesheet">
+
+    <!-- 3. FONT AWESOME -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- 4. AOS ANIMATION -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <!-- CONFIGURACIÓN TAILWIND -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'wild-green': '#2D6A4F',    /* Verde Bosque Profundo */
+                        'wild-light': '#D8F3DC',    /* Verde Menta Claro */
+                        'wild-orange': '#E36414',   /* Naranja Atardecer */
+                        'wild-sand': '#FAE1DD',     /* Arena Cálida */
+                        'wild-dark': '#1B4332',     /* Verde Casi Negro */
+                    },
+                    fontFamily: {
+                        'display': ['Rubik', 'sans-serif'],
+                        'body': ['Karla', 'sans-serif'],
+                    },
+                    backgroundImage: {
+                        'topo': "url('https://www.transparenttextures.com/patterns/gplay.png')",
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Máscara de imagen irregular */
+        .clip-tear {
+            clip-path: polygon(0 0, 100% 0, 100% 90%, 50% 100%, 0 90%);
+        }
+        
+        /* Botón con efecto de elevación */
+        .btn-wild {
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-wild:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+        }
+        .btn-wild::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(255,255,255,0.2);
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.4s ease;
+        }
+        .btn-wild:hover::after {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
+        /* Card Hover Effect */
+        .adventure-card:hover .card-img {
+            transform: scale(1.1);
+        }
+        
+        /* Texto con contorno */
+        .text-outline {
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        /* Mobile Menu */
+        #mobile-menu {
+            transform: translateX(100%);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        #mobile-menu.open {
+            transform: translateX(0);
+        }
+
+        /* Back to Top */
+
+        /* Cookie Banner */
+        #cookie-banner {
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(20px);
+            transition: all 0.4s ease;
+        }
+
+        #cookie-banner.show {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 font-body selection:bg-wild-orange selection:text-white overflow-x-hidden">
+
+    <!-- NAVBAR -->
+    <nav id="navbar" class="fixed w-full z-50 bg-transparent text-white transition-all duration-500 border-b border-transparent">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center relative z-50">
+            <!-- Logo -->
+            <a href="#" class="flex items-center gap-2 group" onclick="window.scrollTo(0,0)">
+                <i class="fa-solid fa-mountain-sun text-wild-orange text-2xl group-hover:rotate-12 transition-transform"></i>
+                <span class="font-display font-bold text-2xl tracking-tight">WILD<span class="text-wild-orange">HORIZON</span></span>
+            </a>
+
+            <!-- Menu Desktop -->
+            <div class="hidden md:flex gap-8 text-sm font-bold uppercase tracking-wider">
+                <a href="#destinos" class="hover:text-wild-orange transition-colors">Destinos</a>
+                <a href="#experiencias" class="hover:text-wild-orange transition-colors">Filosofía</a>
+                <a href="#nosotros" class="hover:text-wild-orange transition-colors">Testimonios</a>
+            </div>
+
+            <!-- CTA Button -->
+            <a href="#contacto" class="hidden md:block bg-wild-orange text-white px-6 py-2 rounded-full font-bold uppercase text-xs tracking-wider btn-wild">
+                Planear Viaje
+            </a>
+
+            <!-- Mobile Button -->
+            <button id="mobile-menu-btn" class="md:hidden text-2xl hover:text-wild-orange transition-colors focus:outline-none">
+                <i class="fa-solid fa-bars-staggered"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Menu Overlay -->
+        <div id="mobile-menu" class="fixed inset-0 bg-wild-dark z-40 flex flex-col justify-center items-center h-screen w-screen border-l-4 border-wild-orange">
+            <div class="flex flex-col gap-8 text-2xl font-display uppercase tracking-widest text-center text-white">
+                <a href="#destinos" class="mobile-link hover:text-wild-orange transition-colors">Destinos</a>
+                <a href="#experiencias" class="mobile-link hover:text-wild-orange transition-colors">Filosofía</a>      
+                <a href="#nosotros" class="mobile-link hover:text-wild-orange transition-colors">Testimonios</a>
+            </div>
+            <button id="close-menu" class="absolute top-6 right-6 text-4xl text-gray-400 hover:text-white transition-colors">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <header class="relative h-screen min-h-[600px] flex items-center justify-center overflow-hidden clip-tear">
+        <!-- Background Image -->
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.pexels.com/photos/2387418/pexels-photo-2387418.jpeg?auto=compress&cs=tinysrgb&w=1920" 
+                 class="w-full h-full object-cover" alt="Hiking Adventure">
+            <div class="absolute inset-0 bg-gradient-to-t from-wild-dark via-wild-dark/40 to-transparent"></div>
+        </div>
+
+        <div class="relative z-10 text-center px-4 max-w-4xl pt-20">
+            <div class="inline-block bg-white/20 backdrop-blur-md rounded-full px-4 py-1 mb-6 border border-white/30 animate-pulse">
+                <span class="text-xs font-bold uppercase tracking-widest text-white">🌿 Turismo Sostenible</span>
+            </div>
+            
+            <h1 class="font-display text-6xl md:text-8xl text-white mb-6 font-black leading-tight drop-shadow-lg" data-aos="zoom-in">
+                ESCAPE THE <br> <span class="text-wild-orange">ORDINARY</span>
+            </h1>
+            
+            <p class="text-gray-200 text-lg md:text-xl max-w-xl mx-auto mb-10 font-medium text-outline" data-aos="fade-up" data-aos-delay="200">
+                Descubre los rincones más salvajes del planeta. Rutas guiadas, expediciones de montaña y conexión real con la naturaleza.
+            </p>
+            
+            <div class="flex flex-col sm:flex-row gap-4 justify-center" data-aos="fade-up" data-aos-delay="400">
+                <a href="#destinos" class="bg-wild-orange text-white px-8 py-4 rounded-full font-bold uppercase tracking-wider btn-wild flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-compass"></i> Ver Aventuras
+                </a>
+                <a href="#experiencias" class="bg-white text-wild-dark px-8 py-4 rounded-full font-bold uppercase tracking-wider hover:bg-gray-100 transition-colors flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-play"></i> Saber Más
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- SEARCH BAR (Floating) -->
+    <div class="relative -mt-12 z-20 px-4 mb-20">
+        <div class="max-w-4xl mx-auto bg-white rounded-2xl shadow-xl p-4 md:p-6 flex flex-col md:flex-row gap-4 items-center border-b-4 border-wild-orange">
+            <div class="w-full md:flex-1">
+                <label class="block text-xs font-bold uppercase text-gray-400 mb-1 ml-1">Destino</label>
+                <div class="flex items-center bg-gray-50 rounded-lg px-4 py-2">
+                    <i class="fa-solid fa-location-dot text-wild-green mr-3"></i>
+                    <select class="w-full bg-transparent font-bold text-gray-700 focus:outline-none appearance-none cursor-pointer">
+                        <option>Patagonia, Chile</option>
+                        <option>Dolomitas, Italia</option>
+                        <option>Costa Rica</option>
+                        <option>Islandia</option>
+                    </select>
+                </div>
+            </div>
+            <div class="w-full md:flex-1">
+                <label class="block text-xs font-bold uppercase text-gray-400 mb-1 ml-1">Actividad</label>
+                <div class="flex items-center bg-gray-50 rounded-lg px-4 py-2">
+                    <i class="fa-solid fa-person-hiking text-wild-green mr-3"></i>
+                    <select class="w-full bg-transparent font-bold text-gray-700 focus:outline-none appearance-none cursor-pointer">
+                        <option>Trekking</option>
+                        <option>Escalada</option>
+                        <option>Kayak</option>
+                        <option>Safari Fotográfico</option>
+                    </select>
+                </div>
+            </div>
+            <div class="w-full md:w-auto mt-2 md:mt-5">
+                <button class="w-full bg-wild-dark text-white p-4 rounded-xl font-bold hover:bg-wild-green transition-colors shadow-lg" onclick="alert('DEMO: Buscando aventuras...')">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- DESTINOS POPULARES -->
+    <section id="destinos" class="py-12 bg-white">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-12">
+                <div>
+                    <span class="text-wild-orange font-bold uppercase tracking-widest text-xs">Explora</span>
+                    <h2 class="font-display text-4xl md:text-5xl text-wild-dark font-bold mt-2">Destinos Trending</h2>
+                </div>
+                <a href="#" class="hidden md:flex items-center gap-2 font-bold text-wild-dark border-b-2 border-wild-orange hover:text-wild-orange transition-colors mt-4 md:mt-0">
+                    Ver todos los destinos <i class="fa-solid fa-arrow-right"></i>
+                </a>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Card 1 -->
+                <div class="group relative h-[400px] rounded-2xl overflow-hidden cursor-pointer adventure-card shadow-lg" data-aos="fade-up" data-aos-delay="100">
+                    <img src="https://images.pexels.com/photos/1659438/pexels-photo-1659438.jpeg?auto=compress&cs=tinysrgb&w=800" class="card-img w-full h-full object-cover transition-transform duration-700" alt="Montaña">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+                    <div class="absolute top-4 right-4 bg-white/20 backdrop-blur-md text-white text-xs font-bold px-3 py-1 rounded-full border border-white/30">
+                        7 Días
+                    </div>
+                    <div class="absolute bottom-0 left-0 p-6 text-white w-full">
+                        <span class="text-wild-orange text-xs font-bold uppercase tracking-widest mb-1 block">Dolomitas</span>
+                        <h3 class="font-display text-2xl font-bold mb-2">Ruta de los Picos</h3>
+                        <div class="flex justify-between items-end border-t border-white/20 pt-3 mt-2">
+                            <span class="text-sm opacity-80">Nivel: Medio</span>
+                            <span class="font-bold text-lg">ARS 950.000</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="group relative h-[400px] rounded-2xl overflow-hidden cursor-pointer adventure-card shadow-lg" data-aos="fade-up" data-aos-delay="200">
+                    <img src="https://images.pexels.com/photos/2440024/pexels-photo-2440024.jpeg?auto=compress&cs=tinysrgb&w=800" class="card-img w-full h-full object-cover transition-transform duration-700" alt="Volcán">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+                    <div class="absolute top-4 right-4 bg-white/20 backdrop-blur-md text-white text-xs font-bold px-3 py-1 rounded-full border border-white/30">
+                        10 Días
+                    </div>
+                    <div class="absolute bottom-0 left-0 p-6 text-white w-full">
+                        <span class="text-wild-orange text-xs font-bold uppercase tracking-widest mb-1 block">Islandia</span>
+                        <h3 class="font-display text-2xl font-bold mb-2">Tierra de Fuego</h3>
+                        <div class="flex justify-between items-end border-t border-white/20 pt-3 mt-2">
+                            <span class="text-sm opacity-80">Nivel: Alto</span>
+                            <span class="font-bold text-lg">ARS 1.000</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="group relative h-[400px] rounded-2xl overflow-hidden cursor-pointer adventure-card shadow-lg" data-aos="fade-up" data-aos-delay="300">
+                    <img src="https://images.pexels.com/photos/931018/pexels-photo-931018.jpeg?auto=compress&cs=tinysrgb&w=800" class="card-img w-full h-full object-cover transition-transform duration-700" alt="Selva">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+                    <div class="absolute top-4 right-4 bg-white/20 backdrop-blur-md text-white text-xs font-bold px-3 py-1 rounded-full border border-white/30">
+                        14 Días
+                    </div>
+                    <div class="absolute bottom-0 left-0 p-6 text-white w-full">
+                        <span class="text-wild-orange text-xs font-bold uppercase tracking-widest mb-1 block">Costa Rica</span>
+                        <h3 class="font-display text-2xl font-bold mb-2">Pura Vida Eco</h3>
+                        <div class="flex justify-between items-end border-t border-white/20 pt-3 mt-2">
+                            <span class="text-sm opacity-80">Nivel: Bajo</span>
+                            <span class="font-bold text-lg">ARS 1.000</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="group relative h-[400px] rounded-2xl overflow-hidden cursor-pointer adventure-card shadow-lg" data-aos="fade-up" data-aos-delay="400">
+                    <img src="https://images.pexels.com/photos/3225528/pexels-photo-3225528.jpeg?auto=compress&cs=tinysrgb&w=800" class="card-img w-full h-full object-cover transition-transform duration-700" alt="Desierto">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+                    <div class="absolute top-4 right-4 bg-white/20 backdrop-blur-md text-white text-xs font-bold px-3 py-1 rounded-full border border-white/30">
+                        5 Días
+                    </div>
+                    <div class="absolute bottom-0 left-0 p-6 text-white w-full">
+                        <span class="text-wild-orange text-xs font-bold uppercase tracking-widest mb-1 block">Marruecos</span>
+                        <h3 class="font-display text-2xl font-bold mb-2">Noches Bereber</h3>
+                        <div class="flex justify-between items-end border-t border-white/20 pt-3 mt-2">
+                            <span class="text-sm opacity-80">Nivel: Medio</span>
+                            <span class="font-bold text-lg">ARS 650.000</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- EXPERIENCIAS / VALUES -->
+    <section id="experiencias" class="py-24 bg-wild-light relative">
+        <div class="absolute inset-0 bg-topo opacity-30"></div>
+        <div class="max-w-6xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center relative z-10">
+            <div data-aos="fade-right">
+                <div class="inline-block bg-white text-wild-green px-3 py-1 rounded-full text-xs font-bold uppercase mb-4 shadow-sm">Nuestra Filosofía</div>
+                <h2 class="font-display text-4xl md:text-5xl font-bold text-wild-dark mb-6 leading-tight">
+                    Viaja diferente. <br> <span class="text-wild-orange">Impacta positivo.</span>
+                </h2>
+                <p class="text-gray-600 mb-8 leading-relaxed text-lg">
+                    Creemos que la aventura no está reñida con la sostenibilidad. Cada expedición está diseñada para minimizar nuestra huella de carbono y apoyar directamente a las comunidades locales.
+                </p>
+                
+                <div class="space-y-6">
+                    <div class="flex gap-4 items-start">
+                        <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center text-wild-green shadow-sm shrink-0">
+                            <i class="fa-solid fa-leaf text-xl"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-display font-bold text-xl text-wild-dark">Eco-Friendly</h4>
+                            <p class="text-sm text-gray-500">Alojamientos sostenibles y política de cero plásticos en todas las rutas.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4 items-start">
+                        <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center text-wild-green shadow-sm shrink-0">
+                            <i class="fa-solid fa-users text-xl"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-display font-bold text-xl text-wild-dark">Grupos Pequeños</h4>
+                            <p class="text-sm text-gray-500">Máximo 10 personas para garantizar una experiencia auténtica y segura.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4 items-start">
+                        <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center text-wild-green shadow-sm shrink-0">
+                            <i class="fa-solid fa-person-hiking text-xl"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-display font-bold text-xl text-wild-dark">Guías Expertos</h4>
+                            <p class="text-sm text-gray-500">Profesionales certificados con años de experiencia en terreno.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="relative" data-aos="fade-left">
+                <!-- Stacked Images -->
+                <img src="https://images.pexels.com/photos/210243/pexels-photo-210243.jpeg?auto=compress&cs=tinysrgb&w=800" class="w-3/4 rounded-2xl shadow-2xl relative z-10 border-4 border-white" alt="Montaña">
+                <img src="https://images.pexels.com/photos/2166553/pexels-photo-2166553.jpeg?auto=compress&cs=tinysrgb&w=800" class="w-2/3 rounded-2xl shadow-xl absolute -bottom-10 -right-4 z-20 border-4 border-white" alt="Camping">
+                
+                <!-- Badge -->
+                <div class="absolute -top-6 -right-6 bg-wild-orange text-white p-6 rounded-full shadow-2xl z-30 w-32 h-32 flex items-center justify-center text-center animate-bounce" style="animation-duration: 3s;">
+                    <div>
+                        <span class="block font-black text-2xl">10%</span>
+                        <span class="text-xs uppercase font-bold">DTO Primera Reserva</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section id="nosotros" class="py-20 bg-wild-dark text-white">
+        <div class="max-w-4xl mx-auto px-6 text-center">
+            <i class="fa-solid fa-quote-left text-wild-orange text-4xl mb-8 opacity-50"></i>
+            <h3 class="font-display text-2xl md:text-4xl leading-normal mb-8 font-medium">
+                "La expedición a Patagonia cambió mi vida. No solo vi paisajes increíbles, sino que hice amigos para siempre. La organización fue impecable."
+            </h3>
+            <div class="flex items-center justify-center gap-4">
+                <img src="https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=150" class="w-12 h-12 rounded-full border-2 border-wild-orange object-cover" alt="User">
+                <div class="text-left">
+                    <p class="font-bold text-white">Sofia R.</p>
+                    <p class="text-xs text-gray-400 uppercase tracking-widest">Viajera 2023</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEWSLETTER / CONTACTO -->
+    <section id="contacto" class="py-24 bg-white">
+        <div class="max-w-5xl mx-auto px-6">
+            <div class="bg-wild-green rounded-3xl p-8 md:p-16 text-center relative overflow-hidden shadow-2xl">
+                <!-- Decorative Circles -->
+                <div class="absolute top-0 left-0 w-64 h-64 bg-white/10 rounded-full -translate-x-1/2 -translate-y-1/2 blur-3xl"></div>
+                <div class="absolute bottom-0 right-0 w-64 h-64 bg-wild-orange/20 rounded-full translate-x-1/2 translate-y-1/2 blur-3xl"></div>
+
+                <div class="relative z-10 text-white">
+                    <h2 class="font-display text-4xl md:text-5xl font-bold mb-6">¿Listo para la aventura?</h2>
+                    <p class="text-wild-light text-lg mb-10 max-w-xl mx-auto">
+                        Únete a nuestra tribu. Recibe guías de viaje gratuitas, descuentos exclusivos y sé el primero en enterarte de las nuevas rutas.
+                    </p>
+                    
+                    <form onsubmit="event.preventDefault(); alert('DEMO: ¡Gracias por suscribirte! Recibirás noticias pronto.');" class="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+                        <input type="email" placeholder="Tu email aventurero" class="flex-1 px-6 py-4 rounded-full bg-white/10 border border-white/30 text-white placeholder-white/60 focus:outline-none focus:bg-white focus:text-wild-dark transition-colors font-bold" required>
+                        <button class="px-8 py-4 bg-wild-orange text-white rounded-full font-bold uppercase tracking-wider hover:bg-white hover:text-wild-orange transition-all shadow-lg btn-wild">
+                            Suscribirse
+                        </button>
+                    </form>
+                    <p class="mt-6 text-xs text-white/50">Sin spam. Solo naturaleza.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-gray-900 text-white pt-20 pb-10 border-t border-white/10">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+            <div class="col-span-1 md:col-span-2">
+                <a href="#" class="flex items-center gap-2 mb-6" onclick="window.scrollTo(0,0)">
+                    <i class="fa-solid fa-mountain-sun text-wild-orange text-2xl"></i>
+                    <span class="font-display font-bold text-2xl">WILDHORIZON</span>
+                </a>
+                <p class="text-gray-400 text-sm max-w-sm leading-relaxed mb-6">
+                    Somos exploradores apasionados dedicados a crear experiencias auténticas y respetuosas con el medio ambiente.
+                </p>
+                <div class="flex gap-4">
+                    <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-wild-orange transition-colors"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-wild-orange transition-colors"><i class="fa-brands fa-tiktok"></i></a>
+                    <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-wild-orange transition-colors"><i class="fa-brands fa-youtube"></i></a>
+                </div>
+            </div>
+            
+            <div>
+                <h4 class="font-display font-bold text-lg mb-6 text-white">Explora</h4>
+                <ul class="space-y-4 text-sm text-gray-400">
+                    <li><a href="#" class="hover:text-wild-orange transition-colors">Todos los destinos</a></li>
+                    <li><a href="#" class="hover:text-wild-orange transition-colors">Ofertas Last Minute</a></li>
+                    <li><a href="#" class="hover:text-wild-orange transition-colors">Viajes en Grupo</a></li>
+                    <li><a href="#" class="hover:text-wild-orange transition-colors">Seguros de Viaje</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="font-display font-bold text-lg mb-6 text-white">Contacto</h4>
+                <ul class="space-y-4 text-sm text-gray-400">
+                    <li class="flex items-start gap-3">
+                        <i class="fa-solid fa-location-dot mt-1 text-wild-orange"></i>
+                        <span>Base Camp, Córdoba</span>
+                    </li>
+                    <li class="flex items-center gap-3">
+                        <i class="fa-solid fa-envelope text-wild-orange"></i>
+                        <span>hola@wildhorizon.com</span>
+                    </li>
+                    <li class="flex items-center gap-3">
+                        <i class="fa-brands fa-whatsapp text-wild-orange"></i>
+                        <span>+54 9 11 4321-6789</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="max-w-7xl mx-auto px-6 text-center border-t border-white/10 pt-8">
+            <p class="text-xs text-gray-500 uppercase tracking-widest">© 2025 Wild Horizon Adventures. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- BOTÓN VOLVER ARRIBA -->
+    
+
+    <!-- COOKIE BANNER -->
+    <div id="cookie-banner" class="fixed bottom-4 left-4 max-w-sm bg-wild-dark p-5 rounded-xl shadow-2xl z-50 border-l-4 border-wild-orange">
+        <p class="text-white text-sm mb-4">
+            <i class="fa-solid fa-cookie-bite text-wild-orange mr-2"></i> Usamos cookies para mejorar tu ruta de navegación.
+        </p>
+        <div class="flex gap-2">
+            <button id="accept-cookies" class="bg-wild-orange text-white px-4 py-1 text-xs font-bold uppercase rounded hover:bg-white hover:text-wild-orange transition-colors">Aceptar</button>
+            <button id="close-cookies" class="text-gray-400 px-4 py-1 text-xs font-bold uppercase rounded hover:text-white transition-colors">Cerrar</button>
+        </div>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ once: true, offset: 50, duration: 1000 });
+
+        // Navbar Scroll Logic
+        const navbar = document.getElementById('navbar');
+        
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.remove('bg-transparent', 'border-transparent');
+                navbar.classList.add('bg-wild-dark/95', 'backdrop-blur-sm', 'border-white/10', 'shadow-lg');
+            } else {
+                navbar.classList.add('bg-transparent', 'border-transparent');
+                navbar.classList.remove('bg-wild-dark/95', 'backdrop-blur-sm', 'border-white/10', 'shadow-lg');
+            }
+        });
+
+        // Mobile Menu
+        const mobileBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const closeBtn = document.getElementById('close-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        function toggleMenu() {
+            mobileMenu.classList.toggle('open');
+            document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : 'auto';
+        }
+
+        mobileBtn.addEventListener('click', toggleMenu);
+        closeBtn.addEventListener('click', toggleMenu);
+        mobileLinks.forEach(link => link.addEventListener('click', toggleMenu));
+
+        // Back to Top Logic
+        
+
+        // Cookies
+        const cookieBanner = document.getElementById('cookie-banner');
+        const acceptCookies = document.getElementById('accept-cookies');
+        const closeCookies = document.getElementById('close-cookies');
+
+        setTimeout(() => {
+            cookieBanner.classList.add('show');
+        }, 2000);
+
+        const hideBanner = () => {
+            cookieBanner.classList.remove('show');
+        };
+
+        acceptCookies.addEventListener('click', hideBanner);
+        closeCookies.addEventListener('click', hideBanner);
+    </script>
+
+    <!-- BOTÓN WHATSAPP -->
+    <a href="https://wa.me/5491143216789"
+       target="_blank"
+       rel="noopener noreferrer"
+       aria-label="WhatsApp"
+       style="position: fixed; bottom: calc(1.5rem + env(safe-area-inset-bottom)); right: 1.5rem; z-index: 9999; display: flex; align-items: center; justify-content: center; width: 3.5rem; height: 3.5rem; border-radius: 50%; background-color: #25D366; color: white; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: transform 0.3s ease; text-decoration: none;"
+       onmouseover="this.style.transform='scale(1.1)'"
+       onmouseout="this.style.transform='scale(1)'"
+       title="WhatsApp">
+       <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" viewBox="0 0 16 16">
+  <path d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.9 7.9 0 0 0 13.6 2.326zM7.994 14.521a6.6 6.6 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.56 6.56 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592m3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.73.73 0 0 0-.529.247c-.182.198-.691.677-.691 1.654s.71 1.916.81 2.049c.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232"/>
+</svg>
+    </a>
+
+</body>
+</html>

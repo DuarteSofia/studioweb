@@ -1,0 +1,874 @@
+<!-- 
+  ========================================
+  TEMPLATE NAME: MEDICORE - Medical Center & Clinic
+  AUTHOR: Sebastian Fernandez
+  WEBSITE: https://sebastian-fernandez.com
+  VERSION: 2.0.0 (Final Commercial Release)
+  LICENSE: Standard License (Personal & Commercial Use)
+  ========================================
+-->
+
+<!DOCTYPE html>
+<html lang="es" style="scroll-behavior: smooth;">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO & METADATA -->
+    <title>MediCore | Centro Médico Integral</title>
+    <meta name="description" content="Centro médico de confianza con especialistas en medicina general, pediatría y cardiología. Atención 24 hs y tecnología de vanguardia.">
+    <meta name="author" content="Sebastian Fernandez">
+
+    <!-- FAVICON (SVG Inline) -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='10' fill='%230056b3'/><path d='M50 20 V80 M20 50 H80' stroke='white' stroke-width='12' stroke-linecap='round'/></svg>">
+
+    <!-- OPEN GRAPH -->
+    <meta property="og:title" content="MediCore | Salud Integral">
+    <meta property="og:description" content="Cuidamos de lo que más importa. Reserva tu cita online hoy mismo.">
+    <meta property="og:image" content="https://placehold.co/1200x630/0056b3/ffffff?text=MEDICORE+SALUD">
+    <meta property="og:url" content="#">
+    <meta property="og:type" content="website">
+
+    <!-- 1. BOOTSTRAP 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- 2. GOOGLE FONTS (Roboto para máxima legibilidad médica) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <!-- 3. FONT AWESOME -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- 4. AOS ANIMATIONS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --medical-blue: #0056b3; /* Azul Oscuro Confiable */
+            --medical-light: #e7f1ff;
+            --accent-cyan: #00a8cc;  /* Cian para detalles modernos */
+            --text-dark: #2c3e50;
+            --text-gray: #6c757d;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            color: var(--text-dark);
+            background-color: #f8f9fa;
+        }
+
+        /* UTILS */
+        .text-blue { color: var(--medical-blue) !important; }
+        .bg-blue { background-color: var(--medical-blue) !important; }
+        .btn-primary-med {
+            background-color: var(--medical-blue);
+            border-color: var(--medical-blue);
+            color: white;
+            padding: 12px 30px;
+            font-weight: 500;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+        .btn-primary-med:hover {
+            background-color: #004494;
+            transform: translateY(-2px);
+            color: white;
+        }
+        .section-title {
+            position: relative;
+            margin-bottom: 3rem;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background-color: var(--accent-cyan);
+            border-radius: 2px;
+        }
+        .section-title.text-center::after {
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        /* TOP BAR */
+        .top-bar {
+            background-color: var(--text-dark);
+            color: white;
+            font-size: 0.85rem;
+            padding: 8px 0;
+        }
+
+        /* NAVBAR */
+        .navbar {
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+            padding: 1rem 0;
+            background: white;
+            transition: all 0.3s ease;
+        }
+        .navbar.sticky-top {
+            top: 0; 
+            z-index: 1020;
+        }
+        .nav-link {
+            font-weight: 500;
+            color: var(--text-dark) !important;
+            margin-left: 1rem;
+            transition: color 0.3s;
+        }
+        .nav-link:hover { color: var(--medical-blue) !important; }
+
+        /* HERO */
+        .hero-section {
+            background: linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.7)), url('https://images.pexels.com/photos/40568/medical-appointment-doctor-healthcare-40568.jpeg?auto=compress&cs=tinysrgb&w=1920');
+            background-size: cover;
+            background-position: center;
+            padding: 120px 0;
+        }
+
+        /* SERVICES CARDS */
+        .service-card {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            height: 100%;
+            border-bottom: 4px solid transparent;
+        }
+        .service-card:hover {
+            transform: translateY(-5px);
+            border-bottom-color: var(--medical-blue);
+        }
+        .icon-box {
+            width: 60px;
+            height: 60px;
+            background-color: var(--medical-light);
+            color: var(--medical-blue);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+
+        /* DOCTORS */
+        .doctor-card {
+            border: none;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        .doctor-img-wrapper {
+            overflow: hidden;
+            height: 300px;
+            position: relative;
+        }
+        .doctor-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        .doctor-card:hover .doctor-img { transform: scale(1.05); }
+        .social-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(0, 86, 179, 0.9);
+            padding: 10px;
+            text-align: center;
+            transform: translateY(100%);
+            transition: transform 0.3s;
+        }
+        .doctor-img-wrapper:hover .social-overlay { transform: translateY(0); }
+        .social-overlay a { color: white; margin: 0 10px; }
+
+        /* APPOINTMENT SECTION */
+        .appointment-section {
+            background-color: var(--medical-blue);
+            color: white;
+        }
+        .form-control, .form-select {
+            height: 50px;
+            border-radius: 5px;
+            border: 1px solid #ced4da;
+        }
+        .form-control:focus, .form-select:focus {
+            box-shadow: none;
+            border-color: var(--accent-cyan);
+        }
+
+        /* BACK TO TOP */
+
+        /* COOKIE BANNER */
+        #cookie-banner {
+    position: fixed; bottom: 0; left: 0; width: 100%;
+    background-color: white; border-top: 4px solid var(--medical-blue);
+    box-shadow: 0 -5px 20px rgba(0,0,0,0.1);
+    padding: 1.5rem; z-index: 1000;
+    transform: translateY(200%);
+    transition: transform 0.5s ease-in-out;
+}
+
+#cookie-banner.show {
+    transform: translateY(0);
+}
+
+    </style>
+</head>
+<body class="overflow-x-hidden"
+>
+  
+
+    <!-- TOP BAR (Info Rápida) -->
+    <div class="top-bar">
+        <div class="container d-flex justify-content-between align-items-center">
+            <div class="d-none d-md-block">
+                <i class="fa-regular fa-clock me-2"></i> Lun - Vie: 8:00 - 20:00 hs | Sáb: 9:00 - 14:00 hs
+            </div>
+            <div class="ms-auto">
+                <a href="#" class="text-white me-3 text-decoration-none"><i class="fa-solid fa-phone me-1"></i> Urgencias: 900 123 456</a>
+                <span class="d-none d-sm-inline">|</span>
+                <a href="#" class="text-white ms-3 text-decoration-none d-none d-sm-inline">Portal del Paciente</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg sticky-top">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="#">
+                <i class="fa-solid fa-staff-snake text-blue fs-2 me-2"></i>
+                <div>
+                    <span class="fw-bold fs-4 d-block lh-1 text-dark">MediCore</span>
+                    <span class="fs-6 text-secondary fw-normal">Centro Médico</span>
+                </div>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item"><a class="nav-link" href="#inicio">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#especialidades">Especialidades</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#doctores">Equipo</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contacto">Contacto</a></li>
+                    <li class="nav-item ms-lg-3 mt-2 mt-lg-0">
+                        <a href="#cita" class="btn btn-primary-med">Pedir Cita Online</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section id="inicio" class="hero-section d-flex align-items-center">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6" data-aos="fade-right">
+                    <span class="badge bg-light text-blue mb-3 px-3 py-2 rounded-pill border">Medicina de Vanguardia</span>
+                    <h1 class="display-4 fw-bold mb-4">Cuidamos de tu salud con la mejor tecnología</h1>
+                    <p class="lead text-secondary mb-5">
+                        Somos un centro médico integral comprometido con el bienestar de tu familia. Diagnósticos precisos, trato humano y especialistas de primer nivel.
+                    </p>
+                    <div class="d-flex gap-3">
+                        <a href="#especialidades" class="btn btn-primary-med">Ver Especialidades</a>
+                        <a href="#contacto" class="btn btn-outline-dark px-4 py-2" style="border-radius: 5px;">Más Información</a>
+                    </div>
+                    
+                    <div class="mt-5 d-flex gap-5">
+                        <div>
+                            <h3 class="fw-bold mb-0 text-blue">15k+</h3>
+                            <small class="text-muted">Pacientes</small>
+                        </div>
+                        <div>
+                            <h3 class="fw-bold mb-0 text-blue">40+</h3>
+                            <small class="text-muted">Doctores</small>
+                        </div>
+                        <div>
+                            <h3 class="fw-bold mb-0 text-blue">24 hs</h3>
+                            <small class="text-muted">Urgencias</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVICIOS / ESPECIALIDADES -->
+    <section id="especialidades" class="py-5">
+        <div class="container py-5">
+            <div class="text-center mb-5" data-aos="fade-up">
+                <h2 class="section-title text-center d-inline-block">Nuestras Especialidades</h2>
+                <p class="text-secondary mx-auto mt-3" style="max-width: 600px;">
+                    Cubrimos todas las áreas médicas para ofrecerte un servicio 360°. Desde medicina general hasta cirugía avanzada.
+                </p>
+            </div>
+
+            <div class="row g-4">
+                <!-- Item 1 -->
+                <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="service-card">
+                        <div class="icon-box"><i class="fa-solid fa-user-doctor"></i></div>
+                        <h4>Medicina General</h4>
+                        <p class="text-muted">Atención primaria completa, chequeos preventivos y seguimiento de enfermedades crónicas para toda la familia.</p>
+                        <a href="#cita" class="text-blue text-decoration-none fw-bold small">Pedir Cita <i class="fa-solid fa-arrow-right ms-1"></i></a>
+                    </div>
+                </div>
+                <!-- Item 2 -->
+                <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="service-card">
+                        <div class="icon-box"><i class="fa-solid fa-tooth"></i></div>
+                        <h4>Odontología Avanzada</h4>
+                        <p class="text-muted">Implantes, ortodoncia invisible y estética dental con tecnología de escaneo 3D de última generación.</p>
+                        <a href="#cita" class="text-blue text-decoration-none fw-bold small">Pedir Cita <i class="fa-solid fa-arrow-right ms-1"></i></a>
+                    </div>
+                </div>
+                <!-- Item 3 -->
+                <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="300">
+                    <div class="service-card">
+                        <div class="icon-box"><i class="fa-solid fa-heart-pulse"></i></div>
+                        <h4>Cardiología</h4>
+                        <p class="text-muted">Diagnóstico y tratamiento de patologías cardiovasculares. Electrocardiogramas, Holter y pruebas de esfuerzo.</p>
+                        <a href="#cita" class="text-blue text-decoration-none fw-bold small">Pedir Cita <i class="fa-solid fa-arrow-right ms-1"></i></a>
+                    </div>
+                </div>
+                <!-- Item 4 -->
+                <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="400">
+                    <div class="service-card">
+                        <div class="icon-box"><i class="fa-solid fa-baby"></i></div>
+                        <h4>Pediatría</h4>
+                        <p class="text-muted">Cuidamos el crecimiento de tus hijos desde el nacimiento hasta la adolescencia con un trato cercano y amable.</p>
+                        <a href="#cita" class="text-blue text-decoration-none fw-bold small">Pedir Cita <i class="fa-solid fa-arrow-right ms-1"></i></a>
+                    </div>
+                </div>
+                <!-- Item 5 -->
+                <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="500">
+                    <div class="service-card">
+                        <div class="icon-box"><i class="fa-solid fa-brain"></i></div>
+                        <h4>Neurología</h4>
+                        <p class="text-muted">Especialistas en el sistema nervioso. Tratamiento de migrañas, trastornos del sueño y enfermedades degenerativas.</p>
+                        <a href="#cita" class="text-blue text-decoration-none fw-bold small">Pedir Cita <i class="fa-solid fa-arrow-right ms-1"></i></a>
+                    </div>
+                </div>
+                <!-- Item 6 -->
+                <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="600">
+                    <div class="service-card">
+                        <div class="icon-box"><i class="fa-solid fa-flask"></i></div>
+                        <h4>Análisis Clínicos</h4>
+                        <p class="text-muted">Laboratorio propio para obtener resultados de sangre, orina y otras pruebas en tiempo récord.</p>
+                        <a href="#cita" class="text-blue text-decoration-none fw-bold small">Pedir Cita <i class="fa-solid fa-arrow-right ms-1"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN CITA (Highlight) -->
+<section id="cita" class="appointment-section py-5">
+  <div class="container py-4">
+    <div class="row align-items-center">
+      <div class="col-lg-5 mb-4 mb-lg-0" data-aos="fade-right">
+        <h2 class="fw-bold mb-3">Solicitá tu turno</h2>
+        <p class="mb-4 text-white-50">
+          Dejanos tus datos y te contactamos por WhatsApp para confirmar el horario.
+        </p>
+        <ul class="list-unstyled">
+          <li class="mb-2"><i class="fa-solid fa-check-circle me-2 text-info"></i> Respuesta rápida</li>
+          <li class="mb-2"><i class="fa-solid fa-check-circle me-2 text-info"></i> Sin llamadas</li>
+          <li class="mb-2"><i class="fa-solid fa-check-circle me-2 text-info"></i> Reprogramación sencilla</li>
+        </ul>
+      </div>
+
+      <div class="col-lg-7" data-aos="fade-left">
+        <div class="bg-white p-4 p-md-5 rounded shadow-lg text-dark">
+          <form id="appointmentForm" novalidate>
+            <!-- Feedback UI (para mostrar estado desde JS) -->
+            <div id="appointmentAlert" class="alert d-none" role="alert" aria-live="polite"></div>
+
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label for="full_name" class="form-label small fw-bold">Nombre y apellido</label>
+                <input
+                  id="full_name"
+                  name="full_name"
+                  type="text"
+                  class="form-control"
+                  placeholder="Ej. Juan Pérez"
+                  autocomplete="name"
+                  required
+                />
+                <div class="invalid-feedback">Ingresá tu nombre.</div>
+              </div>
+
+              <div class="col-md-6">
+                <label for="phone" class="form-label small fw-bold">WhatsApp / Teléfono</label>
+                <input
+                  id="phone"
+                  name="phone"
+                  type="tel"
+                  class="form-control"
+                  placeholder="Ej. 11 2345 6789"
+                  autocomplete="tel"
+                  inputmode="tel"
+                  required
+                />
+                <div class="invalid-feedback">Ingresá un teléfono válido.</div>
+              </div>
+
+              <div class="col-md-6">
+                <label for="service" class="form-label small fw-bold">Servicio / Especialidad</label>
+                <select id="service" name="service" class="form-select" required>
+                  <option selected disabled value="">Seleccionar...</option>
+                  <option value="medicina_general">Medicina General</option>
+                  <option value="pediatria">Pediatría</option>
+                  <option value="cardiologia">Cardiología</option>
+                  <option value="odontologia">Odontología</option>
+                </select>
+                <div class="invalid-feedback">Seleccioná un servicio.</div>
+              </div>
+
+              <div class="col-md-6">
+                <label for="preferred_doctor" class="form-label small fw-bold">Profesional (opcional)</label>
+                <select id="preferred_doctor" name="preferred_doctor" class="form-select">
+                  <option value="" selected>Cualquiera disponible</option>
+                  <option value="dr_martinez">Dr. Martínez</option>
+                  <option value="dra_garcia">Dra. García</option>
+                </select>
+              </div>
+
+              <div class="col-md-6">
+                <label for="preferred_date" class="form-label small fw-bold">Fecha preferida</label>
+                <input
+                  id="preferred_date"
+                  name="preferred_date"
+                  type="date"
+                  class="form-control"
+                  required
+                />
+                <div class="invalid-feedback">Elegí una fecha.</div>
+              </div>
+
+              <div class="col-md-6">
+                <label for="time_window" class="form-label small fw-bold">Franja horaria</label>
+                <select id="time_window" name="time_window" class="form-select" required>
+                  <option value="morning">Mañana (8:00 - 14:00 hs)</option>
+                  <option value="afternoon">Tarde (16:00 - 20:00 hs)</option>
+                </select>
+              </div>
+
+              <div class="col-12">
+                <label for="reason" class="form-label small fw-bold">Motivo / Comentarios (opcional)</label>
+                <textarea
+                  id="reason"
+                  name="reason"
+                  class="form-control"
+                  rows="3"
+                  placeholder="Ej. Control, dolor, consulta por estudio, etc."
+                ></textarea>
+              </div>
+
+              <div class="col-md-6">
+                <label for="contact_pref" class="form-label small fw-bold">Preferencia de contacto</label>
+                <select id="contact_pref" name="contact_pref" class="form-select">
+                  <option value="whatsapp" selected>WhatsApp</option>
+                  <option value="call">Llamada</option>
+                </select>
+              </div>
+
+              <div class="col-md-6">
+                <label for="email" class="form-label small fw-bold">Email (opcional)</label>
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  class="form-control"
+                  placeholder="Ej. juan@email.com"
+                  autocomplete="email"
+                />
+              </div>
+
+              <div class="col-12">
+                <div class="form-check">
+                  <input
+                    id="consent"
+                    name="consent"
+                    class="form-check-input"
+                    type="checkbox"
+                    required
+                  />
+                  <label class="form-check-label small" for="consent">
+                    Acepto que me contacten para coordinar el turno y el tratamiento de mis datos según la política de privacidad.
+                  </label>
+                  <div class="invalid-feedback">Necesitás aceptar para enviar la solicitud.</div>
+                </div>
+              </div>
+
+              <div class="col-12 mt-2">
+                <button type="submit" class="btn btn-primary-med w-100" id="appointmentSubmit">
+                  Solicitar turno
+                </button>
+                <p class="small text-muted mt-2 mb-0">
+                  Importante: esto es una solicitud. El turno queda confirmado cuando te respondemos.
+                </p>
+              </div>
+            </div>
+          </form>
+
+          <!-- Si querés, podés dejar este botón visible siempre como alternativa directa -->
+          <div class="mt-3">
+            <a
+              id="whatsappFallback"
+              class="btn btn-outline-dark w-100"
+              href="https://wa.me/?text=Hola%2C%20quiero%20solicitar%20un%20turno."
+              target="_blank"
+              rel="noopener"
+            >
+              <i class="fa-brands fa-whatsapp me-2"></i>Consultar por WhatsApp
+            </a>
+            <p class="small text-muted mt-2 mb-0">
+              (El link usa “click to chat”. Luego lo vamos a personalizar con los datos del formulario desde JS.)
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+    <!-- EQUIPO MEDICO -->
+    <section id="doctores" class="py-5 bg-light">
+        <div class="container py-5">
+            <div class="text-center mb-5">
+                <h2 class="section-title text-center d-inline-block">Nuestro Cuadro Médico</h2>
+                <p class="text-secondary">Profesionales con amplia trayectoria y formación continua.</p>
+            </div>
+
+            <div class="row g-4">
+                <!-- Doctor 1 -->
+                <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="100">
+                    <div class="card doctor-card h-100">
+                        <div class="doctor-img-wrapper position-relative">
+                            <img src="https://images.pexels.com/photos/5327585/pexels-photo-5327585.jpeg?auto=compress&cs=tinysrgb&w=800" class="doctor-img" alt="Doctor">
+                            <div class="social-overlay">
+                                <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+                                <a href="#"><i class="fa-solid fa-envelope"></i></a>
+                            </div>
+                        </div>
+                        <div class="card-body text-center p-4">
+                            <h5 class="fw-bold mb-1">Dr. Carlos Ruiz</h5>
+                            <span class="text-blue small fw-bold text-uppercase">Cardiología</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Doctor 2 -->
+                <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="200">
+                    <div class="card doctor-card h-100">
+                        <div class="doctor-img-wrapper position-relative">
+                            <img src="https://images.pexels.com/photos/5215024/pexels-photo-5215024.jpeg?auto=compress&cs=tinysrgb&w=800" class="doctor-img" alt="Doctora">
+                            <div class="social-overlay">
+                                <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+                                <a href="#"><i class="fa-solid fa-envelope"></i></a>
+                            </div>
+                        </div>
+                        <div class="card-body text-center p-4">
+                            <h5 class="fw-bold mb-1">Dra. Ana López</h5>
+                            <span class="text-blue small fw-bold text-uppercase">Pediatría</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Doctor 3 -->
+                <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="300">
+                    <div class="card doctor-card h-100">
+                        <div class="doctor-img-wrapper position-relative">
+                            <img src="https://images.pexels.com/photos/5452293/pexels-photo-5452293.jpeg?auto=compress&cs=tinysrgb&w=800" class="doctor-img" alt="Doctor">
+                            <div class="social-overlay">
+                                <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+                                <a href="#"><i class="fa-solid fa-envelope"></i></a>
+                            </div>
+                        </div>
+                        <div class="card-body text-center p-4">
+                            <h5 class="fw-bold mb-1">Dr. Miguel Santos</h5>
+                            <span class="text-blue small fw-bold text-uppercase">Odontología</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Doctor 4 -->
+                <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="400">
+                    <div class="card doctor-card h-100">
+                        <div class="doctor-img-wrapper position-relative">
+                            <img src="https://images.pexels.com/photos/5407206/pexels-photo-5407206.jpeg?auto=compress&cs=tinysrgb&w=800" class="doctor-img" alt="Doctora">
+                            <div class="social-overlay">
+                                <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+                                <a href="#"><i class="fa-solid fa-envelope"></i></a>
+                            </div>
+                        </div>
+                        <div class="card-body text-center p-4">
+                            <h5 class="fw-bold mb-1">Dra. Laura Gil</h5>
+                            <span class="text-blue small fw-bold text-uppercase">Medicina General</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer id="contacto" class="bg-dark text-white pt-5 pb-3">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <h4 class="fw-bold mb-3"><i class="fa-solid fa-staff-snake text-blue me-2"></i>MediCore</h4>
+                    <p class="text-white-50 small">
+                        Centro médico de referencia con más de 15 años de experiencia. Tecnología, profesionalidad y trato humano.
+                    </p>
+                    <div class="d-flex gap-3 mt-3">
+                        <a href="#" class="text-white-50 hover-white"><i class="fa-brands fa-facebook fs-5"></i></a>
+                        <a href="#" class="text-white-50 hover-white"><i class="fa-brands fa-twitter fs-5"></i></a>
+                        <a href="#" class="text-white-50 hover-white"><i class="fa-brands fa-linkedin fs-5"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <h5 class="fw-bold mb-3">Enlaces Rápidos</h5>
+                    <ul class="list-unstyled small">
+                        <li class="mb-2"><a href="#doctores" class="text-white-50 text-decoration-none hover-white">Cuadro Médico</a></li>
+                        <li class="mb-2"><a href="#cita" class="text-white-50 text-decoration-none hover-white">Pedir Cita</a></li>
+                        <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none hover-white">Mutuas y Seguros</a></li>
+                        <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none hover-white">Blog de Salud</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5 class="fw-bold mb-3">Contacto</h5>
+                    <ul class="list-unstyled small text-white-50">
+                        <li class="mb-2"><i class="fa-solid fa-location-dot me-2 text-blue"></i> Av. Pueyrredón 1600, Buenos Aires</li>
+                        <li class="mb-2"><i class="fa-solid fa-envelope me-2 text-blue"></i> info@medicore.es</li>
+                        <li class="mb-2"><i class="fa-solid fa-phone me-2 text-blue"></i> +54 9 11 4321-6789</li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="border-secondary mt-4">
+            <div class="text-center text-white-50 small">
+                © 2025 MediCore Health Center. Todos los derechos reservados.
+            </div>
+        </div>
+    </footer>
+    
+
+    <!-- COOKIE BANNER -->
+    <div id="cookie-banner">
+        <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center">
+            <div class="d-flex align-items-center mb-3 mb-md-0">
+                <i class="fa-solid fa-shield-virus text-primary fs-4 me-3"></i>
+                <p class="small text-dark mb-0">
+                    <strong>Privacidad Médica:</strong> Utilizamos cookies para mejorar su experiencia de navegación.
+                </p>
+            </div>
+            <div class="d-flex gap-2">
+                <button id="accept-cookies" class="btn btn-sm btn-primary-med">Aceptar</button>
+                <button id="close-cookies" class="btn btn-sm btn-outline-secondary">Rechazar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPTS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+<script>
+  // ====== Animations ======
+  AOS.init({ once: true, offset: 50 });
+
+
+
+  // ====== Cookie Banner ======
+  (function () {
+    const cookieBanner = document.getElementById("cookie-banner");
+    const acceptCookies = document.getElementById("accept-cookies");
+    const closeCookies = document.getElementById("close-cookies");
+
+    if (!cookieBanner || !acceptCookies || !closeCookies) return;
+
+    setTimeout(() => cookieBanner.classList.add("show"), 2000);
+
+    const hideBanner = () => cookieBanner.classList.remove("show");
+    acceptCookies.addEventListener("click", hideBanner);
+    closeCookies.addEventListener("click", hideBanner);
+  })();
+
+  // ====== Turno -> WhatsApp (prefill) ======
+  (function () {
+    const WHATSAPP_NUMBER = "5491166470190"; // TODO: reemplazar por config más adelante
+
+    const form = document.getElementById("appointmentForm");
+    const fallback = document.getElementById("whatsappFallback");
+    const alertBox = document.getElementById("appointmentAlert");
+    const submitBtn = document.getElementById("appointmentSubmit");
+    const dateInput = document.getElementById("preferred_date");
+
+    if (!form) return;
+
+    // Helpers UI
+    function showAlert(type, message) {
+      if (!alertBox) return;
+      alertBox.className = "alert alert-" + type;
+      alertBox.textContent = message;
+      alertBox.classList.remove("d-none");
+    }
+
+    function hideAlert() {
+      if (!alertBox) return;
+      alertBox.classList.add("d-none");
+      alertBox.textContent = "";
+    }
+
+    function setLoading(isLoading) {
+      if (!submitBtn) return;
+      submitBtn.disabled = isLoading;
+      submitBtn.dataset.originalText ||= submitBtn.textContent;
+      submitBtn.textContent = isLoading ? "Abriendo WhatsApp..." : submitBtn.dataset.originalText;
+    }
+
+    // Date min: YYYY-MM-DD (evita fechas pasadas) [web:226]
+    if (dateInput) {
+      const today = new Date();
+      const yyyy = today.getFullYear();
+      const mm = String(today.getMonth() + 1).padStart(2, "0");
+      const dd = String(today.getDate()).padStart(2, "0");
+      dateInput.min = `${yyyy}-${mm}-${dd}`;
+    }
+
+    // Labels para que el WhatsApp se vea lindo
+    function labelService(value) {
+      const map = {
+        medicina_general: "Medicina General",
+        pediatria: "Pediatría",
+        cardiologia: "Cardiología",
+        odontologia: "Odontología",
+      };
+      return map[value] || value || "-";
+    }
+
+    function labelDoctor(value) {
+      const map = { dr_martinez: "Dr. Martínez", dra_garcia: "Dra. García" };
+      return map[value] || "Cualquiera disponible";
+    }
+
+    function labelWindow(value) {
+      const map = { morning: "Mañana (8:00 - 14:00 hs)", afternoon: "Tarde (16:00 - 20:00 hs)" };
+      return map[value] || value || "-";
+    }
+
+    function buildMessage(data) {
+      const lines = [
+        "Hola! Quiero solicitar un turno.",
+        "",
+        `Nombre: ${data.full_name || "-"}`,
+        `Teléfono: ${data.phone || "-"}`,
+        `Servicio: ${labelService(data.service)}`,
+        `Profesional: ${labelDoctor(data.preferred_doctor)}`,
+        `Fecha preferida: ${data.preferred_date || "-"}`,
+        `Franja horaria: ${labelWindow(data.time_window)}`,
+      ];
+
+      const reason = (data.reason || "").trim();
+      const email = (data.email || "").trim();
+      const contactPref = (data.contact_pref || "").trim();
+
+      if (reason) lines.push(`Motivo: ${reason}`);
+      if (contactPref) lines.push(`Preferencia de contacto: ${contactPref}`);
+      if (email) lines.push(`Email: ${email}`);
+
+      return lines.join("\n");
+    }
+
+    // Click-to-chat oficial: wa.me/<number>?text=<urlencoded> [web:133]
+    function makeWaLink(text) {
+      return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`; // [web:190]
+    }
+
+    // Botón genérico (siempre disponible, sin datos del form)
+    if (fallback) {
+      fallback.href = makeWaLink("Hola! Quiero solicitar un turno.");
+    }
+
+    // UX: cuando el usuario vuelve a editar, ocultamos alertas
+    ["input", "change"].forEach((evt) => {
+      form.addEventListener(evt, () => {
+        hideAlert();
+        // Si ya estaba marcado como validado, lo dejamos (sirve feedback),
+        // pero podés descomentarlo si preferís limpiar el rojo al tipear:
+        // form.classList.remove("was-validated");
+      });
+    });
+
+    // Submit
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      hideAlert();
+
+      // Validación HTML5 + estilos Bootstrap: usamos was-validated solo al enviar. [web:209]
+      if (!form.checkValidity()) {
+        form.classList.add("was-validated");
+        showAlert("danger", "Revisá los campos marcados antes de enviar.");
+        return;
+      }
+
+      const consentEl = form.elements["consent"];
+      if (consentEl && !consentEl.checked) {
+        form.classList.add("was-validated");
+        showAlert("danger", "Necesitás aceptar para enviar la solicitud.");
+        return;
+      }
+
+      // Armado del link (datos del form)
+      const data = Object.fromEntries(new FormData(form).entries());
+      const message = buildMessage(data);
+      const waLink = makeWaLink(message);
+
+      // Actualizamos el fallback con el mensaje completo por si el popup se bloquea
+      if (fallback) fallback.href = waLink;
+
+      setLoading(true);
+
+      const win = window.open(waLink, "_blank", "noopener,noreferrer");
+
+      if (win) {
+        showAlert("success", "Abriendo WhatsApp para enviar tu solicitud…");
+      } else {
+        showAlert("warning", "No pudimos abrir WhatsApp automáticamente. Tocá el botón de WhatsApp para enviarlo.");
+      }
+
+      // Liberar el botón (no hay request async todavía)
+      setLoading(false);
+    });
+  })();
+</script>
+
+
+
+    <!-- BOTÓN WHATSAPP -->
+    <a href="https://wa.me/5491143216789"
+       target="_blank"
+       rel="noopener noreferrer"
+       aria-label="WhatsApp"
+       style="position: fixed; bottom: calc(1.5rem + env(safe-area-inset-bottom)); right: 1.5rem; z-index: 9999; display: flex; align-items: center; justify-content: center; width: 3.5rem; height: 3.5rem; border-radius: 50%; background-color: #25D366; color: white; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: transform 0.3s ease; text-decoration: none;"
+       onmouseover="this.style.transform='scale(1.1)'"
+       onmouseout="this.style.transform='scale(1)'"
+       title="WhatsApp">
+       <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" viewBox="0 0 16 16">
+  <path d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.9 7.9 0 0 0 13.6 2.326zM7.994 14.521a6.6 6.6 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.56 6.56 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592m3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.73.73 0 0 0-.529.247c-.182.198-.691.677-.691 1.654s.71 1.916.81 2.049c.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232"/>
+</svg>
+    </a>
+
+</body>
+</html>

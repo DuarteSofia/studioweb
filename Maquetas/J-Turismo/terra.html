@@ -1,0 +1,471 @@
+<!-- 
+  ========================================
+  TEMPLATE NAME: TERRA - Glamping & Eco-Lodge
+  AUTHOR: Sebastian Fernandez
+  WEBSITE: https://sebastian-fernandez.com
+  VERSION: 1.0.0 (Final Commercial Release)
+  LICENSE: Standard License (Personal & Commercial Use)
+  ========================================
+-->
+
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth"> 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO & METADATA -->
+    <title>TERRA | Glamping & Eco-Lodge</title>
+    <meta name="description" content="Escapada de lujo en la naturaleza. Domos geodésicos, cabañas sostenibles y desconexión total. Reserva tu experiencia bajo las estrellas.">
+    <meta name="author" content="Sebastian Fernandez">
+
+    <!-- FAVICON (SVG Inline) -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><path d='M50 20 L85 80 H15 Z' fill='none' stroke='%233A5A40' stroke-width='6' stroke-linejoin='round'/><path d='M50 20 L50 80' stroke='%233A5A40' stroke-width='4'/></svg>">
+
+    <!-- OPEN GRAPH -->
+    <meta property="og:title" content="TERRA | Eco-Lodge">
+    <meta property="og:description" content="Lujo salvaje. Desconecta para reconectar.">
+    <meta property="og:image" content="https://placehold.co/1200x630/3A5A40/DAD7CD?text=TERRA+GLAMPING">
+    <meta property="og:url" content="#">
+    <meta property="og:type" content="website">
+
+    <!-- 1. TAILWIND CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- 2. GOOGLE FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Spectral (Elegancia Rústica) + Karla (Lectura) -->
+    <link href="https://fonts.googleapis.com/css2?family=Karla:wght@300;400;600&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&display=swap" rel="stylesheet">
+
+    <!-- 3. FONT AWESOME -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- 4. AOS ANIMATION -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <!-- CONFIGURACIÓN TAILWIND -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'terra-green': '#3A5A40',   /* Verde Bosque */
+                        'terra-sage': '#A3B18A',    /* Verde Salvia */
+                        'terra-cream': '#DAD7CD',   /* Crema Lino */
+                        'terra-brown': '#582F0E',   /* Marrón Tierra */
+                        'terra-sand': '#F3F2F0',    /* Arena Clara */
+                    },
+                    fontFamily: {
+                        'serif': ['Spectral', 'serif'],
+                        'sans': ['Karla', 'sans-serif'],
+                    },
+                    backgroundImage: {
+                        'texture': "url('https://www.transparenttextures.com/patterns/natural-paper.png')",
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Estilos personalizados */
+        body { font-family: 'Karla', sans-serif; background-color: #F3F2F0; color: #3A5A40; }
+        
+        .font-serif-italic { font-family: 'Spectral', serif; font-style: italic; }
+
+        /* Imágenes con borde orgánico */
+        .organic-radius {
+            border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+            transition: all 1s ease;
+        }
+        .group:hover .organic-radius {
+            border-radius: 50% 50% 50% 50% / 50% 50% 50% 50%;
+        }
+
+        /* Mobile Menu */
+        #mobile-menu {
+            transform: translateY(-100%);
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        #mobile-menu.open {
+            transform: translateY(0);
+        }
+
+        /* Back to Top */
+
+        /* Cookie Banner */
+        #cookie-banner {
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(20px);
+            transition: all 0.4s ease;
+        }
+
+        #cookie-banner.show {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateY(0);
+        }
+        
+        /* Card Hover */
+        .cabin-card {
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+        .cabin-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px -10px rgba(58, 90, 64, 0.15);
+        }
+    </style>
+</head>
+<body class="bg-texture antialiased selection:bg-terra-green selection:text-terra-cream overflow-x-hidden">
+
+    <!-- NAVBAR -->
+    <nav class="fixed w-full z-50 transition-all duration-500 bg-transparent text-white" id="navbar">
+        <div class="max-w-7xl mx-auto px-6 h-24 flex justify-between items-center relative z-50">
+            <!-- Logo -->
+            <a href="#" class="flex flex-col items-center group" onclick="window.scrollTo(0,0)">
+                <span class="font-serif text-3xl tracking-[0.2em] font-light group-hover:text-terra-sage transition-colors">TERRA</span>
+                <span class="text-[0.5rem] uppercase tracking-[0.3em] opacity-80">Eco Lodge</span>
+            </a>
+
+            <!-- Menu Desktop -->
+            <div class="hidden md:flex gap-10 text-xs font-bold uppercase tracking-[0.2em]">
+                <a href="#filosofia" class="hover:text-terra-sage transition-colors">Filosofía</a>
+                <a href="#alojamientos" class="hover:text-terra-sage transition-colors">Cabañas</a>
+                <a href="#experiencias" class="hover:text-terra-sage transition-colors">Experiencias</a>
+                <a href="#contacto" class="hover:text-terra-sage transition-colors">Reservar</a>
+            </div>
+
+            <!-- Mobile Button -->
+            <button id="mobile-menu-btn" class="md:hidden text-2xl hover:text-terra-sage transition-colors focus:outline-none">
+                <i class="fa-thin fa-bars"></i>
+                <i class="fa-solid fa-bars-staggered"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Menu Overlay -->
+        <div id="mobile-menu" class="fixed inset-0 bg-terra-green z-40 flex flex-col justify-center items-center h-screen w-screen text-terra-cream">
+            <div class="flex flex-col gap-10 text-3xl font-serif text-center">
+                <a href="#filosofia" class="mobile-link hover:text-white transition-colors italic">Filosofía</a>
+                <a href="#alojamientos" class="mobile-link hover:text-white transition-colors italic">Cabañas</a>
+                <a href="#experiencias" class="mobile-link hover:text-white transition-colors italic">Experiencias</a>
+                <a href="#contacto" class="mobile-link text-white border-b border-white/30 pb-2">Reservar</a>
+            </div>
+            <button id="close-menu" class="absolute top-6 right-6 text-4xl text-terra-cream hover:text-white transition-colors">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <header class="relative h-screen min-h-[700px] flex items-center justify-center overflow-hidden">
+        <!-- Background Image (Pexels: Cabin in woods) -->
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.pexels.com/photos/2422265/pexels-photo-2422265.jpeg?auto=compress&cs=tinysrgb&w=1920" 
+                 class="w-full h-full object-cover" alt="Cabin in Forest">
+            <div class="absolute inset-0 bg-black/30"></div>
+        </div>
+
+        <div class="relative z-10 text-center px-6 max-w-4xl pt-20 text-white" data-aos="fade-up" data-aos-duration="2000">
+            <p class="font-serif-italic text-xl md:text-2xl mb-4 text-terra-cream">Lujo Salvaje</p>
+            <h1 class="font-serif text-6xl md:text-8xl lg:text-9xl mb-8 leading-none tracking-tight">
+                Desconecta <br> para <span class="italic text-terra-sage">Reconectar</span>
+            </h1>
+            <p class="text-terra-cream/90 text-sm uppercase tracking-[0.2em] mb-12 border-t border-b border-white/20 py-4 inline-block max-w-lg leading-relaxed">
+                Glamping sostenible en el corazón del bosque. <br> Donde el silencio es el nuevo lujo.
+            </p>
+            
+            <br>
+            <a href="#alojamientos" class="inline-block bg-terra-cream/10 backdrop-blur-md border border-terra-cream/30 text-terra-cream px-10 py-4 text-xs font-bold uppercase tracking-[0.2em] hover:bg-terra-cream hover:text-terra-green transition-all duration-500 rounded-full">
+                Ver Alojamientos
+            </a>
+        </div>
+        
+        <!-- Scroll Down -->
+        <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce text-terra-cream opacity-60">
+            <i class="fa-solid fa-chevron-down"></i>
+        </div>
+    </header>
+
+    <!-- FILOSOFÍA -->
+    <section id="filosofia" class="py-24 px-6 bg-terra-sand relative">
+        <div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <div data-aos="fade-right">
+                <span class="text-terra-green text-xs font-bold uppercase tracking-[0.2em] mb-4 block">Nuestro Ethos</span>
+                <h2 class="font-serif text-4xl md:text-5xl text-terra-brown mb-8 leading-tight">
+                    Arquitectura que respira <br> con el <span class="font-serif-italic text-terra-green">bosque</span>.
+                </h2>
+                <p class="text-terra-green/80 mb-6 leading-loose font-light text-lg">
+                    Terra no se construyó sobre la naturaleza, sino dentro de ella. Nuestros domos y cabañas flotan sobre el terreno para minimizar el impacto, utilizando materiales reciclados y energía 100% solar.
+                </p>
+                <div class="flex gap-4 mt-8">
+                    <div class="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-terra-brown">
+                        <i class="fa-solid fa-leaf text-terra-green"></i> 100% Eco
+                    </div>
+                    <div class="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-terra-brown">
+                        <i class="fa-solid fa-solar-panel text-terra-green"></i> Solar
+                    </div>
+                    <div class="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-terra-brown">
+                        <i class="fa-solid fa-wifi text-terra-green"></i> Detox Digital
+                    </div>
+                </div>
+            </div>
+
+            <div class="relative flex justify-center" data-aos="fade-left">
+                <!-- Image with Organic Shape -->
+                <img src="https://images.pexels.com/photos/5997994/pexels-photo-5997994.jpeg?auto=compress&cs=tinysrgb&w=800" 
+                     class="w-full max-w-md h-[500px] object-cover organic-radius shadow-xl" alt="Interior Eco">
+            </div>
+        </div>
+    </section>
+
+    <!-- ALOJAMIENTOS (Cabañas) -->
+    <section id="alojamientos" class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-20">
+                <h2 class="font-serif text-4xl text-terra-brown">Nuestros Refugios</h2>
+                <div class="w-16 h-[1px] bg-terra-green mx-auto mt-6"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <div class="cabin-card bg-terra-sand rounded-xl overflow-hidden group cursor-pointer">
+                    <div class="h-64 overflow-hidden relative">
+                        <img src="https://images.pexels.com/photos/261394/pexels-photo-261394.jpeg?auto=compress&cs=tinysrgb&w=800" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Domo">
+                        <div class="absolute top-4 right-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest text-terra-green">
+                            2 Personas
+                        </div>
+                    </div>
+                    <div class="p-8 text-center">
+                        <h3 class="font-serif text-2xl text-terra-brown mb-2">Domo Estelar</h3>
+                        <p class="text-xs uppercase tracking-widest text-terra-green/60 mb-6">Vista al Cielo</p>
+                        <p class="text-sm text-terra-green/80 leading-relaxed mb-6 px-4">
+                            Techo panorámico para dormir bajo las estrellas. Cama King Size y baño privado con vistas.
+                        </p>
+                        <span class="text-terra-brown font-bold border-b border-terra-brown pb-1 text-xs uppercase tracking-widest group-hover:text-terra-green group-hover:border-terra-green transition-colors">Desde ARS 150.000</span>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="cabin-card bg-terra-sand rounded-xl overflow-hidden group cursor-pointer transform md:-translate-y-8 shadow-2xl">
+                    <div class="h-64 overflow-hidden relative">
+                        <img src="https://images.pexels.com/photos/147411/italy-mountains-dawn-daybreak-147411.jpeg?auto=compress&cs=tinysrgb&w=800" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Cabaña A-Frame">
+                        <div class="absolute top-4 right-4 bg-terra-green text-white px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest">
+                            Popular
+                        </div>
+                    </div>
+                    <div class="p-8 text-center">
+                        <h3 class="font-serif text-2xl text-terra-brown mb-2">Cabaña del Bosque</h3>
+                        <p class="text-xs uppercase tracking-widest text-terra-green/60 mb-6">Estilo A-Frame</p>
+                        <p class="text-sm text-terra-green/80 leading-relaxed mb-6 px-4">
+                            Estructura de madera local de dos plantas. Chimenea nórdica y terraza privada suspendida.
+                        </p>
+                        <span class="text-terra-brown font-bold border-b border-terra-brown pb-1 text-xs uppercase tracking-widest group-hover:text-terra-green group-hover:border-terra-green transition-colors">Desde ARS 220.000</span>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="cabin-card bg-terra-sand rounded-xl overflow-hidden group cursor-pointer">
+                    <div class="h-64 overflow-hidden relative">
+                        <img src="https://images.pexels.com/photos/2440024/pexels-photo-2440024.jpeg?auto=compress&cs=tinysrgb&w=800" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Safari Tent">
+                        <div class="absolute top-4 right-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest text-terra-green">
+                            Familia
+                        </div>
+                    </div>
+                    <div class="p-8 text-center">
+                        <h3 class="font-serif text-2xl text-terra-brown mb-2">Safari Lodge</h3>
+                        <p class="text-xs uppercase tracking-widest text-terra-green/60 mb-6">Lujo en Lona</p>
+                        <p class="text-sm text-terra-green/80 leading-relaxed mb-6 px-4">
+                            Nuestra tienda más espaciosa. bañadera exterior de cobre y zona de fuego privada.
+                        </p>
+                        <span class="text-terra-brown font-bold border-b border-terra-brown pb-1 text-xs uppercase tracking-widest group-hover:text-terra-green group-hover:border-terra-green transition-colors">Desde ARS 280.000</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- EXPERIENCIAS -->
+    <section id="experiencias" class="py-24 bg-terra-green text-terra-cream relative overflow-hidden">
+        <div class="max-w-6xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center relative z-10">
+            <div>
+                <h2 class="font-serif text-4xl mb-8">Vive la Naturaleza</h2>
+                <p class="text-terra-cream/80 mb-10 leading-relaxed font-light">
+                    Tu estancia incluye acceso a nuestras actividades diarias. Conecta contigo mismo y con el entorno.
+                </p>
+                
+                <ul class="space-y-6">
+                    <li class="flex items-center gap-6 group cursor-pointer">
+                        <span class="font-serif text-2xl opacity-50 group-hover:opacity-100 transition-opacity">01</span>
+                        <div>
+                            <h4 class="font-bold text-lg mb-1">Yoga al Amanecer</h4>
+                            <p class="text-sm opacity-60 font-light">Todos los días a las 07:00 en el deck principal.</p>
+                        </div>
+                    </li>
+                    <li class="flex items-center gap-6 group cursor-pointer">
+                        <span class="font-serif text-2xl opacity-50 group-hover:opacity-100 transition-opacity">02</span>
+                        <div>
+                            <h4 class="font-bold text-lg mb-1">Baños de Bosque</h4>
+                            <p class="text-sm opacity-60 font-light">Shinrin-yoku guiado para reducir el estrés.</p>
+                        </div>
+                    </li>
+                    <li class="flex items-center gap-6 group cursor-pointer">
+                        <span class="font-serif text-2xl opacity-50 group-hover:opacity-100 transition-opacity">03</span>
+                        <div>
+                            <h4 class="font-bold text-lg mb-1">Cine bajo las Estrellas</h4>
+                            <p class="text-sm opacity-60 font-light">Sábados por la noche con mantas y chocolate caliente.</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="relative h-[500px] rounded-t-full overflow-hidden border-4 border-terra-cream/20">
+                <img src="https://images.pexels.com/photos/3772630/pexels-photo-3772630.jpeg?auto=compress&cs=tinysrgb&w=800" class="w-full h-full object-cover" alt="Yoga Forest">
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACTO / RESERVA -->
+    <section id="contacto" class="py-24 bg-terra-sand">
+        <div class="max-w-3xl mx-auto px-6 text-center">
+            <i class="fa-solid fa-leaf text-3xl text-terra-green mb-6"></i>
+            <h2 class="font-serif text-4xl mb-8 text-terra-brown">Planifica tu Escapada</h2>
+            <p class="text-terra-green/70 mb-12 font-light">
+                Reserva directamente con nosotros y obtén un desayuno orgánico de cortesía cada mañana.
+            </p>
+            
+            <form onsubmit="event.preventDefault(); alert('DEMO: Comprobando disponibilidad... Te redirigiríamos al motor de reservas.');" class="bg-white p-8 rounded-2xl shadow-xl text-left border border-terra-green/10">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <label class="text-[10px] font-bold uppercase tracking-widest text-terra-green/50 mb-2 block">Llegada</label>
+                        <input type="date" class="w-full bg-terra-sand border-none py-3 px-4 rounded-lg text-terra-brown focus:ring-1 focus:ring-terra-green" required>
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-bold uppercase tracking-widest text-terra-green/50 mb-2 block">Salida</label>
+                        <input type="date" class="w-full bg-terra-sand border-none py-3 px-4 rounded-lg text-terra-brown focus:ring-1 focus:ring-terra-green" required>
+                    </div>
+                </div>
+                <div class="mb-8">
+                    <label class="text-[10px] font-bold uppercase tracking-widest text-terra-green/50 mb-2 block">Alojamiento Preferido</label>
+                    <select class="w-full bg-terra-sand border-none py-3 px-4 rounded-lg text-terra-brown focus:ring-1 focus:ring-terra-green cursor-pointer">
+                        <option>Domo Estelar</option>
+                        <option>Cabaña del Bosque</option>
+                        <option>Safari Lodge</option>
+                    </select>
+                </div>
+                <button type="submit" class="w-full bg-terra-brown text-terra-cream py-4 text-xs font-bold uppercase tracking-[0.2em] hover:bg-terra-green transition-all duration-300 rounded-lg shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+                    Buscar Disponibilidad
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-terra-green text-terra-cream/60 py-20 border-t border-white/10">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-12 text-center md:text-left">
+            <div>
+                <span class="font-serif text-2xl tracking-widest text-white block mb-4">TERRA</span>
+                <p class="text-[10px] uppercase tracking-widest leading-relaxed max-w-xs mx-auto md:mx-0">
+                    Parque Natural Sierra Norte<br>
+                    Camino del Silencio, Km 4<br>
+                    hola@terraglamping.com
+                </p>
+            </div>
+            
+            <div class="flex gap-8 text-[10px] uppercase tracking-widest font-bold text-white/80">
+                <a href="#" class="hover:text-white transition-colors">Instagram</a>
+                <a href="#" class="hover:text-white transition-colors">Airbnb</a>
+                <a href="#" class="hover:text-white transition-colors">Booking</a>
+            </div>
+        </div>
+        
+        <div class="max-w-7xl mx-auto px-6 mt-16 pt-8 border-t border-white/10 text-center text-[10px] uppercase tracking-widest text-white/40">
+            <p>© 2025 Terra Eco-Lodge. Respetando la naturaleza.</p>
+        </div>
+    </footer>
+
+    <!-- BOTÓN VOLVER ARRIBA -->
+    
+
+    <!-- COOKIE BANNER -->
+    <div id="cookie-banner" class="fixed bottom-4 left-4 max-w-sm bg-white border border-terra-green/20 p-5 rounded-xl shadow-2xl z-50 flex flex-col gap-3">
+        <p class="font-sans text-xs text-terra-green/80 leading-relaxed mb-0">
+            🍪 Usamos cookies naturales para mejorar tu experiencia en nuestra web.
+        </p>
+        <div class="flex gap-2">
+            <button id="accept-cookies" class="bg-terra-green text-white px-4 py-2 text-[10px] font-bold uppercase tracking-widest hover:bg-terra-brown transition-colors rounded-lg flex-1">Aceptar</button>
+            <button id="close-cookies" class="text-terra-green bg-terra-sand px-4 py-2 text-[10px] font-bold uppercase tracking-widest hover:bg-terra-green/20 transition-colors rounded-lg flex-1">Cerrar</button>
+        </div>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ once: true, offset: 50, duration: 1200 });
+
+        // Navbar Scroll Logic
+        const navbar = document.getElementById('navbar');
+        
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.remove('bg-transparent', 'text-white');
+                navbar.classList.add('bg-terra-sand/95', 'backdrop-blur-md', 'text-terra-green', 'shadow-sm', 'border-terra-green/10');
+                navbar.classList.remove('border-transparent');
+            } else {
+                navbar.classList.add('bg-transparent', 'text-white', 'border-transparent');
+                navbar.classList.remove('bg-terra-sand/95', 'backdrop-blur-md', 'text-terra-green', 'shadow-sm', 'border-terra-green/10');
+            }
+        });
+
+        // Mobile Menu
+        const mobileBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const closeBtn = document.getElementById('close-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        function toggleMenu() {
+            mobileMenu.classList.toggle('open');
+            document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : 'auto';
+        }
+
+        mobileBtn.addEventListener('click', toggleMenu);
+        closeBtn.addEventListener('click', toggleMenu);
+        mobileLinks.forEach(link => link.addEventListener('click', toggleMenu));
+
+        // Back to Top Logic
+        
+
+        // Cookies
+        const cookieBanner = document.getElementById('cookie-banner');
+        const acceptCookies = document.getElementById('accept-cookies');
+        const closeCookies = document.getElementById('close-cookies');
+
+        setTimeout(() => {
+            cookieBanner.classList.add('show');
+        }, 2000);
+
+        const hideBanner = () => {
+            cookieBanner.classList.remove('show');
+        };
+
+        acceptCookies.addEventListener('click', hideBanner);
+        closeCookies.addEventListener('click', hideBanner);
+    </script>
+
+    <!-- BOTÓN WHATSAPP -->
+    <a href="https://wa.me/5491143216789"
+       target="_blank"
+       rel="noopener noreferrer"
+       aria-label="WhatsApp"
+       style="position: fixed; bottom: calc(1.5rem + env(safe-area-inset-bottom)); right: 1.5rem; z-index: 9999; display: flex; align-items: center; justify-content: center; width: 3.5rem; height: 3.5rem; border-radius: 50%; background-color: #25D366; color: white; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: transform 0.3s ease; text-decoration: none;"
+       onmouseover="this.style.transform='scale(1.1)'"
+       onmouseout="this.style.transform='scale(1)'"
+       title="WhatsApp">
+       <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" viewBox="0 0 16 16">
+  <path d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.9 7.9 0 0 0 13.6 2.326zM7.994 14.521a6.6 6.6 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.56 6.56 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592m3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.73.73 0 0 0-.529.247c-.182.198-.691.677-.691 1.654s.71 1.916.81 2.049c.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232"/>
+</svg>
+    </a>
+
+</body>
+</html>

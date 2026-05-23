@@ -1,0 +1,508 @@
+<!-- 
+  ========================================
+  TEMPLATE NAME: HAPPY PAWS - Dog Walker & Pet Sitter
+  AUTHOR: Sebastian Fernandez
+  WEBSITE: https://sebastian-fernandez.com
+  VERSION: 1.0.0 (Final Commercial Release)
+  LICENSE: Standard License (Personal & Commercial Use)
+  ========================================
+-->
+
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO & METADATA -->
+    <title>HAPPY PAWS | Paseos y Cuidados</title>
+    <meta name="description" content="Servicio profesional de paseo de perros y cuidado de mascotas. Rastreo GPS, seguro incluido y reportes diarios con fotos.">
+    <meta name="author" content="Sebastian Fernandez">
+
+    <!-- FAVICON (SVG Inline) -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><path d='M30 60 Q20 40 40 30 Q60 20 80 40 Q90 60 70 80 Q50 90 30 60' fill='%23FF9F1C'/><circle cx='35' cy='45' r='8' fill='white'/><circle cx='65' cy='40' r='10' fill='white'/><circle cx='45' cy='65' r='6' fill='white'/></svg>">
+
+    <!-- OPEN GRAPH -->
+    <meta property="og:title" content="Happy Paws | Dog Walking">
+    <meta property="og:description" content="Paseos felices, dueños tranquilos. ¡Primera visita gratis!">
+    <meta property="og:image" content="https://placehold.co/1200x630/FF9F1C/ffffff?text=HAPPY+PAWS">
+    <meta property="og:url" content="#">
+    <meta property="og:type" content="website">
+
+    <!-- 1. TAILWIND CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- 2. GOOGLE FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Fredoka (Amigable/Títulos) + Quicksand (Cuerpo) -->
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- 3. FONT AWESOME -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- 4. AOS ANIMATION -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <!-- CONFIGURACIÓN TAILWIND -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'happy-orange': '#FF9F1C',  /* Naranja Energía */
+                        'happy-teal': '#2EC4B6',    /* Turquesa Confianza */
+                        'happy-dark': '#011627',    /* Azul Noche Texto */
+                        'happy-light': '#FDFFFC',   /* Blanco Hueso */
+                        'happy-red': '#E71D36',     /* Acento Rojo */
+                    },
+                    fontFamily: {
+                        'head': ['Fredoka', 'sans-serif'],
+                        'body': ['Quicksand', 'sans-serif'],
+                    },
+                    borderRadius: {
+                        'blob': '60% 40% 30% 70% / 60% 30% 70% 40%',
+                        'card': '25px',
+                    },
+                    backgroundImage: {
+                        'paws': "url('https://www.transparenttextures.com/patterns/dog-paw.png')",
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Animaciones */
+        .wiggle:hover {
+            animation: wiggle 0.5s ease-in-out infinite;
+        }
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(-3deg); }
+            50% { transform: rotate(3deg); }
+        }
+
+        .bounce-slow {
+            animation: bounce 3s infinite;
+        }
+
+        /* Card Styles */
+        .service-card {
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            border: 2px solid transparent;
+        }
+        .service-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--happy-orange);
+            box-shadow: 0 15px 30px rgba(255, 159, 28, 0.15);
+        }
+
+        /* SVG Waves */
+        .wave-container {
+            position: absolute;
+            width: 100%;
+            overflow: hidden;
+            line-height: 0;
+        }
+        .wave-bottom {
+            bottom: 0;
+            left: 0;
+        }
+        .wave-top {
+            top: 0;
+            left: 0;
+            transform: rotate(180deg);
+        }
+
+        /* Mobile Menu */
+        #mobile-menu {
+            transform: translateX(100%);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        #mobile-menu.open {
+            transform: translateX(0);
+        }
+
+        /* Back to Top */
+
+        /* Cookie Banner */
+        #cookie-banner {
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(20px);
+            transition: all 0.4s ease;
+        }
+
+        #cookie-banner.show {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="font-body text-happy-dark bg-happy-light selection:bg-happy-orange selection:text-white overflow-x-hidden">
+
+    <!-- NAVBAR -->
+    <nav class="fixed w-full z-50 bg-white/95 backdrop-blur-md border-b-4 border-happy-orange shadow-sm transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <a href="#" class="flex items-center gap-2 group" onclick="window.scrollTo(0,0)">
+                    <div class="w-10 h-10 bg-happy-orange rounded-full flex items-center justify-center text-white text-xl shadow-md group-hover:rotate-12 transition-transform">
+                        <i class="fa-solid fa-dog"></i>
+                    </div>
+                    <span class="font-head font-bold text-2xl text-happy-dark tracking-wide">Happy<span class="text-happy-orange">Paws</span></span>
+                </a>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center gap-8 font-bold text-sm text-happy-dark/80 uppercase tracking-wide">
+                    <a href="#servicios" class="hover:text-happy-orange transition-colors">Servicios</a>
+                    <a href="#como-funciona" class="hover:text-happy-orange transition-colors">Cómo Funciona</a>
+                    <a href="#reviews" class="hover:text-happy-orange transition-colors">Clientes Felices</a>
+                    <a href="#contacto" class="bg-happy-teal text-white px-6 py-2.5 rounded-full hover:bg-teal-500 transition-all shadow-lg hover:shadow-teal-400/40 transform hover:-translate-y-0.5 flex items-center gap-2">
+                        <i class="fa-solid fa-calendar-days"></i> Meet & Greet Gratis
+                    </a>
+                </div>
+
+                <!-- Mobile Button -->
+                <button id="mobile-menu-btn" class="md:hidden text-3xl text-happy-orange focus:outline-none transition-transform hover:scale-110">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Overlay -->
+        <div id="mobile-menu" class="fixed inset-0 bg-happy-light z-40 flex flex-col justify-center items-center h-screen w-screen border-l-8 border-happy-teal">
+            <div class="flex flex-col gap-8 text-3xl font-head font-bold text-center text-happy-dark">
+                <a href="#servicios" class="mobile-link hover:text-happy-orange transition-colors wiggle">Servicios</a>
+                <a href="#como-funciona" class="mobile-link hover:text-happy-orange transition-colors wiggle">Proceso</a>
+                <a href="#reviews" class="mobile-link hover:text-happy-orange transition-colors wiggle">Reseñas</a>
+                <a href="#contacto" class="mobile-link text-white bg-happy-orange px-8 py-3 rounded-full shadow-xl">Reservar</a>
+            </div>
+            <button id="close-menu" class="absolute top-6 right-6 text-4xl text-gray-400 hover:text-happy-red transition-colors">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden bg-happy-light">
+        <!-- Background Pattern -->
+        <div class="absolute inset-0 bg-paws opacity-5"></div>
+        
+        <!-- Blobs -->
+        <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-happy-orange/10 rounded-blob blur-3xl -z-10 animate-pulse"></div>
+        <div class="absolute bottom-0 left-0 w-[400px] h-[400px] bg-happy-teal/10 rounded-full blur-3xl -z-10"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <!-- Text -->
+                <div class="text-center lg:text-left" data-aos="fade-right">
+                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border-2 border-happy-orange/20 text-xs font-bold uppercase tracking-wider mb-6 text-happy-orange shadow-sm rotate-2">
+                        <i class="fa-solid fa-star text-yellow-400"></i> +500 Paseos este mes
+                    </div>
+                    <h1 class="font-head text-5xl md:text-7xl font-bold text-happy-dark mb-6 leading-tight">
+                        Paseos Felices, <br>
+                        <span class="text-happy-teal">Dueños Tranquilos.</span>
+                    </h1>
+                    <p class="text-lg text-slate-500 mb-8 max-w-lg mx-auto lg:mx-0 font-medium">
+                        Paseadores profesionales, asegurados y amantes de los animales. Rastreo GPS en vivo y fotos adorables en cada paseo.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                        <a href="#contacto" class="bg-happy-orange text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-orange-500 transition-all shadow-xl hover:shadow-orange-400/40 flex items-center justify-center gap-2 btn-main">
+                            <i class="fa-solid fa-bone"></i> Primer Paseo Gratis
+                        </a>
+                        <a href="#servicios" class="bg-white text-happy-dark border-2 border-slate-200 px-8 py-4 rounded-full font-bold text-lg hover:border-happy-teal hover:text-happy-teal transition-all flex items-center justify-center gap-2">
+                            Ver Precios
+                        </a>
+                    </div>
+                    
+                    <!-- Trust Badges -->
+                    <div class="mt-10 flex flex-wrap justify-center lg:justify-start gap-4 text-xs font-bold text-slate-400 uppercase tracking-wide">
+                        <span class="flex items-center gap-2 bg-white px-3 py-1 rounded-lg shadow-sm border border-slate-100"><i class="fa-solid fa-shield-dog text-happy-teal text-lg"></i> Seguro Incluido</span>
+                        <span class="flex items-center gap-2 bg-white px-3 py-1 rounded-lg shadow-sm border border-slate-100"><i class="fa-solid fa-location-dot text-happy-teal text-lg"></i> GPS Tracking</span>
+                        <span class="flex items-center gap-2 bg-white px-3 py-1 rounded-lg shadow-sm border border-slate-100"><i class="fa-solid fa-camera text-happy-teal text-lg"></i> Foto Reportes</span>
+                    </div>
+                </div>
+
+                <!-- Image Composition -->
+                <div class="relative" data-aos="zoom-in">
+                    <div class="absolute inset-0 bg-happy-teal rounded-blob transform rotate-6 opacity-20"></div>
+                    <!-- Pexels: Dog Walker -->
+                    <img src="https://images.pexels.com/photos/7210748/pexels-photo-7210748.jpeg?auto=compress&cs=tinysrgb&w=800" 
+                         class="relative rounded-[3rem] shadow-2xl w-full object-cover border-8 border-white transform -rotate-2 hover:rotate-0 transition-transform duration-500" 
+                         alt="Happy Dog Walking">
+                    
+                    <!-- Floating Card -->
+                    <div class="absolute -bottom-6 -right-6 bg-white p-4 rounded-2xl shadow-xl flex items-center gap-3 animate-bounce border-2 border-happy-orange/20" style="animation-duration: 3s;">
+                        <img src="https://images.pexels.com/photos/1108099/pexels-photo-1108099.jpeg?auto=compress&cs=tinysrgb&w=100" class="w-12 h-12 rounded-full object-cover border-2 border-happy-orange" alt="Dog Avatar">
+                        <div>
+                            <p class="font-head font-bold text-happy-dark text-lg leading-none">Max</p>
+                            <p class="text-xs text-happy-teal font-bold">¡Paseo completado!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Wave Divider -->
+        <div class="wave-container wave-bottom">
+            <svg viewBox="0 0 1440 320" xmlns="http://www.w3.org/2000/svg">
+                <path fill="#ffffff" fill-opacity="1" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,112C672,96,768,96,864,112C960,128,1056,160,1152,160C1248,160,1344,128,1392,112L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+            </svg>
+        </div>
+    </section>
+
+    <!-- SERVICIOS (Cards) -->
+    <section id="servicios" class="py-24 bg-white relative z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <span class="text-happy-teal font-bold uppercase tracking-widest text-xs bg-teal-50 px-3 py-1 rounded-full">Lo que hacemos</span>
+                <h2 class="font-head text-4xl md:text-5xl font-bold text-happy-dark mt-4">Servicios para Colas Felices</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <div class="service-card bg-white p-8 rounded-card border-2 border-slate-50 group cursor-pointer text-center">
+                    <div class="w-20 h-20 bg-orange-100 rounded-full flex items-center justify-center text-4xl text-happy-orange mb-6 mx-auto group-hover:scale-110 transition-transform">
+                      <i class="fa-solid fa-dog"></i>
+                    </div>
+                    <h3 class="font-head text-2xl font-bold text-happy-dark mb-3">Paseos Diarios</h3>
+                    <p class="text-slate-500 font-medium leading-relaxed mb-6">30 o 60 minutos de ejercicio y diversión. Paseos individuales o en grupos pequeños y compatibles.</p>
+                    <span class="text-happy-orange font-bold text-xl block">Desde ARS 12.000</span>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="service-card bg-white p-8 rounded-card border-2 border-slate-50 group cursor-pointer text-center relative overflow-hidden">
+                    <div class="absolute top-0 right-0 bg-happy-teal text-white text-xs font-bold px-3 py-1 rounded-bl-xl">Popular</div>
+                    <div class="w-20 h-20 bg-teal-100 rounded-full flex items-center justify-center text-4xl text-happy-teal mb-6 mx-auto group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-house-chimney"></i>
+                    </div>
+                    <h3 class="font-head text-2xl font-bold text-happy-dark mb-3">Visitas a Domicilio</h3>
+                    <p class="text-slate-500 font-medium leading-relaxed mb-6">Perfecto para cachorros o gatos. Alimentación, juegos, limpieza de arenero y mimos en tu casa.</p>
+                    <span class="text-happy-teal font-bold text-xl block">Desde ARS 15.000</span>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="service-card bg-white p-8 rounded-card border-2 border-slate-50 group cursor-pointer text-center">
+                    <div class="w-20 h-20 bg-red-100 rounded-full flex items-center justify-center text-4xl text-happy-red mb-6 mx-auto group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-bed"></i>
+                    </div>
+                    <h3 class="font-head text-2xl font-bold text-happy-dark mb-3">Alojamiento (Boarding)</h3>
+                    <p class="text-slate-500 font-medium leading-relaxed mb-6">Tu perro se queda en casa de uno de nuestros cuidadores certificados. Sin jaulas, solo sofás.</p>
+                    <span class="text-happy-red font-bold text-xl block">Desde ARS 35.000/noche</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CÓMO FUNCIONA -->
+    <section id="como-funciona" class="py-24 bg-happy-teal/10 relative overflow-hidden">
+        <!-- Bubbles -->
+        <div class="absolute top-10 left-10 w-32 h-32 bg-happy-teal/20 rounded-full blur-2xl"></div>
+        <div class="absolute bottom-10 right-10 w-40 h-40 bg-happy-orange/20 rounded-full blur-2xl"></div>
+
+        <div class="max-w-7xl mx-auto px-4 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <div>
+                    <h2 class="font-head text-4xl md:text-5xl font-bold text-happy-dark mb-8">Tan fácil como lanzar la pelota</h2>
+                    
+                    <div class="space-y-8">
+                        <div class="flex gap-6 group">
+                            <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center text-xl font-bold text-happy-orange shadow-md border-2 border-happy-orange group-hover:bg-happy-orange group-hover:text-white transition-colors shrink-0">1</div>
+                            <div>
+                                <h4 class="font-head text-xl font-bold mb-2">Reserva tu Meet & Greet</h4>
+                                <p class="text-slate-600 font-medium">Conocemos a tu mascota gratis para asegurarnos de que hay química.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 group">
+                            <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center text-xl font-bold text-happy-teal shadow-md border-2 border-happy-teal group-hover:bg-happy-teal group-hover:text-white transition-colors shrink-0">2</div>
+                            <div>
+                                <h4 class="font-head text-xl font-bold mb-2">Programa tus Paseos</h4>
+                                <p class="text-slate-600 font-medium">Usa nuestra app o web para agendar cuándo nos necesitas. Flexible total.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 group">
+                            <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center text-xl font-bold text-happy-red shadow-md border-2 border-happy-red group-hover:bg-happy-red group-hover:text-white transition-colors shrink-0">3</div>
+                            <div>
+                                <h4 class="font-head text-xl font-bold mb-2">Recibe Actualizaciones</h4>
+                                <p class="text-slate-600 font-medium">Te enviamos el mapa GPS, fotos y un reporte de pipí/popó al terminar.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="relative">
+                    <img src="https://images.pexels.com/photos/1254140/pexels-photo-1254140.jpeg?auto=compress&cs=tinysrgb&w=800" class="rounded-card shadow-2xl border-4 border-white rotate-3 hover:rotate-0 transition-transform duration-500" alt="Dog Smiling">
+                    <div class="absolute -bottom-6 -left-6 bg-white p-4 rounded-xl shadow-lg border-2 border-happy-teal max-w-[180px]">
+                        <p class="text-xs text-slate-400 font-bold uppercase mb-1">Reporte de Hoy</p>
+                        <div class="flex gap-1 text-happy-orange text-xs mb-1">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                        </div>
+                        <p class="font-bold text-happy-dark text-sm">"¡Toby se portó genial hoy!"</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIOS -->
+    <section id="reviews" class="py-24 bg-white">
+        <div class="max-w-4xl mx-auto px-4 text-center">
+            <h2 class="font-head text-4xl font-bold text-happy-dark mb-12">Ladridos de Aprobación</h2>
+            
+            <div class="bg-happy-light p-8 md:p-12 rounded-card shadow-sm border border-slate-100 relative">
+                <i class="fa-solid fa-quote-left text-4xl text-happy-teal/20 absolute top-8 left-8"></i>
+                <p class="font-medium text-lg md:text-xl text-slate-600 leading-relaxed mb-8 italic">
+                    "Desde que contraté a HappyPaws, mi Golden está mucho más tranquilo en casa. Me encanta recibir las fotos a mediodía, me alegran la jornada laboral. ¡Son los mejores!"
+                </p>
+                <div class="flex items-center justify-center gap-4">
+                    <img src="https://randomuser.me/api/portraits/women/65.jpg" class="w-14 h-14 rounded-full border-2 border-happy-orange" alt="User">
+                    <div class="text-left">
+                        <p class="font-head font-bold text-happy-dark text-lg">Laura Gómez</p>
+                        <p class="text-xs text-happy-teal font-bold uppercase tracking-wide">Mamá de "Rocky"</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACTO / CTA -->
+    <section id="contacto" class="py-24 bg-happy-dark text-white relative overflow-hidden">
+        <div class="absolute inset-0 bg-paws opacity-5"></div>
+        <div class="max-w-3xl mx-auto px-6 text-center relative z-10">
+            <h2 class="font-head text-4xl md:text-6xl font-bold mb-6">¿Listo para empezar?</h2>
+            <p class="text-slate-300 text-lg mb-10">
+                La primera visita es totalmente gratuita. Venimos a tu casa, conocemos a tu mascota y te explicamos todo sin compromiso.
+            </p>
+            
+            <form onsubmit="event.preventDefault(); alert('DEMO: ¡Guau! Solicitud enviada. Te contactaremos pronto.');" class="bg-white rounded-card p-6 md:p-8 text-left shadow-2xl">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                    <div>
+                        <label class="text-xs font-bold text-happy-dark uppercase ml-2 mb-1 block">Tu Nombre</label>
+                        <input type="text" class="w-full bg-slate-50 border-2 border-slate-100 rounded-full px-4 py-3 focus:outline-none focus:border-happy-teal text-happy-dark font-medium transition-colors" required>
+                    </div>
+                    <div>
+                        <label class="text-xs font-bold text-happy-dark uppercase ml-2 mb-1 block">Nombre Mascota</label>
+                        <input type="text" class="w-full bg-slate-50 border-2 border-slate-100 rounded-full px-4 py-3 focus:outline-none focus:border-happy-teal text-happy-dark font-medium transition-colors" required>
+                    </div>
+                </div>
+                <div class="mb-6">
+                    <label class="text-xs font-bold text-happy-dark uppercase ml-2 mb-1 block">Email o Teléfono</label>
+                    <input type="text" class="w-full bg-slate-50 border-2 border-slate-100 rounded-full px-4 py-3 focus:outline-none focus:border-happy-teal text-happy-dark font-medium transition-colors" required>
+                </div>
+                <button type="submit" class="w-full bg-happy-orange text-white font-head font-bold text-xl uppercase py-4 rounded-full hover:bg-orange-500 transition-colors shadow-lg btn-main">
+                    Solicitar Meet & Greet Gratis
+                </button>
+                <p class="text-center text-xs text-gray-400 mt-4 font-medium">Sin tarjeta de crédito requerida.</p>
+            </form>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-happy-light border-t border-slate-200 pt-16 pb-8 text-center text-happy-dark">
+        <div class="max-w-7xl mx-auto px-4 mb-12">
+            <div class="flex flex-col items-center justify-center gap-4 mb-8">
+                <div class="w-12 h-12 bg-happy-teal rounded-full flex items-center justify-center text-white text-2xl shadow-sm">
+                    <i class="fa-solid fa-dog"></i>
+                </div>
+                <span class="font-head font-bold text-2xl">Happy<span class="text-happy-orange">Paws</span></span>
+            </div>
+            <div class="flex flex-wrap justify-center gap-6 md:gap-12 font-bold text-sm text-slate-500 uppercase tracking-wide">
+                <a href="#" class="hover:text-happy-teal transition-colors">Servicios</a>
+                <a href="#" class="hover:text-happy-teal transition-colors">Precios</a>
+                <a href="#" class="hover:text-happy-teal transition-colors">Equipo</a>
+                <a href="#" class="hover:text-happy-teal transition-colors">Empleo</a>
+                <a href="#" class="hover:text-happy-teal transition-colors">FAQ</a>
+            </div>
+            <div class="flex justify-center gap-6 mt-8">
+                <a href="#" class="w-10 h-10 rounded-full bg-white border border-slate-200 flex items-center justify-center text-happy-dark hover:bg-happy-teal hover:text-white hover:border-happy-teal transition-all"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#" class="w-10 h-10 rounded-full bg-white border border-slate-200 flex items-center justify-center text-happy-dark hover:bg-happy-blue hover:text-white hover:border-happy-blue transition-all"><i class="fa-brands fa-facebook-f"></i></a>
+                <a href="#" class="w-10 h-10 rounded-full bg-white border border-slate-200 flex items-center justify-center text-happy-dark hover:bg-green-500 hover:text-white hover:border-green-500 transition-all"><i class="fa-brands fa-whatsapp"></i></a>
+            </div>
+        </div>
+        <div class="text-xs text-slate-400 font-bold uppercase tracking-widest border-t border-slate-200 pt-8 w-full">
+            © 2025 Happy Paws. Hecho con amor perruno.
+        </div>
+    </footer>
+
+    <!-- BOTÓN VOLVER ARRIBA -->
+    
+
+    <!-- COOKIE BANNER -->
+    <div id="cookie-banner" class="fixed bottom-4 left-4 max-w-sm bg-white p-5 rounded-card shadow-2xl z-50 border-4 border-happy-orange flex flex-col gap-3">
+        <div class="flex items-center gap-3">
+            <i class="fa-solid fa-cookie-bite text-happy-orange text-2xl"></i>
+            <p class="font-bold text-happy-dark text-sm">¡Nos gustan las galletas!</p>
+        </div>
+        <p class="text-xs text-slate-500 font-medium leading-relaxed">
+            Usamos cookies para que la web funcione genial (y para darte premios virtuales).
+        </p>
+        <div class="flex gap-2">
+            <button id="accept-cookies" class="bg-happy-orange text-white px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider hover:bg-orange-500 transition-colors flex-1">¡Ñam, dale!</button>
+            <button id="close-cookies" class="bg-slate-100 text-slate-500 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider hover:bg-slate-200 transition-colors flex-1">No tengo hambre</button>
+        </div>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ once: true, offset: 50, duration: 800 });
+
+        // Mobile Menu
+        const mobileBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const closeBtn = document.getElementById('close-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+        const menuIcon = mobileBtn.querySelector('i');
+        const body = document.body;
+
+        function toggleMenu() {
+            mobileMenu.classList.toggle('open');
+            if (mobileMenu.classList.contains('open')) {
+                body.style.overflow = 'hidden';
+            } else {
+                body.style.overflow = 'auto';
+            }
+        }
+
+        mobileBtn.addEventListener('click', toggleMenu);
+        closeBtn.addEventListener('click', toggleMenu);
+        mobileLinks.forEach(link => link.addEventListener('click', toggleMenu));
+
+        // Back to Top Logic
+        
+
+        // Cookie Banner Logic
+        const cookieBanner = document.getElementById('cookie-banner');
+        const acceptCookies = document.getElementById('accept-cookies');
+        const closeCookies = document.getElementById('close-cookies');
+
+        setTimeout(() => {
+            cookieBanner.classList.add('show');
+        }, 2000);
+
+        const hideBanner = () => {
+            cookieBanner.classList.remove('show');
+        };
+
+        acceptCookies.addEventListener('click', hideBanner);
+        closeCookies.addEventListener('click', hideBanner);
+    </script>
+
+    <!-- BOTÓN WHATSAPP -->
+    <a href="https://wa.me/5491143216789"
+       target="_blank"
+       rel="noopener noreferrer"
+       aria-label="WhatsApp"
+       style="position: fixed; bottom: calc(1.5rem + env(safe-area-inset-bottom)); right: 1.5rem; z-index: 9999; display: flex; align-items: center; justify-content: center; width: 3.5rem; height: 3.5rem; border-radius: 50%; background-color: #25D366; color: white; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: transform 0.3s ease; text-decoration: none;"
+       onmouseover="this.style.transform='scale(1.1)'"
+       onmouseout="this.style.transform='scale(1)'"
+       title="WhatsApp">
+       <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" viewBox="0 0 16 16">
+  <path d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.9 7.9 0 0 0 13.6 2.326zM7.994 14.521a6.6 6.6 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.56 6.56 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592m3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.73.73 0 0 0-.529.247c-.182.198-.691.677-.691 1.654s.71 1.916.81 2.049c.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232"/>
+</svg>
+    </a>
+
+</body>
+</html>

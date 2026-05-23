@@ -1,0 +1,518 @@
+<!-- 
+  ========================================
+  TEMPLATE NAME: URBAN STORE - Fashion & Lifestyle E-commerce
+  AUTHOR: Sebastian Fernandez
+  WEBSITE: https://sebastian-fernandez.com
+  VERSION: 2.0.0 (Final Commercial Release)
+  LICENSE: Standard License (Personal & Commercial Use)
+  ========================================
+-->
+
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO & METADATA -->
+    <title>URBAN STORE | Moda & Lifestyle</title>
+    <meta name="description" content="Tienda online de moda urbana y accesorios. Ropa minimalista, sostenible y de alta calidad. Envíos gratis a partir de ARS 50.000.">
+    <meta name="author" content="Sebastian Fernandez">
+
+    <!-- FAVICON (SVG Inline) -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><path d='M20 30 L80 30 L70 90 H30 Z' fill='%23111827'/><path d='M35 30 Q50 5 65 30' fill='none' stroke='%23111827' stroke-width='5'/></svg>">
+
+    <!-- OPEN GRAPH -->
+    <meta property="og:title" content="Urban Store | New Collection">
+    <meta property="og:description" content="Descubre las últimas tendencias en moda urbana. Calidad y estilo.">
+    <meta property="og:image" content="https://placehold.co/1200x630/111827/ffffff?text=URBAN+STORE">
+    <meta property="og:url" content="#">
+    <meta property="og:type" content="website">
+
+    <!-- 1. TAILWIND CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- 2. GOOGLE FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Inter (Estándar E-commerce) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- 3. FONT AWESOME -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- 4. AOS ANIMATION -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <!-- CONFIGURACIÓN TAILWIND -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'store-black': '#111827',
+                        'store-gray': '#F3F4F6',
+                        'store-accent': '#2563EB', /* Azul Acción */
+                    },
+                    fontFamily: {
+                        'sans': ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Badge de oferta */
+        .sale-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: #EF4444;
+            color: white;
+            padding: 2px 8px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            border-radius: 2px;
+            z-index: 10;
+        }
+
+        /* Hover Imagen Producto */
+        .product-img-wrapper {
+            position: relative;
+            overflow: hidden;
+            padding-bottom: 125%; /* Aspect Ratio 4:5 (Vertical) */
+        }
+        .product-img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        .product-card:hover .product-img {
+            transform: scale(1.05);
+        }
+        
+        /* Botón añadir al carrito (aparece en hover) */
+        .add-to-cart {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: white;
+            color: black;
+            text-align: center;
+            padding: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+            border-top: 1px solid #eee;
+            cursor: pointer;
+        }
+        .product-card:hover .add-to-cart {
+            transform: translateY(0);
+        }
+
+        /* Mobile Menu (Drawer) */
+        #mobile-menu {
+            transform: translateX(-100%);
+            transition: transform 0.3s ease-in-out;
+        }
+        #mobile-menu.open {
+            transform: translateX(0);
+        }
+
+        /* Back to Top */
+
+        /* Cookie Banner */
+        #cookie-banner {
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(20px);
+            transition: all 0.4s ease;
+        }
+
+        #cookie-banner.show {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="font-sans text-gray-900 bg-white selection:bg-store-black selection:text-white overflow-x-hidden">
+
+    <!-- ANNOUNCEMENT BAR -->
+    <div class="bg-store-black text-white text-xs font-bold text-center py-2 uppercase tracking-wide">
+        Envío gratis en pedidos superiores a ARS 50.000 — <a href="#shop" class="underline hover:text-gray-300">Comprar Ahora</a>
+    </div>
+
+    <!-- NAVBAR -->
+    <nav class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-gray-100 transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                
+                <!-- Mobile Menu Button & Search -->
+                <div class="flex items-center gap-4 lg:hidden">
+                    <button id="mobile-menu-btn" class="text-2xl focus:outline-none"><i class="fa-solid fa-bars"></i></button>
+                    <button class="text-xl" onclick="alert('DEMO: Buscador activado')"><i class="fa-solid fa-magnifying-glass"></i></button>
+                </div>
+
+                <!-- Logo -->
+                <a href="#" class="text-2xl font-bold tracking-tighter uppercase" onclick="window.scrollTo(0,0)">URBAN<span class="font-light">STORE</span>.</a>
+
+                <!-- Desktop Menu -->
+                <div class="hidden lg:flex gap-8 text-sm font-semibold uppercase tracking-wide">
+                    <a href="#shop" class="hover:text-store-accent transition-colors">Novedades</a>
+                    <a href="#shop" class="hover:text-store-accent transition-colors">Hombre</a>
+                    <a href="#shop" class="hover:text-store-accent transition-colors">Mujer</a>
+                    <a href="#shop" class="hover:text-store-accent transition-colors">Accesorios</a>
+                    <a href="#shop" class="text-red-500 hover:text-red-700 transition-colors">Rebajas</a>
+                </div>
+
+                <!-- Icons -->
+                <div class="flex items-center gap-6">
+                    <div class="hidden lg:flex items-center bg-gray-100 rounded-full px-4 py-2">
+                        <i class="fa-solid fa-magnifying-glass text-gray-400 mr-2"></i>
+                        <input type="text" placeholder="Buscar..." class="bg-transparent border-none focus:outline-none text-sm w-24 lg:w-40 text-gray-700">
+                    </div>
+                    <a href="#" class="text-xl hover:text-store-accent hidden sm:block"><i class="fa-regular fa-user"></i></a>
+                    <a href="#" class="text-xl hover:text-store-accent relative" onclick="alert('DEMO: Tu carrito tiene 2 artículos.')">
+                        <i class="fa-solid fa-bag-shopping"></i>
+                        <span class="absolute -top-2 -right-2 bg-store-black text-white text-[10px] w-4 h-4 flex items-center justify-center rounded-full">2</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Overlay (Left Drawer) -->
+        <div id="mobile-menu" class="fixed inset-y-0 left-0 w-3/4 max-w-sm bg-white shadow-2xl z-50 flex flex-col h-full border-r border-gray-100">
+            <div class="p-6 border-b border-gray-100 flex justify-between items-center">
+                <span class="font-bold text-xl uppercase">Menú</span>
+                <button id="close-menu" class="text-2xl text-gray-500 hover:text-black"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="flex flex-col p-6 gap-6 text-lg font-bold uppercase tracking-wide">
+                <a href="#shop" class="mobile-link hover:text-store-accent transition-colors">Novedades</a>
+                <a href="#shop" class="mobile-link hover:text-store-accent transition-colors">Hombre</a>
+                <a href="#shop" class="mobile-link hover:text-store-accent transition-colors">Mujer</a>
+                <a href="#shop" class="mobile-link hover:text-store-accent transition-colors">Accesorios</a>
+                <a href="#shop" class="mobile-link text-red-500 hover:text-red-700 transition-colors">Rebajas</a>
+            </div>
+            <div class="mt-auto p-6 bg-gray-50 border-t border-gray-100">
+                <a href="#" class="flex items-center gap-3 text-sm font-semibold text-gray-600 mb-4">
+                    <i class="fa-regular fa-user"></i> Mi Cuenta
+                </a>
+                <a href="#" class="flex items-center gap-3 text-sm font-semibold text-gray-600">
+                    <i class="fa-solid fa-life-ring"></i> Ayuda
+                </a>
+            </div>
+        </div>
+        <!-- Backdrop for mobile menu -->
+        <div id="menu-backdrop" class="fixed inset-0 bg-black/50 z-30 hidden backdrop-blur-sm transition-opacity"></div>
+    </nav>
+
+    <!-- HERO SLIDER (Static for demo) -->
+    <section class="relative h-[500px] lg:h-[700px] bg-gray-100 overflow-hidden">
+        <div class="absolute inset-0">
+            <img src="https://images.pexels.com/photos/1926769/pexels-photo-1926769.jpeg?auto=compress&cs=tinysrgb&w=1920" 
+                 class="w-full h-full object-cover object-center" alt="Hero Fashion">
+            <div class="absolute inset-0 bg-black/10"></div>
+        </div>
+        
+        <div class="absolute inset-0 flex items-center justify-center lg:justify-start lg:pl-24 px-6">
+            <div class="bg-white/90 backdrop-blur-sm p-8 md:p-12 max-w-lg shadow-xl" data-aos="fade-up">
+                <span class="text-xs font-bold uppercase tracking-widest text-gray-500 mb-3 block">Colección Verano 2025</span>
+                <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight">Minimalismo Urbano</h1>
+                <p class="text-gray-600 mb-8">Prendas esenciales diseñadas para durar. Estilo atemporal con materiales sostenibles.</p>
+                <a href="#shop" class="inline-block bg-store-black text-white px-8 py-4 font-bold uppercase text-xs tracking-widest hover:bg-gray-800 transition-colors">
+                    Ver Colección
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- CATEGORÍAS -->
+    <section class="py-16 border-b border-gray-100 bg-white">
+        <div class="max-w-7xl mx-auto px-4">
+            <h2 class="text-2xl font-bold mb-8 uppercase tracking-wide">Comprar por Categoría</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <!-- Cat 1 -->
+                <a href="#shop" class="group relative h-[300px] overflow-hidden bg-gray-200 block">
+                    <img src="https://images.pexels.com/photos/1043474/pexels-photo-1043474.jpeg?auto=compress&cs=tinysrgb&w=600" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt="Hombre">
+                    <div class="absolute bottom-4 left-4 bg-white px-4 py-2 font-bold text-sm uppercase shadow-md group-hover:bg-store-black group-hover:text-white transition-colors">Hombre</div>
+                </a>
+                <!-- Cat 2 -->
+                <a href="#shop" class="group relative h-[300px] overflow-hidden bg-gray-200 block">
+                    <img src="https://images.pexels.com/photos/2065200/pexels-photo-2065200.jpeg?auto=compress&cs=tinysrgb&w=600" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt="Mujer">
+                    <div class="absolute bottom-4 left-4 bg-white px-4 py-2 font-bold text-sm uppercase shadow-md group-hover:bg-store-black group-hover:text-white transition-colors">Mujer</div>
+                </a>
+                <!-- Cat 3 -->
+                <a href="#shop" class="group relative h-[300px] overflow-hidden bg-gray-200 block">
+                    <img src="https://images.pexels.com/photos/1478442/pexels-photo-1478442.jpeg?auto=compress&cs=tinysrgb&w=600" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt="Accesorios">
+                    <div class="absolute bottom-4 left-4 bg-white px-4 py-2 font-bold text-sm uppercase shadow-md group-hover:bg-store-black group-hover:text-white transition-colors">Accesorios</div>
+                </a>
+                <!-- Cat 4 -->
+                <a href="#shop" class="group relative h-[300px] overflow-hidden bg-gray-200 block">
+                    <img src="https://images.pexels.com/photos/2529148/pexels-photo-2529148.jpeg?auto=compress&cs=tinysrgb&w=600" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt="Calzado">
+                    <div class="absolute bottom-4 left-4 bg-white px-4 py-2 font-bold text-sm uppercase shadow-md group-hover:bg-store-black group-hover:text-white transition-colors">Calzado</div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRODUCTOS DESTACADOS -->
+    <section id="shop" class="py-20">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center md:items-end mb-10 gap-4">
+                <h2 class="text-2xl font-bold uppercase tracking-wide">Novedades</h2>
+                <div class="flex gap-4 text-sm font-semibold text-gray-500">
+                    <button class="text-store-black underline decoration-2 underline-offset-4">Todo</button>
+                    <button class="hover:text-store-black transition-colors">Ropa</button>
+                    <button class="hover:text-store-black transition-colors">Zapatos</button>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-10">
+                <!-- Product 1 -->
+                <div class="product-card group cursor-pointer" data-aos="fade-up" data-aos-delay="0">
+                    <div class="product-img-wrapper bg-gray-100 mb-4 overflow-hidden relative rounded-sm">
+                        <span class="sale-badge">Nuevo</span>
+                        <img src="https://images.pexels.com/photos/996329/pexels-photo-996329.jpeg?auto=compress&cs=tinysrgb&w=600" class="product-img" alt="Camiseta">
+                        <button class="add-to-cart hover:bg-store-black hover:text-white transition-colors" onclick="alert('DEMO: Producto añadido al carrito')">Añadir al Carrito</button>
+                    </div>
+                    <h3 class="text-sm font-medium text-gray-900 group-hover:text-store-accent transition-colors">Camiseta Básica Algodón</h3>
+                    <p class="text-gray-500 text-xs mt-1">4 Colores</p>
+                    <div class="flex gap-2 mt-2 items-center">
+                        <span class="font-bold text-sm">ARS 25.000</span>
+                    </div>
+                </div>
+
+                <!-- Product 2 -->
+                <div class="product-card group cursor-pointer" data-aos="fade-up" data-aos-delay="100">
+                    <div class="product-img-wrapper bg-gray-100 mb-4 overflow-hidden relative rounded-sm">
+                        <img src="https://images.pexels.com/photos/1183266/pexels-photo-1183266.jpeg?auto=compress&cs=tinysrgb&w=600" class="product-img" alt="Sudadera">
+                        <button class="add-to-cart hover:bg-store-black hover:text-white transition-colors" onclick="alert('DEMO: Producto añadido al carrito')">Añadir al Carrito</button>
+                    </div>
+                    <h3 class="text-sm font-medium text-gray-900 group-hover:text-store-accent transition-colors">Sudadera Oversize</h3>
+                    <p class="text-gray-500 text-xs mt-1">Gris / Negro</p>
+                    <div class="flex gap-2 mt-2 items-center">
+                        <span class="font-bold text-sm">ARS 45.000</span>
+                    </div>
+                </div>
+
+                <!-- Product 3 -->
+                <div class="product-card group cursor-pointer" data-aos="fade-up" data-aos-delay="200">
+                    <div class="product-img-wrapper bg-gray-100 mb-4 overflow-hidden relative rounded-sm">
+                        <span class="sale-badge bg-black">-20%</span>
+                        <img src="https://images.pexels.com/photos/837140/pexels-photo-837140.jpeg?auto=compress&cs=tinysrgb&w=600" class="product-img" alt="Gorra">
+                        <button class="add-to-cart hover:bg-store-black hover:text-white transition-colors" onclick="alert('DEMO: Producto añadido al carrito')">Añadir al Carrito</button>
+                    </div>
+                    <h3 class="text-sm font-medium text-gray-900 group-hover:text-store-accent transition-colors">Gorra Urbana</h3>
+                    <p class="text-gray-500 text-xs mt-1">Talla Única</p>
+                    <div class="flex gap-2 mt-2 items-center">
+                        <span class="font-bold text-sm text-red-600">ARS 20.000</span>
+                        <span class="text-xs text-gray-400 line-through">ARS 25.000</span>
+                    </div>
+                </div>
+
+                <!-- Product 4 -->
+                <div class="product-card group cursor-pointer" data-aos="fade-up" data-aos-delay="300">
+                    <div class="product-img-wrapper bg-gray-100 mb-4 overflow-hidden relative rounded-sm">
+                        <img src="https://images.pexels.com/photos/1598505/pexels-photo-1598505.jpeg?auto=compress&cs=tinysrgb&w=600" class="product-img" alt="Zapatillas">
+                        <button class="add-to-cart hover:bg-store-black hover:text-white transition-colors" onclick="alert('DEMO: Producto añadido al carrito')">Añadir al Carrito</button>
+                    </div>
+                    <h3 class="text-sm font-medium text-gray-900 group-hover:text-store-accent transition-colors">Sneakers Retro</h3>
+                    <p class="text-gray-500 text-xs mt-1">Piel Vegana</p>
+                    <div class="flex gap-2 mt-2 items-center">
+                        <span class="font-bold text-sm">ARS 89.000</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12">
+                <a href="#" class="inline-block border border-gray-300 px-8 py-3 text-sm font-bold uppercase tracking-widest hover:border-black hover:bg-black hover:text-white transition-all">Ver Todo el Catálogo</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURES / ICONOS -->
+    <section class="py-12 bg-store-gray border-t border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
+            <div class="p-4">
+                <i class="fa-solid fa-truck-fast text-2xl text-store-black mb-3"></i>
+                <h4 class="font-bold text-sm uppercase">Envío Rápido</h4>
+                <p class="text-xs text-gray-500 mt-1">En 24/48 horas en tu casa</p>
+            </div>
+            <div class="p-4">
+                <i class="fa-solid fa-rotate-left text-2xl text-store-black mb-3"></i>
+                <h4 class="font-bold text-sm uppercase">Devolución Gratis</h4>
+                <p class="text-xs text-gray-500 mt-1">tenés 30 días para decidir</p>
+            </div>
+            <div class="p-4">
+                <i class="fa-solid fa-lock text-2xl text-store-black mb-3"></i>
+                <h4 class="font-bold text-sm uppercase">Pago Seguro</h4>
+                <p class="text-xs text-gray-500 mt-1">Tarjeta, PayPal o Bizum</p>
+            </div>
+            <div class="p-4">
+                <i class="fa-solid fa-headset text-2xl text-store-black mb-3"></i>
+                <h4 class="font-bold text-sm uppercase">Soporte 24/7</h4>
+                <p class="text-xs text-gray-500 mt-1">Estamos aquí para ayudarte</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEWSLETTER -->
+    <section class="py-20 border-t border-gray-200 bg-white">
+        <div class="max-w-xl mx-auto px-4 text-center">
+            <h2 class="text-2xl font-bold uppercase tracking-wide mb-4">Únete al Club</h2>
+            <p class="text-gray-500 mb-8 text-sm">Suscríbete y recibe un 10% de descuento en tu primera compra.</p>
+            <form class="flex gap-2 flex-col sm:flex-row" onsubmit="event.preventDefault(); alert('DEMO: ¡Suscrito! Revisa tu email.');">
+                <input type="email" placeholder="Tu email aquí" class="flex-1 bg-gray-50 border border-gray-300 px-4 py-3 text-sm focus:outline-none focus:border-store-black transition-colors" required>
+                <button class="bg-store-black text-white px-6 py-3 font-bold text-xs uppercase tracking-widest hover:bg-gray-800 transition-colors">
+                    Suscribirse
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-store-black text-white pt-16 pb-8">
+        <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+            <div class="col-span-1 md:col-span-1">
+                <a href="#" class="text-xl font-bold tracking-tighter uppercase mb-6 block" onclick="window.scrollTo(0,0)">URBAN<span class="font-light">STORE</span>.</a>
+                <div class="flex gap-4 text-gray-400">
+                    <a href="#" class="hover:text-white transition-colors"><i class="fa-brands fa-instagram text-xl"></i></a>
+                    <a href="#" class="hover:text-white transition-colors"><i class="fa-brands fa-facebook text-xl"></i></a>
+                    <a href="#" class="hover:text-white transition-colors"><i class="fa-brands fa-tiktok text-xl"></i></a>
+                </div>
+            </div>
+            
+            <div>
+                <h4 class="font-bold text-sm uppercase tracking-widest mb-6">Tienda</h4>
+                <ul class="space-y-3 text-sm text-gray-400">
+                    <li><a href="#" class="hover:text-white transition-colors">Novedades</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Ropa</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Zapatos</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Accesorios</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="font-bold text-sm uppercase tracking-widest mb-6">Ayuda</h4>
+                <ul class="space-y-3 text-sm text-gray-400">
+                    <li><a href="#" class="hover:text-white transition-colors">Envíos y Devoluciones</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Guía de Tallas</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Preguntas Frecuentes</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Contacto</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="font-bold text-sm uppercase tracking-widest mb-6">Legal</h4>
+                <ul class="space-y-3 text-sm text-gray-400">
+                    <li><a href="#" class="hover:text-white transition-colors">Términos y Condiciones</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Política de Privacidad</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Cookies</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="max-w-7xl mx-auto px-4 border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+            <p class="text-xs text-gray-500 uppercase tracking-wide">© 2025 Urban Store. All Rights Reserved.</p>
+            <div class="flex gap-4 opacity-50 grayscale">
+                <i class="fa-brands fa-cc-visa text-2xl"></i>
+                <i class="fa-brands fa-cc-mastercard text-2xl"></i>
+                <i class="fa-brands fa-cc-paypal text-2xl"></i>
+                <i class="fa-brands fa-cc-apple-pay text-2xl"></i>
+            </div>
+        </div>
+    </footer>
+
+    <!-- BOTÓN VOLVER ARRIBA -->
+    
+
+    <!-- COOKIE BANNER -->
+    <div id="cookie-banner" class="fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 p-4 z-50 flex flex-col md:flex-row justify-center items-center gap-4 shadow-[0_-5px_20px_rgba(0,0,0,0.1)]">
+        <p class="text-sm text-gray-600 mb-0 font-medium">
+            <i class="fa-solid fa-cookie-bite mr-2 text-store-accent"></i> 
+            Este sitio usa cookies para mejorar tu experiencia de compra.
+        </p>
+        <div class="flex gap-2">
+            <button id="accept-cookies" class="bg-store-black text-white px-6 py-2 text-xs font-bold uppercase tracking-wide hover:bg-gray-800 transition-colors">Aceptar</button>
+            <button id="close-cookies" class="text-gray-500 border border-gray-300 px-6 py-2 text-xs font-bold uppercase tracking-wide hover:text-black hover:border-black transition-colors">Cerrar</button>
+        </div>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ once: true, offset: 50 });
+
+        // Mobile Menu Logic
+        const mobileBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const closeMenu = document.getElementById('close-menu');
+        const menuBackdrop = document.getElementById('menu-backdrop');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+        const body = document.body;
+
+        function toggleMenu() {
+            mobileMenu.classList.toggle('open');
+            if (mobileMenu.classList.contains('open')) {
+                menuBackdrop.classList.remove('hidden');
+                setTimeout(() => menuBackdrop.classList.remove('opacity-0'), 10); // Fade in
+                body.style.overflow = 'hidden';
+            } else {
+                menuBackdrop.classList.add('opacity-0');
+                setTimeout(() => menuBackdrop.classList.add('hidden'), 300); // Fade out
+                body.style.overflow = 'auto';
+            }
+        }
+
+        mobileBtn.addEventListener('click', toggleMenu);
+        closeMenu.addEventListener('click', toggleMenu);
+        menuBackdrop.addEventListener('click', toggleMenu);
+        mobileLinks.forEach(link => link.addEventListener('click', toggleMenu));
+
+        // Back to Top & Navbar Scroll
+        
+
+        // Cookies
+        const cookieBanner = document.getElementById('cookie-banner');
+        const acceptCookies = document.getElementById('accept-cookies');
+        const closeCookies = document.getElementById('close-cookies');
+
+        setTimeout(() => {
+            cookieBanner.classList.add('show');
+        }, 2000);
+
+        const hideBanner = () => {
+            cookieBanner.classList.remove('show');
+        };
+
+        acceptCookies.addEventListener('click', hideBanner);
+        closeCookies.addEventListener('click', hideBanner);
+    </script>
+
+
+    <!-- BOTÓN WHATSAPP -->
+    <a href="https://wa.me/5491143216789"
+       target="_blank"
+       rel="noopener noreferrer"
+       aria-label="WhatsApp"
+       style="position: fixed; bottom: calc(1.5rem + env(safe-area-inset-bottom)); right: 1.5rem; z-index: 9999; display: flex; align-items: center; justify-content: center; width: 3.5rem; height: 3.5rem; border-radius: 50%; background-color: #25D366; color: white; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: transform 0.3s ease; text-decoration: none;"
+       onmouseover="this.style.transform='scale(1.1)'"
+       onmouseout="this.style.transform='scale(1)'"
+       title="WhatsApp">
+       <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" viewBox="0 0 16 16">
+  <path d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.9 7.9 0 0 0 13.6 2.326zM7.994 14.521a6.6 6.6 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.56 6.56 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592m3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.73.73 0 0 0-.529.247c-.182.198-.691.677-.691 1.654s.71 1.916.81 2.049c.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232"/>
+</svg>
+    </a>
+
+</body>
+</html>

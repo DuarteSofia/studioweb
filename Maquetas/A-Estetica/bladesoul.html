@@ -1,0 +1,465 @@
+<!-- 
+  ========================================
+  TEMPLATE NAME: BLADE & SOUL - Urban Barbershop Template
+  AUTHOR: Sebastian Fernandez
+  WEBSITE: https://sebastian-fernandez.com
+  VERSION: 2.0.0 (Final Commercial Release)
+  LICENSE: Standard License (Personal & Commercial Use)
+  ========================================
+-->
+
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO & METADATA -->
+    <title>BLADE & SOUL | Urban Barbershop Template</title>
+    <meta name="description" content="Plantilla HTML para barberías y estéticas masculinas. Diseño urbano, oscuro y moderno con Tailwind CSS.">
+    <meta name="author" content="Sebastian Fernandez">
+
+    <!-- FAVICON (SVG Inline) -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%230f0f0f'/><path d='M30 30 L70 70 M70 30 L30 70' stroke='%23FF2E00' stroke-width='10'/></svg>">
+
+    <!-- OPEN GRAPH -->
+    <meta property="og:title" content="BLADE & SOUL | Urban Barbershop">
+    <meta property="og:description" content="Cortes clásicos, estilo moderno. Reserva tu turno en la barbería más urbana.">
+    <meta property="og:image" content="https://placehold.co/1200x630/0f0f0f/FF2E00?text=BLADE%26SOUL">
+    <meta property="og:url" content="#">
+    <meta property="og:type" content="website">
+
+    <!-- 1. TAILWIND CSS (CDN para no requerir instalación) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- 2. GOOGLE FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Oswald (Títulos fuertes) + Roboto (Lectura) -->
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+
+    <!-- 3. FONT AWESOME -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- CONFIGURACIÓN TAILWIND (CAMBIAR COLORES AQUÍ) -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        /* Cambia este código HEX para cambiar el color de acento principal */
+                        'neon-red': '#FF2E00', 
+                        /* Fondos oscuros */
+                        'concrete': '#1a1a1a', 
+                        'asphalt': '#0f0f0f', 
+                        'steel': '#888888',
+                    },
+                    fontFamily: {
+                        'display': ['Oswald', 'sans-serif'],
+                        'body': ['Roboto', 'sans-serif'],
+                    },
+                    backgroundImage: {
+                        'grunge-pattern': "url('https://www.transparenttextures.com/patterns/concrete-wall.png')",
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* ESTILOS CUSTOM PARA DETALLES "GRUNGE" */
+        body { background-color: #0f0f0f; color: white; }
+        
+        .text-outline {
+            -webkit-text-stroke: 1px rgba(255,255,255,0.2);
+            color: transparent;
+        }
+        
+        
+        
+        /* Efecto Glitch en Hover */
+        .glitch-hover:hover {
+            animation: glitch 0.3s cubic-bezier(.25, .46, .45, .94) both infinite;
+            color: var(--neon-red);
+        }
+
+        @keyframes glitch {
+            0% { transform: translate(0) }
+            20% { transform: translate(-2px, 2px) }
+            40% { transform: translate(-2px, -2px) }
+            60% { transform: translate(2px, 2px) }
+            80% { transform: translate(2px, -2px) }
+            100% { transform: translate(0) }
+        }
+
+        /* Animación del Poste de Barbero */
+        .barber-pole {
+            background: repeating-linear-gradient(
+                45deg,
+                #FF2E00,
+                #FF2E00 10px,
+                #ffffff 10px,
+                #ffffff 20px,
+                #0044ff 20px,
+                #0044ff 30px,
+                #ffffff 30px,
+                #ffffff 40px
+            );
+            background-size: 200% 200%;
+            animation: barber-move 2s linear infinite;
+        }
+
+        @keyframes barber-move {
+            0% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        /* Mobile Menu Transition */
+        #mobile-menu {
+            transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+        }
+        #mobile-menu.open {
+            max-height: 400px;
+            opacity: 1;
+        }
+
+        /* Back to Top */
+
+        /* Cookie Banner */
+        #cookie-banner {
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(20px);
+            transition: all 0.4s ease;
+        }
+
+        #cookie-banner.show {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="font-body overflow-x-hidden">
+
+    <!-- NAVBAR -->
+    <nav class="fixed w-full z-50 bg-asphalt/95 backdrop-blur border-b border-white/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <div class="flex-shrink-0 flex items-center gap-3">
+                    <!-- Icono Barber Pole CSS -->
+                    <div class="h-10 w-3 rounded-full barber-pole shadow-[0_0_15px_rgba(255,46,0,0.5)]"></div>
+                    <span class="font-display font-bold text-2xl tracking-tighter cursor-default">BLADE<span class="text-neon-red">&</span>SOUL</span>
+                </div>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="#home" class="hover:text-neon-red px-3 py-2 rounded-md text-sm font-bold uppercase tracking-widest transition-colors">Inicio</a>
+                        <a href="#servicios" class="hover:text-neon-red px-3 py-2 rounded-md text-sm font-bold uppercase tracking-widest transition-colors">Servicios</a>
+                        <a href="#crew" class="hover:text-neon-red px-3 py-2 rounded-md text-sm font-bold uppercase tracking-widest transition-colors">Crew</a>
+                        <a href="#booking" class="bg-neon-red text-white hover:bg-white hover:text-black px-6 py-2 rounded-sm text-sm font-bold uppercase tracking-widest transition-all transform hover:-translate-y-1">Reservar</a>
+                    </div>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="-mr-2 flex md:hidden">
+                    <button type="button" id="mobile-menu-btn" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+                        <span class="sr-only">Abrir menú</span>
+                        <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu (Hidden by default) -->
+        <div class="md:hidden bg-asphalt border-b border-white/10" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 text-center">
+                <a href="#home" class="text-gray-300 hover:text-neon-red block px-3 py-4 rounded-md text-base font-bold uppercase tracking-wider" onclick="toggleMenu()">Inicio</a>
+                <a href="#servicios" class="text-gray-300 hover:text-neon-red block px-3 py-4 rounded-md text-base font-bold uppercase tracking-wider" onclick="toggleMenu()">Servicios</a>
+                <a href="#crew" class="text-gray-300 hover:text-neon-red block px-3 py-4 rounded-md text-base font-bold uppercase tracking-wider" onclick="toggleMenu()">Crew</a>
+                <a href="#booking" class="text-neon-red hover:text-white block px-3 py-4 rounded-md text-base font-bold uppercase tracking-wider" onclick="toggleMenu()">Reservar Cita</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section id="home" class="relative h-screen min-h-[600px] flex items-center justify-center overflow-hidden clip-diagonal bg-concrete">
+        <!-- Background Image (PEXELS - Free to use) -->
+        <div class="absolute inset-0 z-0">
+            <!-- CAMBIAR IMAGEN DE FONDO AQUÍ -->
+            <img src="https://images.pexels.com/photos/1319460/pexels-photo-1319460.jpeg?auto=compress&cs=tinysrgb&w=1600" alt="Barber Shop Interior" class="w-full h-full object-cover opacity-40 grayscale">
+            <div class="absolute inset-0 bg-gradient-to-t from-asphalt via-transparent to-asphalt"></div>
+        </div>
+
+        <div class="relative z-10 text-center px-4 max-w-5xl mx-auto mt-10">
+            <p class="text-neon-red font-display font-bold tracking-[0.3em] uppercase mb-4 animate-pulse">Est. 2018 — Urban Grooming</p>
+            <h1 class="font-display text-6xl md:text-9xl font-bold uppercase leading-none mb-6">
+                <span class="block text-white mix-blend-screen">Cortes</span>
+                <span class="block text-outline">Clásicos</span>
+                <span class="block text-white">Estilo <span class="text-neon-red">Moderno</span></span>
+            </h1>
+            <p class="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto mb-10 font-light">
+                No es solo un corte de pelo, es tu imagen. Barbería tradicional con un toque underground. Cerveza fría, buena música y tijeras afiladas.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="#booking" class="bg-white text-black px-10 py-4 font-display font-bold text-xl uppercase tracking-wider hover:bg-neon-red hover:text-white transition-colors text-center">
+                    Agendar Cita
+                </a>
+                <a href="#servicios" class="border border-white/30 text-white px-10 py-4 font-display font-bold text-xl uppercase tracking-wider hover:bg-white/10 transition-colors text-center">
+                    Ver Precios
+                </a>
+            </div>
+        </div>
+        
+        <!-- Social Vertical -->
+        <div class="absolute left-8 bottom-20 hidden md:flex flex-col gap-6 z-20">
+            <a href="#" class="text-gray-500 hover:text-neon-red text-xl transition-colors"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#" class="text-gray-500 hover:text-neon-red text-xl transition-colors"><i class="fa-brands fa-tiktok"></i></a>
+            <a href="#" class="text-gray-500 hover:text-neon-red text-xl transition-colors"><i class="fa-brands fa-youtube"></i></a>
+            <div class="h-20 w-[1px] bg-gray-700 mx-auto mt-2"></div>
+        </div>
+    </section>
+
+    <!-- SERVICES MENU (THE PRICE LIST) -->
+    <section id="servicios" class="py-24 bg-asphalt relative">
+        <div class="container mx-auto px-4 max-w-6xl">
+            <div class="flex flex-col md:flex-row gap-16">
+                
+                <!-- Left: Title & Image -->
+                <div class="w-full md:w-1/3">
+                    <h2 class="font-display text-5xl md:text-6xl font-bold uppercase leading-none mb-8">
+                        Nuestro <br> <span class="text-neon-red">Menú</span>
+                    </h2>
+                    <p class="text-gray-400 mb-8">
+                        Todos los servicios incluyen lavado, peinado con productos premium y una bebida de cortesía (Cerveza, Whisky o Café).
+                    </p>
+                    <div class="relative h-64 md:h-96 w-full border-2 border-white/10 group">
+                        <!-- PEXELS IMAGE -->
+                        <img src="https://images.pexels.com/photos/1813272/pexels-photo-1813272.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" alt="Barber Working">
+                        <!-- Neon Badge -->
+                        <div class="absolute -top-4 -right-4 bg-neon-red text-white font-display font-bold px-4 py-2 uppercase text-sm transform rotate-3">
+                            Best Seller
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Price List -->
+                <div class="w-full md:w-2/3">
+                    <div class="space-y-8">
+                        <!-- Item 1 -->
+                        <div class="group cursor-pointer">
+                            <div class="flex justify-between items-end border-b border-dashed border-gray-700 pb-2 mb-2">
+                                <h3 class="font-display text-2xl uppercase group-hover:text-neon-red transition-colors">Corte Clásico</h3>
+                                <span class="font-display text-2xl font-bold text-neon-red">ARS 25.000</span>
+                            </div>
+                            <p class="text-sm text-gray-500">Tijera o máquina. Acabado natural. Incluye lavado.</p>
+                        </div>
+                        <!-- Item 2 -->
+                        <div class="group cursor-pointer">
+                            <div class="flex justify-between items-end border-b border-dashed border-gray-700 pb-2 mb-2">
+                                <h3 class="font-display text-2xl uppercase group-hover:text-neon-red transition-colors">Skin Fade (Degradado)</h3>
+                                <span class="font-display text-2xl font-bold text-neon-red">ARS 30.000</span>
+                            </div>
+                            <p class="text-sm text-gray-500">Degradado a navaja o shaver. Precisión milimétrica.</p>
+                        </div>
+                        <!-- Item 3 -->
+                        <div class="group cursor-pointer">
+                            <div class="flex justify-between items-end border-b border-dashed border-gray-700 pb-2 mb-2">
+                                <h3 class="font-display text-2xl uppercase group-hover:text-neon-red transition-colors">Barba Completa</h3>
+                                <span class="font-display text-2xl font-bold text-neon-red">ARS 20.000</span>
+                            </div>
+                            <p class="text-sm text-gray-500">Perfilado, rebajado y ritual de toalla caliente.</p>
+                        </div>
+                        <!-- Item 4 -->
+                        <div class="group cursor-pointer">
+                            <div class="flex justify-between items-end border-b border-dashed border-gray-700 pb-2 mb-2">
+                                <h3 class="font-display text-2xl uppercase group-hover:text-neon-red transition-colors">Combo Completo</h3>
+                                <span class="font-display text-2xl font-bold text-neon-red">ARS 45.000</span>
+                            </div>
+                            <p class="text-sm text-gray-500">Corte + Barba + Mascarilla Negra. The Full Experience.</p>
+                        </div>
+                        <!-- Item 5 -->
+                        <div class="group cursor-pointer">
+                            <div class="flex justify-between items-end border-b border-dashed border-gray-700 pb-2 mb-2">
+                                <h3 class="font-display text-2xl uppercase group-hover:text-neon-red transition-colors">Diseño / Hair Tattoo</h3>
+                                <span class="font-display text-2xl font-bold text-neon-red">+ARS 15.000</span>
+                            </div>
+                            <p class="text-sm text-gray-500">Diseños freestyle o geométricos a navaja.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- THE CREW (EQUIPO) -->
+    <section id="crew" class="py-24 bg-concrete">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <span class="text-neon-red font-bold uppercase tracking-widest text-sm">Maestros de la Navaja</span>
+                <h2 class="font-display text-5xl font-bold uppercase mt-2">The Crew</h2>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Barber 1 (PEXELS) -->
+                <div class="group relative overflow-hidden">
+                    <img src="https://images.pexels.com/photos/2040189/pexels-photo-2040189.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" class="w-full h-[500px] object-cover filter grayscale group-hover:grayscale-0 transition-all duration-500" alt="Master Barber">
+                    <div class="absolute bottom-0 left-0 w-full p-6 bg-gradient-to-t from-black to-transparent">
+                        <h3 class="font-display text-3xl font-bold text-white uppercase italic">Alex "Blade"</h3>
+                        <p class="text-neon-red font-bold text-sm uppercase tracking-wider">Master Barber</p>
+                    </div>
+                </div>
+                <!-- Barber 2 (PEXELS) -->
+                <div class="group relative overflow-hidden mt-0 md:-mt-12">
+                    <img src="https://images.pexels.com/photos/3998419/pexels-photo-3998419.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" class="w-full h-[500px] object-cover filter grayscale group-hover:grayscale-0 transition-all duration-500" alt="Fade Specialist">
+                    <div class="absolute bottom-0 left-0 w-full p-6 bg-gradient-to-t from-black to-transparent">
+                        <h3 class="font-display text-3xl font-bold text-white uppercase italic">Dani "Fade"</h3>
+                        <p class="text-neon-red font-bold text-sm uppercase tracking-wider">Fade Specialist</p>
+                    </div>
+                </div>
+                <!-- Barber 3 (PEXELS) -->
+                <div class="group relative overflow-hidden">
+                    <img src="https://images.pexels.com/photos/1570807/pexels-photo-1570807.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" class="w-full h-[500px] object-cover filter grayscale group-hover:grayscale-0 transition-all duration-500" alt="Stylist">
+                    <div class="absolute bottom-0 left-0 w-full p-6 bg-gradient-to-t from-black to-transparent">
+                        <h3 class="font-display text-3xl font-bold text-white uppercase italic">Marco "Ink"</h3>
+                        <p class="text-neon-red font-bold text-sm uppercase tracking-wider">Stylist</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BOOKING BANNER -->
+    <section id="booking" class="py-24 relative bg-neon-red flex items-center justify-center overflow-hidden">
+        <!-- Decorative Text BG -->
+        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full text-center pointer-events-none opacity-20">
+            <span class="font-display text-[15rem] font-bold text-black uppercase leading-none whitespace-nowrap select-none">Book Now</span>
+        </div>
+        
+        <div class="relative z-10 text-center container px-4">
+            <h2 class="font-display text-5xl md:text-7xl font-bold text-black uppercase mb-6">¿Listo para el cambio?</h2>
+            <p class="text-black/80 text-xl md:text-2xl font-bold max-w-2xl mx-auto mb-10">
+                Agenda tu cita online y evita esperas. Nos vemos en la silla.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <!-- Botones Demo con Alerta -->
+                <button onclick="alert('DEMO: Aquí se abriría el calendario de reservas (Calendly, etc).')" class="bg-black text-white px-12 py-5 font-display font-bold text-xl uppercase tracking-wider hover:bg-white hover:text-black transition-all shadow-2xl hover:shadow-none">
+                    Reservar Turno
+                </button>
+                <button onclick="alert('DEMO: Llamando al +54 9 11...')" class="border-2 border-black text-black px-12 py-5 font-display font-bold text-xl uppercase tracking-wider hover:bg-black hover:text-white transition-all">
+                    Llamar al Local
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-asphalt pt-20 pb-10 border-t border-white/5">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+                <div class="col-span-1 md:col-span-2">
+                    <span class="font-display font-bold text-4xl tracking-tighter text-white">BLADE<span class="text-neon-red">&</span>SOUL</span>
+                    <p class="text-gray-500 mt-6 max-w-md">
+                        Más que una barbería, somos un club social. Donde el estilo clásico se encuentra con la cultura urbana moderna.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="font-display text-xl font-bold uppercase text-white mb-6">Ubicación</h4>
+                    <p class="text-gray-500 mb-2">Calle Honduras 5500</p>
+                    <p class="text-gray-500 mb-2">Palermo Soho, Buenos Aires</p>
+                    <a href="#" class="text-neon-red font-bold uppercase text-sm mt-4 inline-block hover:underline">Ver en Mapa <i class="fa-solid fa-arrow-right ml-1"></i></a>
+                </div>
+                <div>
+                    <h4 class="font-display text-xl font-bold uppercase text-white mb-6">Horario</h4>
+                    <ul class="space-y-2 text-gray-500">
+                        <li class="flex justify-between"><span>Lun - Vie:</span> <span class="text-white">10:00 - 21:00 hs</span></li>
+                        <li class="flex justify-between"><span>Sábado:</span> <span class="text-white">10:00 - 18:00 hs</span></li>
+                        <li class="flex justify-between"><span>Domingo:</span> <span class="text-neon-red">Cerrado</span></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-600 text-sm">© 2025 Blade & Soul Barbershop. All rights reserved.</p>
+                <div class="flex gap-6 mt-4 md:mt-0">
+                    <a href="#" class="text-gray-600 hover:text-white transition-colors"><i class="fa-brands fa-instagram text-xl"></i></a>
+                    <a href="#" class="text-gray-600 hover:text-white transition-colors"><i class="fa-brands fa-tiktok text-xl"></i></a>
+                    <a href="#" class="text-gray-600 hover:text-white transition-colors"><i class="fa-brands fa-spotify text-xl"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- BOTÓN VOLVER ARRIBA -->
+    
+
+    <!-- COOKIE BANNER (Estilo Terminal) -->
+    <div id="cookie-banner" class="fixed bottom-0 left-0 w-full bg-asphalt border-t border-neon-red p-4 z-50 flex flex-col md:flex-row justify-between items-center gap-4 shadow-[0_-5px_20px_rgba(0,0,0,0.8)]">
+        <p class="text-gray-400 font-mono text-sm">
+            <span class="text-neon-red">> SYSTEM:</span> Utilizamos cookies para optimizar tu experiencia.
+        </p>
+        <div class="flex gap-4">
+            <button id="accept-cookies" class="bg-neon-red text-white px-6 py-2 font-display font-bold uppercase tracking-wider text-xs hover:bg-white hover:text-black transition-colors">
+                Confirmar
+            </button>
+            <button id="close-cookies" class="text-gray-500 hover:text-white font-mono text-xs underline">
+                Ignorar
+            </button>
+        </div>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script>
+        // Menú Móvil
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+
+        function toggleMenu() {
+            menu.classList.toggle('open');
+        }
+
+        btn.addEventListener('click', () => {
+            toggleMenu();
+        });
+
+        // Volver Arriba
+        
+
+        // Cookie Banner
+        const cookieBanner = document.getElementById('cookie-banner');
+        const acceptCookies = document.getElementById('accept-cookies');
+        const closeCookies = document.getElementById('close-cookies');
+
+        setTimeout(() => {
+            cookieBanner.classList.add('show');
+        }, 1500);
+
+        const hideBanner = () => {
+            cookieBanner.classList.remove('show');
+        };
+
+        acceptCookies.addEventListener('click', hideBanner);
+        closeCookies.addEventListener('click', hideBanner);
+    </script>
+
+
+    <!-- BOTÓN WHATSAPP -->
+    <a href="https://wa.me/5491143216789"
+       target="_blank"
+       rel="noopener noreferrer"
+       aria-label="WhatsApp"
+       style="position: fixed; bottom: calc(1.5rem + env(safe-area-inset-bottom)); right: 1.5rem; z-index: 9999; display: flex; align-items: center; justify-content: center; width: 3.5rem; height: 3.5rem; border-radius: 50%; background-color: #25D366; color: white; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: transform 0.3s ease; text-decoration: none;"
+       onmouseover="this.style.transform='scale(1.1)'"
+       onmouseout="this.style.transform='scale(1)'"
+       title="WhatsApp">
+       <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" viewBox="0 0 16 16">
+  <path d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.9 7.9 0 0 0 13.6 2.326zM7.994 14.521a6.6 6.6 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.56 6.56 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592m3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.73.73 0 0 0-.529.247c-.182.198-.691.677-.691 1.654s.71 1.916.81 2.049c.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232"/>
+</svg>
+    </a>
+
+</body>
+</html>

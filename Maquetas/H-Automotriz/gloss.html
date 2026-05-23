@@ -1,0 +1,486 @@
+<!-- 
+  ========================================
+  TEMPLATE NAME: GLOSS - Premium Auto Detailing
+  AUTHOR: Sebastian Fernandez
+  WEBSITE: https://sebastian-fernandez.com
+  VERSION: 2.0.1 (Bug Fix: Missing Close Button)
+  LICENSE: Standard License (Personal & Commercial Use)
+  ========================================
+-->
+
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO & METADATA -->
+    <title>GLOSS | Auto Detailing Studio</title>
+    <meta name="description" content="Estudio de detallado automotriz exclusivo. Corrección de pintura, recubrimientos cerámicos y limpieza de interiores de alta gama.">
+    <meta name="author" content="Sebastian Fernandez">
+
+    <!-- FAVICON (SVG Inline) -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><path d='M50 10 L65 40 L95 40 L70 60 L80 90 L50 75 L20 90 L30 60 L5 40 L35 40 Z' fill='none' stroke='%2300A8E8' stroke-width='4'/><circle cx='50' cy='50' r='10' fill='%2300A8E8'/></svg>">
+
+    <!-- OPEN GRAPH -->
+    <meta property="og:title" content="GLOSS | Premium Detailing">
+    <meta property="og:description" content="La perfección está en los detalles. Reserva tu tratamiento exclusivo.">
+    <meta property="og:image" content="https://placehold.co/1200x630/000000/00A8E8?text=GLOSS+STUDIO">
+    <meta property="og:url" content="#">
+    <meta property="og:type" content="website">
+
+    <!-- 1. TAILWIND CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- 2. GOOGLE FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Outfit (Moderno) + Cormorant (Elegante) -->
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,400&family=Outfit:wght@200;400;700&display=swap" rel="stylesheet">
+
+    <!-- 3. FONT AWESOME -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- 4. AOS ANIMATION -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <!-- CONFIGURACIÓN TAILWIND -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'gloss-black': '#050505',   /* Negro Puro */
+                        'gloss-dark': '#0f0f11',    /* Gris Carbón Oscuro */
+                        'gloss-blue': '#00A8E8',    /* Azul Cian Eléctrico */
+                        'gloss-silver': '#E2E8F0',  /* Plata */
+                    },
+                    fontFamily: {
+                        'serif': ['Cormorant Garamond', 'serif'],
+                        'sans': ['Outfit', 'sans-serif'],
+                    },
+                    backgroundImage: {
+                        'shine': 'linear-gradient(45deg, rgba(255,255,255,0) 40%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0) 60%)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Estilos personalizados */
+        body { background-color: #050505; color: #E2E8F0; }
+        
+        .text-gradient {
+            background: linear-gradient(to right, #fff, #94a3b8);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Efecto Brillo en Botones */
+        .btn-shine {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        .btn-shine::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(to right, transparent, rgba(255,255,255,0.3), transparent);
+            transform: skewX(-25deg);
+            transition: 0.5s;
+        }
+        .btn-shine:hover::after {
+            left: 100%;
+        }
+
+        /* Mobile Menu */
+        #mobile-menu {
+            transform: translateY(-100%);
+            transition: transform 0.5s cubic-bezier(0.77, 0, 0.175, 1);
+        }
+        #mobile-menu.open {
+            transform: translateY(0);
+        }
+
+        /* Back to Top */
+
+        /* Cookie Banner */
+        #cookie-banner {
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(20px);
+            transition: all 0.4s ease;
+        }
+
+        #cookie-banner.show {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="font-sans antialiased selection:bg-gloss-blue selection:text-black overflow-x-hidden">
+
+    <!-- NAVBAR -->
+    <nav class="fixed w-full z-50 bg-gloss-black/80 backdrop-blur-md border-b border-white/5 transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-6 h-24 flex justify-between items-center relative z-50">
+            <!-- Logo -->
+            <a href="#" class="flex items-center gap-3 group" onclick="window.scrollTo(0,0)">
+                <i class="fa-regular fa-gem text-2xl text-gloss-blue group-hover:rotate-45 transition-transform duration-500"></i>
+                <span class="font-serif text-3xl font-bold tracking-widest text-white">GLOSS</span>
+            </a>
+
+            <!-- Menu Desktop -->
+            <div class="hidden md:flex gap-10 text-xs font-bold uppercase tracking-[0.2em] text-gray-400">
+                <a href="#proceso" class="hover:text-white transition-colors relative group">
+                    El Proceso
+                    <span class="absolute -bottom-2 left-0 w-0 h-[1px] bg-gloss-blue transition-all group-hover:w-full"></span>
+                </a>
+                <a href="#servicios" class="hover:text-white transition-colors relative group">
+                    Servicios
+                    <span class="absolute -bottom-2 left-0 w-0 h-[1px] bg-gloss-blue transition-all group-hover:w-full"></span>
+                </a>
+                <a href="#galeria" class="hover:text-white transition-colors relative group">
+                    Galería
+                    <span class="absolute -bottom-2 left-0 w-0 h-[1px] bg-gloss-blue transition-all group-hover:w-full"></span>
+                </a>
+                <a href="#contacto" class="text-gloss-blue hover:text-white transition-colors">Reservar</a>
+            </div>
+
+            <!-- Mobile Button -->
+            <button id="mobile-menu-btn" class="md:hidden text-2xl text-white hover:text-gloss-blue transition-colors focus:outline-none">
+                <i class="fa-solid fa-bars-staggered"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Menu Overlay -->
+        <div id="mobile-menu" class="fixed inset-0 bg-gloss-dark z-40 flex flex-col justify-center items-center h-screen w-screen">
+            <div class="flex flex-col gap-10 text-3xl font-serif text-center text-white">
+                <a href="#proceso" class="mobile-link hover:text-gloss-blue transition-colors italic">El Proceso</a>
+                <a href="#servicios" class="mobile-link hover:text-gloss-blue transition-colors italic">Servicios</a>
+                <a href="#galeria" class="mobile-link hover:text-gloss-blue transition-colors italic">Galería</a>
+                <a href="#contacto" class="mobile-link text-gloss-blue border-b border-gloss-blue pb-2">Reservar Cita</a>
+            </div>
+            <!-- Added missing close button to fix JS error -->
+            <button id="close-menu" class="absolute top-6 right-6 text-4xl text-gray-500 hover:text-white transition-colors">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <header class="relative h-screen min-h-[700px] flex items-center justify-center overflow-hidden">
+        <!-- Background Image -->
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.pexels.com/photos/3354648/pexels-photo-3354648.jpeg?auto=compress&cs=tinysrgb&w=1920" 
+                 class="w-full h-full object-cover opacity-40" alt="Luxury Car Black">
+            <div class="absolute inset-0 bg-gradient-to-t from-gloss-black via-gloss-black/50 to-transparent"></div>
+        </div>
+
+        <div class="relative z-10 text-center px-6 max-w-4xl" data-aos="fade-up" data-aos-duration="1500">
+            <span class="text-gloss-blue text-xs font-bold uppercase tracking-[0.4em] mb-6 block animate-pulse">
+                The Art of Detailing
+            </span>
+            <h1 class="font-serif text-6xl md:text-8xl lg:text-9xl text-white mb-8 leading-none">
+                Reflejo <span class="italic text-gray-500">Puro</span>
+            </h1>
+            <p class="text-gray-400 text-sm md:text-base max-w-lg mx-auto mb-12 leading-relaxed font-light tracking-wide">
+                Elevamos la estética automotriz a su máxima expresión. Corrección de pintura, protección cerámica y cuidado interior obsesivo.
+            </p>
+            
+            <div class="flex flex-col sm:flex-row gap-6 justify-center">
+                <a href="#contacto" class="btn-shine bg-white text-gloss-black px-10 py-4 text-xs font-bold uppercase tracking-[0.2em] hover:bg-gloss-blue hover:text-white transition-colors">
+                    Agendar Cita
+                </a>
+                <a href="#servicios" class="px-10 py-4 text-xs font-bold uppercase tracking-[0.2em] text-white border border-white/20 hover:border-gloss-blue hover:text-gloss-blue transition-all">
+                    Ver Carta
+                </a>
+            </div>
+        </div>
+        
+        <!-- Scroll Line -->
+        <div class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-50">
+            <span class="text-[10px] uppercase tracking-widest text-white">Scroll</span>
+            <div class="w-[1px] h-16 bg-gradient-to-b from-gloss-blue to-transparent"></div>
+        </div>
+    </header>
+
+    <!-- EL PROCESO (Steps) -->
+    <section id="proceso" class="py-24 px-6 bg-gloss-black border-b border-white/5">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-20" data-aos="fade-up">
+                <span class="text-gloss-blue text-xs font-bold uppercase tracking-[0.2em]">Nuestra Metodología</span>
+                <h2 class="font-serif text-4xl mt-4 text-white">Precisión en 3 Pasos</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 text-center">
+                <!-- Step 1 -->
+                <div class="group" data-aos="fade-up" data-aos-delay="100">
+                    <div class="w-20 h-20 rounded-full border border-white/10 flex items-center justify-center mx-auto mb-8 group-hover:border-gloss-blue group-hover:text-gloss-blue transition-all text-white">
+                        <i class="fa-solid fa-soap text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-4">1. Decontaminación</h3>
+                    <p class="text-sm text-gray-500 leading-relaxed px-4">
+                        Lavado profundo y eliminación química de impurezas férricas y alquitrán para preparar la superficie.
+                    </p>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="group" data-aos="fade-up" data-aos-delay="200">
+                    <div class="w-20 h-20 rounded-full border border-white/10 flex items-center justify-center mx-auto mb-8 group-hover:border-gloss-blue group-hover:text-gloss-blue transition-all text-white">
+                        <i class="fa-solid fa-wand-magic-sparkles text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-4">2. Corrección</h3>
+                    <p class="text-sm text-gray-500 leading-relaxed px-4">
+                        Pulido en múltiples etapas para eliminar swirls, arañazos y hologramas, devolviendo la profundidad al color.
+                    </p>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="group" data-aos="fade-up" data-aos-delay="300">
+                    <div class="w-20 h-20 rounded-full border border-white/10 flex items-center justify-center mx-auto mb-8 group-hover:border-gloss-blue group-hover:text-gloss-blue transition-all text-white">
+                        <i class="fa-solid fa-shield-halved text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-4">3. Protección</h3>
+                    <p class="text-sm text-gray-500 leading-relaxed px-4">
+                        Aplicación de sellantes cerámicos (Coating) o ceras de carnauba para un brillo duradero y repelencia al agua.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVICIOS (Cards Minimal) -->
+    <section id="servicios" class="py-24 bg-gloss-dark relative">
+        <!-- Glow Effect -->
+        <div class="absolute top-1/2 right-0 w-[500px] h-[500px] bg-gloss-blue/5 rounded-full blur-[120px] pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                
+                <!-- Service 1 -->
+                <div class="bg-gloss-black border border-white/5 p-8 hover:border-gloss-blue/50 transition-colors group cursor-pointer">
+                    <div class="flex justify-between items-start mb-6">
+                        <h3 class="font-serif text-2xl text-white italic">Signature Wash</h3>
+                        <span class="text-gloss-blue font-bold text-lg">ARS 35.000</span>
+                    </div>
+                    <p class="text-xs text-gray-500 uppercase tracking-widest mb-6">Lavado a mano premium</p>
+                    <ul class="text-sm text-gray-400 space-y-3 font-light">
+                        <li>• Prelavado Snow Foam</li>
+                        <li>• Limpieza de llantas profunda</li>
+                        <li>• Secado con aire y toalla</li>
+                        <li>• Acondicionado de cubiertas</li>
+                    </ul>
+                </div>
+
+                <!-- Service 2 (Featured) -->
+                <div class="bg-white/5 border border-white/10 p-8 hover:bg-white/10 transition-colors group cursor-pointer relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-16 h-16 bg-gloss-blue blur-[40px] opacity-20"></div>
+                    <div class="flex justify-between items-start mb-6">
+                        <h3 class="font-serif text-2xl text-white italic">Interior Deep</h3>
+                        <span class="text-gloss-blue font-bold text-lg">ARS 85.000</span>
+                    </div>
+                    <p class="text-xs text-gray-500 uppercase tracking-widest mb-6">Limpieza integral interior</p>
+                    <ul class="text-sm text-gray-400 space-y-3 font-light">
+                        <li>• Aspirado exhaustivo</li>
+                        <li>• Limpieza de tapicería (Vapor)</li>
+                        <li>• Hidratación de cuero</li>
+                        <li>• Tratamiento de ozono</li>
+                    </ul>
+                </div>
+
+                <!-- Service 3 -->
+                <div class="bg-gloss-black border border-white/5 p-8 hover:border-gloss-blue/50 transition-colors group cursor-pointer">
+                    <div class="flex justify-between items-start mb-6">
+                        <h3 class="font-serif text-2xl text-white italic">Paint Correction</h3>
+                        <span class="text-gloss-blue font-bold text-lg">Desde ARS 150.000</span>
+                    </div>
+                    <p class="text-xs text-gray-500 uppercase tracking-widest mb-6">Pulido y Restauración</p>
+                    <ul class="text-sm text-gray-400 space-y-3 font-light">
+                        <li>• Descontaminado químico/físico</li>
+                        <li>• Pulido en 1 o 2 pasos</li>
+                        <li>• Eliminación de arañazos leves</li>
+                        <li>• Sellante sintético (6 meses)</li>
+                    </ul>
+                </div>
+
+            </div>
+            
+            <div class="text-center mt-16">
+                <a href="#contacto" class="text-gray-400 text-xs font-bold uppercase tracking-[0.2em] border-b border-gray-600 pb-1 hover:text-white hover:border-white transition-all">
+                    Consultar Tratamientos Cerámicos
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- GALERÍA (Slider Simulado) -->
+    <section id="galeria" class="py-24 bg-gloss-black overflow-hidden">
+        <div class="flex gap-4 overflow-x-auto pb-8 px-6 no-scrollbar snap-x snap-mandatory">
+            <!-- Image 1 -->
+            <div class="min-w-[80vw] md:min-w-[400px] h-[500px] relative snap-center group overflow-hidden">
+                <img src="https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&w=800" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-70 group-hover:opacity-100" alt="Car 1">
+                <div class="absolute bottom-6 left-6">
+                    <span class="text-gloss-blue text-[10px] font-bold uppercase tracking-widest">Proyecto</span>
+                    <h4 class="font-serif text-2xl text-white">BMW M4 Competition</h4>
+                </div>
+            </div>
+            <!-- Image 2 -->
+            <div class="min-w-[80vw] md:min-w-[400px] h-[500px] relative snap-center group overflow-hidden">
+                <img src="https://images.pexels.com/photos/244206/pexels-photo-244206.jpeg?auto=compress&cs=tinysrgb&w=800" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-70 group-hover:opacity-100" alt="Car 2">
+                <div class="absolute bottom-6 left-6">
+                    <span class="text-gloss-blue text-[10px] font-bold uppercase tracking-widest">Proyecto</span>
+                    <h4 class="font-serif text-2xl text-white">Audi R8 V10</h4>
+                </div>
+            </div>
+            <!-- Image 3 -->
+            <div class="min-w-[80vw] md:min-w-[400px] h-[500px] relative snap-center group overflow-hidden">
+                <img src="https://images.pexels.com/photos/3311574/pexels-photo-3311574.jpeg?auto=compress&cs=tinysrgb&w=800" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-70 group-hover:opacity-100" alt="Car 3">
+                <div class="absolute bottom-6 left-6">
+                    <span class="text-gloss-blue text-[10px] font-bold uppercase tracking-widest">Proyecto</span>
+                    <h4 class="font-serif text-2xl text-white">Mercedes AMG GT</h4>
+                </div>
+            </div>
+        </div>
+        <div class="text-center mt-8">
+            <span class="text-gray-600 text-xs font-bold uppercase tracking-widest">Desliza para ver más &rarr;</span>
+        </div>
+    </section>
+
+    <!-- CONTACTO -->
+    <section id="contacto" class="py-24 bg-gloss-dark relative">
+        <div class="max-w-3xl mx-auto px-6 text-center">
+            <i class="fa-regular fa-calendar-check text-3xl text-gloss-blue mb-6"></i>
+            <h2 class="font-serif text-4xl md:text-5xl text-white mb-6">Reserva tu Sesión</h2>
+            <p class="text-gray-400 mb-12 font-light max-w-lg mx-auto">
+                Trabajamos bajo cita previa para garantizar la máxima dedicación a cada vehículo. Cuéntanos qué necesitas.
+            </p>
+            
+            <form onsubmit="event.preventDefault(); alert('DEMO: Solicitud enviada. Nos pondremos en contacto contigo.');" class="space-y-6 max-w-md mx-auto text-left">
+                <div>
+                    <label class="text-[10px] font-bold uppercase tracking-widest text-gray-500 mb-2 block">Nombre</label>
+                    <input type="text" class="w-full bg-gloss-black border border-white/10 py-3 px-4 focus:outline-none focus:border-gloss-blue transition-colors text-white placeholder-gray-700" placeholder="Tu nombre" required>
+                </div>
+                <div>
+                    <label class="text-[10px] font-bold uppercase tracking-widest text-gray-500 mb-2 block">Teléfono</label>
+                    <input type="tel" class="w-full bg-gloss-black border border-white/10 py-3 px-4 focus:outline-none focus:border-gloss-blue transition-colors text-white placeholder-gray-700" placeholder="+54 9 11..." required>
+                </div>
+                <div>
+                    <label class="text-[10px] font-bold uppercase tracking-widest text-gray-500 mb-2 block">Vehículo</label>
+                    <input type="text" class="w-full bg-gloss-black border border-white/10 py-3 px-4 focus:outline-none focus:border-gloss-blue transition-colors text-white placeholder-gray-700" placeholder="Marca y Modelo">
+                </div>
+                <div class="pt-4">
+                    <button type="submit" class="w-full btn-shine bg-white text-gloss-black py-4 text-xs font-bold uppercase tracking-[0.2em] hover:bg-gloss-blue hover:text-white transition-colors">
+                        Enviar Solicitud
+                    </button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-gloss-black py-16 border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-12">
+            <div class="text-center md:text-left">
+                <span class="font-serif font-bold text-xl tracking-widest text-white block mb-2">GLOSS</span>
+                <p class="text-[10px] uppercase tracking-widest text-gray-600">Auto Detailing Studio</p>
+            </div>
+            
+            <div class="flex gap-8">
+                <a href="#" class="text-gray-500 hover:text-white transition-colors"><i class="fa-brands fa-instagram text-xl"></i></a>
+                <a href="#" class="text-gray-500 hover:text-white transition-colors"><i class="fa-brands fa-whatsapp text-xl"></i></a>
+                <a href="#" class="text-gray-500 hover:text-white transition-colors"><i class="fa-regular fa-envelope text-xl"></i></a>
+            </div>
+            
+            <p class="text-[10px] text-gray-600 uppercase tracking-widest text-center md:text-right">
+                © 2025 Gloss Studio. All rights reserved.
+            </p>
+        </div>
+    </footer>
+
+    <!-- BOTÓN VOLVER ARRIBA -->
+    
+
+    <!-- COOKIE BANNER -->
+    <div id="cookie-banner" class="fixed bottom-0 left-0 w-full bg-gloss-dark border-t border-white/10 p-6 z-50 flex flex-col md:flex-row justify-center items-center gap-6 shadow-2xl">
+        <p class="font-sans text-xs text-gray-400 mb-0">
+            <i class="fa-solid fa-cookie-bite text-gloss-blue mr-2"></i> Usamos cookies para un rendimiento brillante.
+        </p>
+        <div class="flex gap-4">
+            <button id="accept-cookies" class="text-[10px] font-bold uppercase tracking-widest text-white hover:text-gloss-blue transition-colors border-b border-transparent hover:border-gloss-blue">Aceptar</button>
+            <button id="close-cookies" class="text-[10px] font-bold uppercase tracking-widest text-gray-600 hover:text-gray-400 transition-colors">Cerrar</button>
+        </div>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ once: true, offset: 50, duration: 1000 });
+
+        // Mobile Menu
+        const mobileBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const closeBtn = document.getElementById('close-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+        const menuIcon = mobileBtn.querySelector('i');
+
+        function toggleMenu() {
+            mobileMenu.classList.toggle('open');
+            // Toggle icon bars/xmark
+            if (mobileMenu.classList.contains('open')) {
+                menuIcon.classList.remove('fa-bars-staggered');
+                menuIcon.classList.add('fa-xmark');
+                document.body.style.overflow = 'hidden';
+            } else {
+                menuIcon.classList.remove('fa-xmark');
+                menuIcon.classList.add('fa-bars-staggered');
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        mobileBtn.addEventListener('click', toggleMenu);
+        closeBtn.addEventListener('click', toggleMenu);
+        mobileLinks.forEach(link => link.addEventListener('click', toggleMenu));
+
+        // Back to Top & Navbar Scroll
+        
+
+        // Cookies
+        const cookieBanner = document.getElementById('cookie-banner');
+        const acceptCookies = document.getElementById('accept-cookies');
+        const closeCookies = document.getElementById('close-cookies');
+
+        setTimeout(() => {
+            cookieBanner.classList.add('show');
+        }, 2000);
+
+        const hideBanner = () => {
+            cookieBanner.classList.remove('show');
+        };
+
+        acceptCookies.addEventListener('click', hideBanner);
+        closeCookies.addEventListener('click', hideBanner);
+    </script>
+
+    <!-- BOTÓN WHATSAPP -->
+    <a href="https://wa.me/5491143216789"
+       target="_blank"
+       rel="noopener noreferrer"
+       aria-label="WhatsApp"
+       style="position: fixed; bottom: calc(1.5rem + env(safe-area-inset-bottom)); right: 1.5rem; z-index: 9999; display: flex; align-items: center; justify-content: center; width: 3.5rem; height: 3.5rem; border-radius: 50%; background-color: #25D366; color: white; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: transform 0.3s ease; text-decoration: none;"
+       onmouseover="this.style.transform='scale(1.1)'"
+       onmouseout="this.style.transform='scale(1)'"
+       title="WhatsApp">
+       <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" viewBox="0 0 16 16">
+  <path d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.9 7.9 0 0 0 13.6 2.326zM7.994 14.521a6.6 6.6 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.56 6.56 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592m3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.73.73 0 0 0-.529.247c-.182.198-.691.677-.691 1.654s.71 1.916.81 2.049c.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232"/>
+</svg>
+    </a>
+
+</body>
+</html>
